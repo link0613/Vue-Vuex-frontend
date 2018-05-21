@@ -1,0 +1,187 @@
+{% set tab = 'verification' %}
+
+{% extends "new/account/settings-layout.html" %}
+
+{% block head %}
+<script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
+{% block title %}Settings - Verification | jobdone.net{% endblock %}
+
+
+{% block settings_body %}
+<div class="settings-container settings-verifications">
+  <h2 class="settings-header">Trust &amp; Verification</h2>
+  <p class="settings-description">The jobdone Trust Score is at the core of how we handle verification, trust, and payments. The Trust Score is a value that indicates to what extent we have been able to verify who a user says they are. Employers and freelancers who are the safest to work with are those who put in more effort to verify themselves to become highly trusted users.</p>
+
+
+  <div class="verifications-list" v-if="!verificationLoading" v-cloak>
+    <h3 class="trust-score-container uppercase">
+      <span>Current Trust Score:</span>
+      <div class="right-container">
+        <div class="trust-score score-info"><span v-text="verificationTotal"></span>/100 POINTS</div>
+      </div>
+    </h3>
+
+    <div class="row-flex" v-for="item in verificationItems">
+      <div class="col-flex">
+        <p v-if="item.id == 'phone_number'">Phone Number</p>
+        <p v-if="item.id == 'facebook'">Facebook</p>
+        <p v-if="item.id == 'google'">Google</p>
+        <p v-if="item.id == 'linkedin'">LinkedIn</p>
+        <p v-if="item.id == 'documents'">Documents</p>
+        <p v-if="item.id == 'card'">Authenticate Credit or Debit Card</p>
+      </div>
+      <div class="col-flex">
+        <div class="left-container" v-if="item.verified">
+          <div class="button btn-verified">VERIFIED</div>
+        </div>
+        <div class="left-container" v-else>
+          <div class="button"
+             v-if="item.id == 'phone_number'"
+             @click="handleVerifyPhone">
+            <span>Verify my phone number</span>
+          </div>
+          <div class="button btn-facebook uppercase"
+             v-if="item.id == 'facebook'"
+             @click="handleVerificationConnect('{{ url_for('auth.oauth_authorize', provider='facebook', mode='link_popup') }}')">
+            <div class="btn-img img-facebook"></div>
+            <span>Connect with <span class="fw-500">Facebook</span></span>
+          </div>
+          <div class="button btn-google uppercase"
+             v-if="item.id == 'google'"
+             @click="handleVerificationConnect('{{ url_for('auth.oauth_authorize', provider='google', mode='link_popup') }}')">
+            <div class="btn-img img-google"></div>
+            <span>Connect with <span class="fw-500">Google</span></span>
+          </div>
+          <div class="button btn-linkedin uppercase"
+             v-if="item.id == 'linkedin'"
+             @click="handleVerificationConnect('{{ url_for('auth.oauth_authorize', provider='linkedin', mode='link_popup') }}')">
+            <div class="btn-img img-linkedin"></div>
+            <span>Connect with LinkedIn</span>
+          </div>
+          <div class="button"
+              v-if="item.id == 'documents'"
+              @click="">
+            <span>Verify My Documents</span>
+          </div>
+          <div class="button"
+             v-if="item.id == 'card'"
+             @click="handleVerifyCard">
+            <span>Authenticate Credit or Debit Card</span>
+          </div>
+
+        </div>
+
+        <div class="right-container">
+          <div class="score-info" v-text="item.value + ' points'" :class="{ 'btn-success': item.verified, 'btn-default': !item.verified }"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div v-else>
+    <spinner></spinner>
+  </div>
+</div>
+{% endblock %}
+
+{% block settings_modals %}
+<modal effect="fade" v-model="verificationPhoneModal.show" class="modal-custom" v-cloak>
+  <div slot="modal-header" class="modal-header">
+    <button type="button" class="close" @click="verificationPhoneModal.show = false"><span>&times;</span></button>
+    <h4 class="modal-title">Verify Phone Number</h4>
+  </div>
+  <div slot="modal-body" class="modal-body">
+
+    <div class="row"><div class="col-xs-10 col-xs-offset-1">
+    <div class="form">
+      <div class="alert alert-danger" v-if="verificationPhoneModal.error" v-text="verificationPhoneModal.error" v-cloak></div>
+
+      <div class="form-group">
+        <select class="form-control" v-model="verificationPhoneModal.phoneNumberCountry" v-bind:disabled="verificationPhoneModal.loading || verificationPhoneModal.step !== 1">
+          <option disabled value="-1">Select Country</option>
+          {% for country in countries %}
+            <option value="{{ country[0] }},{{ country[2] }}">{{ country[1] }} ({{ country[2] }})</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <input type="text" class="form-control" v-model="verificationPhoneModal.phoneNumber" v-bind:disabled="verificationPhoneModal.loading || verificationPhoneModal.step !== 1" placeholder="Your phone number" />
+      </div>
+
+      <div class="form-group" v-if="verificationPhoneModal.step !== 1">
+        <input type="text" class="form-control code" v-model="verificationPhoneModal.phoneNumberCode" v-bind:disabled="verificationPhoneModal.loading || verificationPhoneModal.step !== 3" placeholder="Security code" />
+      </div>
+    </div>
+    </div></div>
+
+  </div>
+  <div slot="modal-footer" class="modal-footer">
+    <button class="btn btn-primary" v-bind:disabled="!verificationPhoneModal.resend || verificationPhoneModal.loading" v-if="!verificationPhoneModal.success && verificationPhoneModal.step !== 1" @click="handleVerifyPhoneSubmit">Resend code (in 2 minutes)</button>
+
+    <button class="btn btn-primary" style="display: inline-block;" v-bind:disabled="!verificationPhoneModal.phoneNumberValid || verificationPhoneModal.loading" v-if="verificationPhoneModal.step === 1" @click="handleVerifyPhoneSubmit">Send Security Code</button>
+
+    <button class="btn btn-primary" v-bind:disabled="verificationPhoneModal.loading || verificationPhoneModal.success" v-if="verificationPhoneModal.step === 3" @click="handleVerifyPhoneSubmit">Verify</button>
+  </div>
+</modal>
+
+<modal effect="fade" v-model="verificationCardModal.show" class="modal-custom modal-creditcard" v-cloak>
+  <div slot="modal-header" class="modal-header">
+    <button type="button" class="close" @click="verificationCardModal.show = false"><span>&times;</span></button>
+    <h4 class="modal-title">Authenticate Credit or Debit Card</h4>
+  </div>
+  <div slot="modal-body" class="modal-body">
+
+    <div class="row"><div class="col-xs-10 col-xs-offset-1">
+    <div class="form">
+      <div class="alert alert-danger" v-if="verificationCardModal.error" v-text="verificationCardModal.error" v-cloak></div>
+
+      <div class="submit-order">
+        <div class="submit-credit-card">
+          <div class="submit-payment-section">
+            <div class="field field-card">
+              <div class="flex" >
+                <div class="width-7 padding1em">
+                  <h6>Card Number</h6>
+                  <div ref="stripeCardNumberElement"></div>
+                </div>
+                <div class="width-3 padding1em">
+                  <h6>CVC</h6>
+                  <div ref="stripeCardCvcElement"></div>
+                </div>
+              </div>
+              <div class="flex" >
+                <div class="width-5 padding1em">
+                  <h6>Expires</h6>
+                  <div ref="stripeCardExpiryElement">
+                  </div>
+                </div>
+                <div class="width-5 padding1em">
+                  <div class="flex icons">
+                    <div class="icons-container">
+                      <div class="icon icon-visa"></div>
+                      <div class="icon icon-amer-express"></div>
+                      <div class="icon icon-master-card"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex">
+                <div class="width-5 padding1em">
+                  <h5>Your card will be added to your account for future purchases. The card won't be charged</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div></div>
+
+  </div>
+  <div slot="modal-footer" class="modal-footer">
+    <button class="btn btn-primary" v-bind:disabled="verificationCardModal.loading || verificationCardModal.success" @click="handleVerifyCardSubmit">Verify Card</button>
+  </div>
+</modal>
+{% endblock %}

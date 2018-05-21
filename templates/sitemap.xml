@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {% for category in categories %}<url>
+        <loc>{{ url_for('category', category_title=category.get_title_seofied(), category_id=category.id, _external=True) }}</loc>
+    </url>
+    {% endfor %}
+    {% for product in products %}<url>
+        <loc>{{ url_for('product', product_title=product.get_title_seofied(), product_id=product.unique_id, _external=True) }}</loc>
+        <lastmod>{{ product.created_on.strftime('%Y-%m-%d') }}</lastmod>
+    </url>{% endfor %}
+    {% for user in users %}<url>
+        <loc>{{ url_for('user', username=user.username, _external=True) }}</loc>
+    </url>{% endfor %}
+</urlset>

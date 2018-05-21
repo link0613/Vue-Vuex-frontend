@@ -1,0 +1,916 @@
+{% set header_hide_navigation_bar = 'true' %}
+
+{% extends "new/account/layout.html" %}
+
+{% block title %}Verification Center | jobdone.net{% endblock %}
+
+{% block body %}
+
+<script type="text/javascript">
+    window.INITIAL_VERIFICATION = JSON.parse('{{verification.to_json()|tojson|safe}}');
+</script>
+
+<div class="container standard" id="sm-account-verification-center">
+    <div v-if="page == 0">
+        <div class="row block-1 block--mt-30 block-border">
+            <div class="col-sm-6 verify-comment">
+                <h1>Verify my Identity</h1>
+                <div class="sub-verify-comment">
+                Freelancers are encouraged to verify their identity to market themselves to potential
+                employers as trusted members of our jobdone.net community.
+                <br>
+                <br>
+                Users that verify their identity will receive the benefit of faster processing of
+                their payments and faster resolution of account issues and disputes.
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="verify-icon hidden-xs">
+                </div>
+            </div>
+        </div>
+        <div class="row block-2 block--mt-30 block-border">
+            <div class="col-md-4">
+                <div class="circle-num digit">1</div>
+                <div class="sub-block-2">
+                    <div class="sub-block-img proof-identity"></div>
+                    <div class="sub-block-title">proof of identity</div>
+                    <div class="sub-block-desc">
+                    <ol>
+                        <li>Government issued ID such as Passport current Driver's License or National ID Card.</li>
+                        <li>Must include your photo, signature, name and date of birth</li>
+                    </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="circle-num digit">2</div>
+                <div class="sub-block-2">
+                    <div class="sub-block-img keycode"></div>
+                    <div class="sub-block-title">keycode verification</div>
+                    <div class="sub-block-desc">
+                    <ol>
+                        <li>You will be provided with a <b>unique keycode</b> to print or write down</li>
+                        <li>You must provide a foto of yourself <b>holding the unique keycode and your ID</b> side-by-side.</li>
+                        <li>Make sure you <b>include your face</b> and that your keycode and ID are <b>clearly visible</b>.</li>
+                    <ol>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="circle-num digit">3</div>
+                <div class="sub-block-2">
+                    <div class="sub-block-img proof-address"></div>
+                    <div class="sub-block-title">proof of address</div>
+                    <div class="sub-block-desc">
+                        <ol>
+                            <li>One copy of a Utility bill or Bank statement dated within the last 3 months.</li>
+                            <li>Must include your <b>name</b> and <b>address</b>, the <b>institution's name</b>, <b>address</b> and <b>phone number</b>.</li>
+                            <li></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row block-3 block--mt-30">
+            <div class="col-md-12 label">please select your country of residence</div>
+            <br>
+            <div class="col-md-12">
+                <div class='form-group flex'>
+                    <select name="country_code" v-model="country" class="form-control country" placeholder="Select country">
+                      <option v-bind:value="ct[0]" :disabled="ct[0]==''" v-for="ct in countries" v-text="ct[1]"></option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="col-md-12 center">
+              <div class="error_placement alert alert-danger" v-if="error_placement_0">{%raw%}{{error_placement_0}}{%endraw%}</div>
+                <div class="flex">
+                  <button type="button" class="form-control btn btn-success country" @click.prevent="completeStep_0()">Verify My Self</button>
+                </div>
+            </div>
+            <div class="col-md-12 desc">Read more about <a href="#">verifying your identity</a>, <a href="#">acceptable documents</a> and our <a href="#">terms and conditions</a></div>
+        </div>
+    </div>
+    <div v-if="page == 1" class="verify-stage">
+        <div class="row block-border" style="padding:21px;">
+            <div class="col-md-12">
+                <h1>Verification Center</h1>
+            </div>
+            <div class="col-md-12 vertical-gap stepbar progressive">
+                <div class="circle-num digit-1">1</div>
+                <div class="circle-num digit-2 gray">2</div>
+                <div class="circle-num digit-3 gray">3</div>
+            </div>
+            <div class="col-md-12 vertical-gap">
+                <form class="form-horizontal vertical-gap">
+                    <label class="sub-title">Confirm Your Details</label>
+                    <div class="form-group vertical-gap">
+                        <label class="control-label col-sm-3" for="first_name">
+                            First Name
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control"
+                                v-model="first_name"
+                                name="first_name"
+                                v-validate="'required'"
+                            >
+                            <span class="text-danger"
+                                v-show="validation_errors.has('first_name')"
+                            >
+                                <span v-text="validation_errors.first('first_name')"></span>
+                            </span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="last_name">
+                            Last Name
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control"
+                                v-model="last_name"
+                                name="last_name"
+                                v-validate="'required'"
+                            >
+                            <span class="text-danger"
+                                v-show="validation_errors.has('last_name')"
+                            >
+                                <span v-text="validation_errors.first('last_name')"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group date_fields">
+                        <label class="control-label col-sm-3">
+                            Date of Birth
+                        </label>
+                        <div class="col-sm-2">
+                            <select class="form-control"
+                                v-model="birth_date.day"
+                                name="birth_day"
+                                v-validate="'required'"
+                            >
+                                <option value="" disabled="" selected>Days</option>
+                                <option v-bind:value="i" v-for="i in available_day" v-text="i"></option>
+                            </select>
+                            <span class="text-danger"
+                                v-show="validation_errors.has('birth_day')"
+                            >
+                                <span v-text="validation_errors.first('birth_day')"></span>
+                            </span>
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="form-control"
+                                v-model="birth_date.month"
+                                name="birth_month"
+                                v-validate="'required'"
+                            >
+                                <option value="" disabled="" selected>Months</option>
+                                <option v-bind:value="i" v-for="i in available_month" v-text="i"></option>
+                            </select>
+                            <span class="text-danger"
+                                v-show="validation_errors.has('birth_month')"
+                            >
+                                <span v-text="validation_errors.first('birth_month')"></span>
+                            </span>
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="form-control"
+                                v-model="birth_date.year"
+                                name="birth_year"
+                                v-validate="'required'"
+                            >
+                                <option value="" disabled="" selected>Year</option>
+                                <option v-bind:value="i" v-for="i in available_year_before" v-text="i"></option>
+                            </select>
+                            <span class="text-danger"
+                                v-show="validation_errors.has('birth_year')"
+                            >
+                                <span v-text="validation_errors.first('birth_year')"></span>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+                <hr class="vertical-gap">
+            </div>
+            <div class="col-md-12">
+                <form class="form-horizontal">
+                    <label class="sub-title">Upload a Scan of Your ID</label>
+                    <div class="form-group vertical-gap">
+                        <div class="col-sm-4">
+                            <div class="card"></div>
+                        </div>
+                        <div class="col-sm-8 card-desc">
+                            <p>Please upload a Government issued ID such a Passport, current Driver's License or National ID Card</p>
+                            <p>Ensure you upload the front and back of your Driver's License or National ID Card.</p>
+                            <a href="#">What ID's are accepted?</a>
+                        </div>
+                    </div>
+                    <div class="form-group vertical-gap">
+                        <div class="col-md-12">
+                            <label>Upload your ID pictures</label>
+
+                            <div class="grid-upload">
+                                <vue-clip :on-sending="onSending" :options="{
+                                        url: '/verification/image_upload/',
+                                        paramName: 'photo'
+                                    }"
+                                    :on-added-file="onAddedIdPictures"
+                                >
+                                    <template slot="clip-uploader-action">
+                                        <div>
+                                            <div class="dz-message">
+                                                <div class="panel upload-file">
+                                                    <label class="file-uploads file-uploads-html5">
+                                                        <span class="file-uploads-title">
+                                                            Drag or Browse your picture here
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                </vue-clip>
+
+                                <div>
+                                    <div class="panel uploaded"
+                                        v-for="( file, index ) in uploadFiles1"
+                                        :style="{'background-image': 'url( ' + file.dataUrl + ')' }"
+                                        :key="index"
+                                    >
+                                        <div class="progress">
+                                          <div class="progress-bar" role="progressbar"
+                                            :style="{ width: file.progress + '%' }"
+                                            v-text="file.progress + '%'"
+                                          ></div>
+                                        </div>
+                                    </div>
+                                    <div class="panel uploaded"
+                                        v-for="( file, index ) in uploadedFiles1"
+                                        :style="{'background-image': 'url( ' + file.url + ')' }"
+                                        :key="index"
+                                    ></div>
+                                </div>
+                            </div>
+
+                            <div class="error_placement alert alert-danger"
+                                v-if="upload_error"
+                            >
+                                {%raw%}{{upload_error}}{%endraw%}
+                            </div>
+
+                            <!--
+                            <div class="grid-upload">
+                              <div v-show="$refs.upload1 && $refs.upload1.dropActive" class="drop-active">
+                                  <h3>Drop files to upload1</h3>
+                              </div>
+
+
+                              <div class="panel upload-file">
+                                <file-upload
+                                    title="Drag or Browse your picture here"
+                                    post-action="/verification/image_upload/"
+                                    name="photo"
+                                    :data="{'step': 1}"
+                                    :multiple="true"
+                                    :drop="true"
+                                    :files="uploadFiles1"
+                                    :events="uploadEvents"
+                                    ref="upload1"
+                                    accept="image/JPEG, image/JPG, image/PNG">
+                                </file-upload>
+                              </div>
+                              <div class="panel uploaded" :style="{'background-image': file.previewValue }" v-for="(file, index) in uploadFiles1" :key="file.id">
+                                {%raw%}
+                                  <div class="progress" :class="{'active': file.active, 'success': file.success, 'error': file.error}" v-if="">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                        aria-valuemin="0" aria-valuemax="100"
+                                        :style="{width: file.progress + '%'}">
+                                            <span v-if="file.active">{{file.progress}}%</span>
+                                            <span v-if="file.success"><i class="fa fa-check" aria-hidden="true"></i> Done!</span>
+                                            <span v-if="file.error"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{file.error}}</span>
+                                    </div>
+                                  </div>
+                                {%endraw%}
+                              </div>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                </form>
+                <hr class="vertical-gap">
+            </div>
+            <div class="col-md-12">
+                <form class="form-horizontal">
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="id_issue_country">
+                            ID Issuing Country
+                        </label>
+                        <div class="col-sm-6">
+                            <select class="form-control country" placeholder="Select country"
+                                v-validate="'required'"
+                                v-model="id_issue_country"
+                                name="id_country"
+                            >
+                                <option
+                                    :value="ct[0]"
+                                    :disabled="ct[0]==''"
+                                    v-for="ct in countries"
+                                    v-text="ct[1]"
+                                >
+                                </option>
+                            </select>
+                            <span class="text-danger"
+                                v-show="validation_errors.has('id_country')"
+                            >
+                                <span v-text="validation_errors.first('id_country')"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="id_type">ID Type</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control"
+                                v-validate="'required'"
+                                v-model="id_type"
+                                name="id_type"
+                            >
+                            <span class="text-danger"
+                                v-show="validation_errors.has('id_type')"
+                            >
+                                <span v-text="validation_errors.first('id_type')"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="id_number">ID Number</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control"
+                                v-validate="'required'"
+                                v-model="id_number"
+                                name="id_number"
+                            >
+                            <span class="text-danger"
+                                v-show="validation_errors.has('id_number')"
+                            >
+                                <span v-text="validation_errors.first('id_number')"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group date_fields">
+                        <label class="control-label col-sm-3">ID Expires on</label>
+                        <div class="col-sm-2">
+                            <select class="form-control"
+                                v-validate="'required'"
+                                v-model="id_expired_on.day"
+                                name="id_expired_on_day"
+                            >
+                                <option value="" disabled="" selected>Days</option>
+                                <option v-bind:value="i" v-for="i in available_day" v-text="i"></option>
+                            </select>
+                            <span class="text-danger"
+                                v-show="validation_errors.has('id_expired_on_day')"
+                            >
+                                <span v-text="validation_errors.first('id_expired_on_day')"></span>
+                            </span>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <select class="form-control"
+                                v-validate="'required'"
+                                v-model="id_expired_on.month"
+                                name="id_expired_on_month"
+                            >
+                                <option value="" disabled="" selected>Months</option>
+                                <option v-bind:value="i" v-for="i in available_month" v-text="i"></option>
+                            </select>
+                            <span class="text-danger"
+                                v-show="validation_errors.has('id_expired_on_month')"
+                            >
+                                <span v-text="validation_errors.first('id_expired_on_month')"></span>
+                            </span>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <select class="form-control"
+                                v-validate="'required'"
+                                v-model="id_expired_on.year"
+                                name="id_expired_on_year"
+                            >
+                                <option value="" disabled="" selected>Year</option>
+                                <option v-bind:value="i" v-for="i in available_year_after" v-text="i"></option>
+                            </select>
+                            <span class="text-danger"
+                                v-show="validation_errors.has('id_expired_on_year')"
+                            >
+                                <span v-text="validation_errors.first('id_expired_on_year')"></span>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="error_placement alert alert-danger" v-if="error_placement_1">{%raw%}{{error_placement_1}}{%endraw%}</div>
+            <div class="col-md-12 vertical-gap">
+                <button type="button" class="btn btn-primary next" @click.prevent="completeStep_1()">My Save and continue</button>
+                <a href="#" @click.prevent="setPage(0)" class="cancel">Click to cancel request</a>
+            </div>
+        </div>
+    </div>
+    <div v-if="page == 2" class="verify-stage">
+        <div class="row block-border" style="padding:21px;">
+            <div class="col-md-12">
+                <h1>Verification Center</h1>
+            </div>
+            <div class="col-md-12 vertical-gap stepbar progressive">
+                <div class="circle-num digit-1">1</div>
+                <div class="circle-num digit-2">2</div>
+                <div class="circle-num digit-3 gray">3</div>
+            </div>
+            <div class="col-md-12 vertical-gap">
+                <form class="form-horizontal">
+                    <label class="sub-title">Keycode Verification</label>
+                    <div class="form-group vertical-gap">
+                        <div class="col-sm-6">
+                            <div class="keycode-sample"></div>
+                        </div>
+                        <div class="col-sm-6 card-desc">
+                            <div class="b-confirmation">
+
+                                <div class="b-confirmation_header">
+                                    Confirm the ownership of the id
+                                </div>
+                                <div class="b-confirmation_paragraph">
+                                    Your unique keycode is
+
+                                    <input class="b-confirmation_input" type="text" value="1234567">
+                                    <button type="submit" class="btn btn-primary"
+                                        @click="printText('1234567')"
+                                    >Print</button>
+                                </div>
+                                <ol class="b-confirmation_list">
+                                    <li class="b-confirmation_list-item">
+                                        Print or write down this keycode on a piece of paper
+                                    </li>
+                                    <li class="b-confirmation_list-item">
+                                        If you write the keycode on paper, ensure you write
+                                        'Keycode Verification for Jobdone.net:' followed by unique keycode.
+                                    </li>
+                                    <li class="b-confirmation_list-item">
+                                        Take a photo of (A) yourself holding(B) your ID
+                                        and the (C) unique keycode side-by-side as shown
+                                        in the example on the left.
+                                    </li>
+                                    <li class="b-confirmation_list-item">
+                                        Ensure you include your face and that you keycode
+                                        and ID are clearly visible
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label>Upload your ID pictures</label>
+
+                            <div class="grid-upload">
+                                <vue-clip :on-sending="onSending" :options="{
+                                        url: '/verification/image_upload/',
+                                        paramName: 'photo'
+                                    }"
+                                    :on-added-file="onAddedIdPictures2"
+                                >
+                                    <template slot="clip-uploader-action">
+                                        <div>
+                                            <div class="dz-message">
+                                                <div class="panel upload-file">
+                                                    <label class="file-uploads file-uploads-html5">
+                                                        <span class="file-uploads-title">
+                                                            Drag or Browse your picture here
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                </vue-clip>
+
+                                <div>
+                                    <div class="panel uploaded"
+                                        v-for="( file, index ) in uploadFiles2"
+                                        :style="{'background-image': 'url( ' + file.dataUrl + ')' }"
+                                        :key="index"
+                                    >
+                                        <div class="progress">
+                                          <div class="progress-bar" role="progressbar"
+                                            :style="{ width: file.progress + '%' }"
+                                            v-text="file.progress + '%'"
+                                          ></div>
+                                        </div>
+                                    </div>
+                                    <div class="panel uploaded"
+                                        v-for="( file, index ) in uploadedFiles2"
+                                        :style="{'background-image': 'url( ' + file.url + ')' }"
+                                        :key="index"
+                                    ></div>
+                                </div>
+                            </div>
+
+                            <div class="error_placement alert alert-danger"
+                                v-if="upload_error"
+                            >
+                                {%raw%}{{upload_error}}{%endraw%}
+                            </div>
+
+                            <!--
+                            <div class="grid-upload">
+                              <div v-show="$refs.upload2 && $refs.upload2.dropActive" class="drop-active">
+                                  <h3>Drop files to upload2</h3>
+                              </div>
+
+
+                              <div class="panel upload-file">
+                                <file-upload
+                                    title="Drag or Browse your picture here"
+                                    post-action="/verification/image_upload/"
+                                    name="photo"
+                                    :data="{'step': 2}"
+                                    :multiple="true"
+                                    :drop="true"
+                                    :files="uploadFiles2"
+                                    :events="uploadEvents"
+                                    ref="upload2"
+                                    accept="image/JPEG, image/JPG, image/PNG">
+                                </file-upload>
+                              </div>
+                              <div class="panel uploaded" :style="{'background-image': file.previewValue }" v-for="(file, index) in uploadFiles2" :key="file.id">
+                                {%raw%}
+                                  <div class="progress" :class="{'active': file.active, 'success': file.success, 'error': file.error}" v-if="">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                        aria-valuemin="0" aria-valuemax="100"
+                                        :style="{width: file.progress + '%'}">
+                                            <span v-if="file.active">{{file.progress}}%</span>
+                                            <span v-if="file.success"><i class="fa fa-check" aria-hidden="true"></i> Done!</span>
+                                            <span v-if="file.error"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{file.error}}</span>
+                                    </div>
+                                  </div>
+                                {%endraw%}
+                              </div>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="error_placement alert alert-danger" v-if="error_placement_2">{%raw%}{{error_placement_2}}{%endraw%}</div>
+            <div class="col-md-12 vertical-gap">
+                <button type="button" class="btn btn-primary next" @click="completeStep_2()">My Save and continue</button>
+                <a href="#" @click.prevent="setPage(1)" class="cancel">Click to cancel request</a>
+            </div>
+        </div>
+    </div>
+    <div v-if="page == 3" class="verify-stage">
+        <div class="row block-border" style="padding:21px;">
+            <div class="col-md-12">
+                <h1>Verification Center</h1>
+            </div>
+            <div class="col-md-12 vertical-gap stepbar progressive">
+                <div class="circle-num digit-1">1</div>
+                <div class="circle-num digit-2">2</div>
+                <div class="circle-num digit-3">3</div>
+            </div>
+            <div class="col-md-12 vertical-gap">
+                <form class="form-horizontal vertical-gap">
+                    <label class="sub-title">Confirm Your Address</label>
+
+                    <div class="form-group vertical-gap">
+                        <label class="control-label col-sm-2">Address</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control"
+                                v-model="address1"
+                                v-validate="'required|max:256'"
+                                name="address1"
+                            >
+                            <span class="text-danger"
+                                v-show="validation_errors.has('address1')"
+                            >
+                                <span v-text="validation_errors.first('address1')"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-6">
+                            <input type="text" class="form-control"
+                                v-model="address2"
+                                v-validate="'max:256'"
+                                name="address2"
+                            >
+                            <span class="text-danger"
+                                v-show="validation_errors.has('address2')"
+                            >
+                                <span v-text="validation_errors.first('address2')"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="city">City</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control"
+                                v-model="city"
+                                v-validate="'required|max:128'"
+                                name="city"
+                            >
+                            <span class="text-danger"
+                                v-show="validation_errors.has('city')"
+                            >
+                                <span v-text="validation_errors.first('city')"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="state">State</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control"
+                                v-model="state"
+                                v-validate="'required|max:128'"
+                                name="state"
+                            >
+                            <span class="text-danger"
+                                v-show="validation_errors.has('state')"
+                            >
+                                <span v-text="validation_errors.first('state')"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="postal_code">Postal Code</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control"
+                                v-model="postal_code"
+                                v-validate="'required|max:128'"
+                                name="postal_code"
+                            >
+                            <span class="text-danger"
+                                v-show="validation_errors.has('postal_code')"
+                            >
+                                <span v-text="validation_errors.first('postal_code')"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="city">Country</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" :value="countryName" disabled>
+                        </div>
+                    </div>
+                </form>
+                <hr class="vertical-gap">
+            </div>
+            <div class="col-md-12">
+                <form class="form-horizontal">
+                    <label class="sub-title">Provide supporting documents</label>
+                    <div class="form-group vertical-gap">
+                        <div class="col-sm-2">
+                            <div class="documents"></div>
+                        </div>
+                        <div class="col-sm-10 card-desc">
+                            <p>Please upload a scan of recent bank statement or utility bill as proof of address.</p>
+                            <p>Each</p>
+                        </div>
+                    </div>
+                    <div class="form-group vertical-gap">
+                        <div class="col-md-12">
+                            <label>Upload your documents pictures</label>
+
+                            <div class="grid-upload">
+                                <vue-clip :on-sending="onSending" :options="{
+                                        url: '/verification/image_upload/',
+                                        paramName: 'photo'
+                                    }"
+                                    :on-added-file="onAddedIdPictures3"
+                                >
+                                    <template slot="clip-uploader-action">
+                                        <div>
+                                            <div class="dz-message">
+                                                <div class="panel upload-file">
+                                                    <label class="file-uploads file-uploads-html5">
+                                                        <span class="file-uploads-title">
+                                                            Drag or Browse your picture here
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                </vue-clip>
+
+                                <div>
+                                    <div class="panel uploaded"
+                                        v-for="( file, index ) in uploadFiles3"
+                                        :style="{'background-image': 'url( ' + file.dataUrl + ')' }"
+                                        :key="index"
+                                    >
+                                        <div class="progress">
+                                          <div class="progress-bar" role="progressbar"
+                                            :style="{ width: file.progress + '%' }"
+                                            v-text="file.progress + '%'"
+                                          ></div>
+                                        </div>
+                                    </div>
+                                    <div class="panel uploaded"
+                                        v-for="( file, index ) in uploadedFiles3"
+                                        :style="{'background-image': 'url( ' + file.url + ')' }"
+                                        :key="index"
+                                    ></div>
+                                </div>
+                            </div>
+
+                            <div class="error_placement alert alert-danger"
+                                v-if="upload_error"
+                            >
+                                {%raw%}{{upload_error}}{%endraw%}
+                            </div>
+
+                            <!--
+                            <div class="grid-upload">
+                              <div v-show="$refs.upload3 && $refs.upload3.dropActive" class="drop-active">
+                                  <h3>Drop files to upload2</h3>
+                              </div>
+
+
+                              <div class="panel upload-file">
+                                <file-upload
+                                    title="Drag or Browse your picture here"
+                                    post-action="/verification/image_upload/"
+                                    name="photo"
+                                    :data="{'step': 3}"
+                                    :multiple="true"
+                                    :drop="true"
+                                    :files="uploadFiles3"
+                                    :events="uploadEvents"
+                                    ref="upload3"
+                                    accept="image/JPEG, image/JPG, image/PNG">
+                                </file-upload>
+                              </div>
+                              <div class="panel uploaded" :style="{'background-image': file.previewValue }" v-for="(file, index) in uploadFiles3" :key="file.id">
+                                {%raw%}
+                                  <div class="progress" :class="{'active': file.active, 'success': file.success, 'error': file.error}" v-if="">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                        aria-valuemin="0" aria-valuemax="100"
+                                        :style="{width: file.progress + '%'}">
+                                            <span v-if="file.active">{{file.progress}}%</span>
+                                            <span v-if="file.success"><i class="fa fa-check" aria-hidden="true"></i> Done!</span>
+                                            <span v-if="file.error"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{file.error}}</span>
+                                    </div>
+                                  </div>
+                                {%endraw%}
+                              </div>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                </form>
+                <hr class="vertical-gap">
+            </div>
+            <div class="col-md-12">
+                <form class="form-horizontal">
+                    <label class="sub-title">Provide supporting documents</label>
+
+                    <div class="form-group vertical-gap">
+                        <label class="control-label col-sm-2" for="institutions_name">Institutions Name</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control"
+                                v-model="institutions_name"
+                                v-validate="'required|max:128'"
+                                name="institutions_name"
+                            >
+                            <span class="text-danger"
+                                v-show="validation_errors.has('institutions_name')"
+                            >
+                                <span v-text="validation_errors.first('institutions_name')"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="document_type">Document Type</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control"
+                                v-model="document_type"
+                                v-validate="'required|max:256'"
+                                name="document_type"
+                            >
+                            <span class="text-danger"
+                                v-show="validation_errors.has('document_type')"
+                            >
+                                <span v-text="validation_errors.first('document_type')"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Date Issued</label>
+                        <div class="col-sm-2">
+                            <select class="form-control"
+                                v-model="document_issued.day"
+                                v-validate="'required'"
+                                name="document_issued_day"
+                            >
+                                <option value="" disabled="" selected>Days</option>
+                                <option v-bind:value="i" v-for="i in available_day" v-text="i"></option>
+                            </select>
+                            <span class="text-danger"
+                                v-show="validation_errors.has('document_issued_day')"
+                            >
+                                <span v-text="validation_errors.first('document_issued_day')"></span>
+                            </span>
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="form-control"
+                                v-model="document_issued.month"
+                                v-validate="'required'"
+                                name="document_issued_month"
+                            >
+                                <option value="" disabled="" selected>Months</option>
+                                <option v-bind:value="i" v-for="i in available_month" v-text="i"></option>
+                            </select>
+                            <span class="text-danger"
+                                v-show="validation_errors.has('document_issued_month')"
+                            >
+                                <span v-text="validation_errors.first('document_issued_month')"></span>
+                            </span>
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="form-control"
+                                v-model="document_issued.year"
+                                v-validate="'required'"
+                                name="document_issued_year"
+                            >
+                                <option value="" disabled="" selected>Year</option>
+                                <option v-bind:value="i" v-for="i in available_year_before" v-text="i"></option>
+                            </select>
+                            <span class="text-danger"
+                                v-show="validation_errors.has('document_issued_year')"
+                            >
+                                <span v-text="validation_errors.first('document_issued_year')"></span>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="error_placement alert alert-danger" v-if="error_placement_3">{%raw%}{{error_placement_3}}{%endraw%}</div>
+            <div class="col-md-12 vertical-gap">
+                <button type="button" class="btn btn-primary next" @click.prevent="completeStep_3()">My Save and continue</button>
+                <a href="#" @click.prevent="setPage(2)" class="cancel">Click to cancel request</a>
+            </div>
+        </div>
+    </div>
+    <div v-if="page == 4" class="verify-stage">
+        <div class="block-border">
+            <div class="row">
+                <div class="col-md-12 padding">
+                    <h1>Verification Center</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="message">
+                        <div class="verify-check"></div>
+                        <div class="verify-message">
+                            <h5>You have successfully submitted your request to verify your identity</h5>
+                            <br>
+                            <p>We'll be in touch soon! Please allow up to 2-3 bussiness days for our Verification Team to review your details.</p>
+                            <br>
+                            <p>You will be notified once this has been completed, of if further information is required.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-md-12 padding">
+                <button type="button" class="btn btn-primary next" @click="goToDashboard">Return to dashboard</button>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ static_file('assets/verificationCenter.css', include_version=True) }}">
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{ static_file('assets/verificationCenter.js', include_version=True) }}"></script>
+{% endblock %}

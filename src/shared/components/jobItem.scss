@@ -1,0 +1,150 @@
+  @import '../style/variables.scss';
+  @import '../style/global.scss';
+
+  .job-item {
+    position: relative;
+    padding: 4.5rem 2.5rem 1.5rem;
+    border-top: solid 1px $color-light;
+  
+    &:hover {
+      background-color: $color-light-blue;
+      border-top: none;
+      @media (max-width: 991px) {
+        .star-desktop {
+          display: none;
+        }
+        .bid-desktop {
+          visibility: hidden;
+        }
+        .bid-mobile {
+          visibility: visible;
+        }
+        .star-mobile {
+          display: block;
+        }
+        .star-mobile {
+          position: absolute;
+          right: 2rem;
+          top: 2rem;
+        }
+      }
+      @media (min-width: 992px) {
+        .bid-desktop {
+          visibility: visible;
+        }
+      }
+    }
+    .job-image {
+      height: 100%;
+      width: 28px;
+      object-fit: contain;
+    }
+    .content-wrapper {
+      padding-left: 2.8rem;
+      @media (max-width: 991px) {
+        padding-left: 1.5rem;
+        margin-top: 1rem;
+      }
+      h4 {
+        color: $color-blue;
+        margin-bottom: 1rem;
+      }
+      h5 {
+        margin-bottom: 1rem;
+      }
+      a {
+        margin-right: 0.5rem;
+        color: $color-blue;
+        font-size: $font-size-xsmall;
+        font-family: "LatoRegular";
+        cursor: pointer;
+      }
+    }
+    .center-row {
+      height: 100%;
+      padding: 3rem 0;
+      text-align: center;
+      @media (max-width: 991px) {
+        padding: 1rem 0 0;
+      }
+    }
+    .watch-image {
+      height: 2rem;
+      width: 2rem;
+      margin-top: 0.7rem;
+      margin-right: 0.5rem;
+    }
+    .star-icon {
+      width: 2.3rem;
+    }
+    .bid-btn {
+      padding: 0.5rem 1.4rem;
+      margin-top: 0.2rem;
+      color: white;
+      background-color: $color-blue;
+      border-color: $color-blue;
+      visibility: hidden;
+    }
+   .star-desktop {
+      display: block;
+    }
+    .star-mobile {
+      display: none;
+    }
+    .bid-desktop, .bid-mobile {
+      visibility: hidden;
+    }
+    .bid-desktop {
+      margin: 0.2rem auto 0;
+    }
+    @media (max-width: 991px) {
+      padding: 4.5rem 2.5rem 0;
+     .star-desktop {
+        display: none;
+      }
+      .bid-desktop, .bid-mobile {
+        visibility: hidden;
+      }
+      .star-mobile {
+        display: block;
+      }
+      .star-mobile {
+        position: absolute;
+        right: 2rem;
+        top: 2rem;
+      }
+    }
+    .marker-container {
+      .marker-wrapper {
+        img {
+          height: 5rem;
+        }
+        svg {
+          height: 2.4rem;
+          text {
+            font-family: "LatoRegular" !important;
+          }
+        }
+        &:nth-child(1) {
+          position: absolute;
+          left: -0.8rem;
+          top: 1rem;
+          z-index: 999
+        }
+        &:nth-child(2) {
+          position: absolute;
+          left: 10rem;
+          top: 1rem;
+          z-index: 998;
+        }
+        &:nth-child(3) {
+          position: absolute;
+          left: 21rem;
+          top: 1rem;
+          z-index: 997;
+        }
+      }
+    }
+  }
+
+

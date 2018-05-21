@@ -1,0 +1,59 @@
+{% extends "admin/layout.html" %}
+
+{% block admin_title %}Buyer request{% endblock %}
+
+{% block admin_body %}
+
+<div class="panel-body">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="alert alert-info">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if not buyer_request.is_published %}
+    <a class="btn btn-primary" href="{{ url_for('admin.buyer_request_item_publish', buyer_request_id=buyer_request.id)}}">Publish</a><br><br>
+    {% endif %}
+
+    <label>User:</label><br>
+    <a href="{{ url_for('admin.user', user_id=buyer_request.user_id) }}">{{ buyer_request.user.username }}</a><br><br>
+
+    <label>Title:</label>
+    {{ buyer_request.title }}<br><br>
+
+    <label>Description:</label>
+    {{ buyer_request.description }}<br><br>
+
+    <label>Files (raw):</label>
+    {{ buyer_request.files }}<br><br>
+
+    <label>Skills:</label>
+    {{ buyer_request.skills_as_text_list }}<br><br>
+
+    <label>payment_type:</label>
+    {{ buyer_request.payment_type }}<br><br>
+    {% if buyer_request.fixed_project_type %}
+        <label>Fixed Project Type:</label>
+        {{ buyer_request.fixed_project_type }}<br><br>
+    {% endif %}
+    {% if buyer_request.hourly_project_type %}
+        <label>Hourly Project Type:</label>
+        {{ buyer_request.hourly_project_type }}<br><br>
+    {% endif %}
+
+    <label>Project Type:</label>
+    {{ buyer_request.project_type }}<br><br>
+    {% if buyer_request.paid_project_type %}
+        <label>Paid Project Type:</label>
+        {{ buyer_request.paid_project_type }}<br><br>
+    {% endif %}
+    <label>Is Published:</label>
+    {% if buyer_request.is_published %}Yes{% else %}No{% endif %}<br><br>
+
+    <label>Created on:</label>
+    {{ buyer_request.created_on }}<br><br>
+</div>
+
+{% endblock %}

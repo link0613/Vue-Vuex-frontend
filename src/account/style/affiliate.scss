@@ -1,0 +1,195 @@
+#sm-account-affiliate {
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0;
+    margin: 40px 0 10px;
+
+    &-inner {
+      h1 {
+        margin-bottom: 10px;
+      }
+    }
+
+    &-description {
+      margin-left: 5px;
+    }
+
+    .video-answer {
+      margin-right: 30px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      .text {
+        margin-right: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      h6 {
+        font-family: Raleway;
+        font-size: 14px;
+        font-weight: 500;
+        color: #323C45;
+        margin-bottom: 2px;
+      }
+
+      p {
+        font-family: Raleway;
+        font-size: 12px;
+        font-weight: 300;
+        color: #323C45;
+        margin-right: 5px;
+        margin-bottom: 2px;
+
+        &:last-child {
+          margin-right: 0;
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .icon-video {
+      background-image: url(../assets/images/icons/video-btn.svg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 55px;
+      height: 57px;
+    }
+
+    @media screen and (max-width: 640px) {
+      flex-direction: column;
+
+      .page-header-inner {
+        margin-bottom: 10px;
+      }
+
+      .video-answer {
+        align-self: center;
+      }
+    }
+  }
+
+  .affiliate-link__label {
+    display: flex;
+    align-items: center;
+  }
+
+  .affiliate-link-hint {
+    margin-left: 10px;
+    position: relative;
+
+    i {
+      color: #999;
+      cursor: pointer;
+
+      &:hover {
+        color: #000;
+
+        & + .affiliate-hint {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  @mixin material-icons-info__set-color($color) {
+    background-image: url("data:image/svg+xml;utf8,<svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M0 0h24v24H0z' fill='none'/><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z' fill='#{ $color }'/></svg>");
+  }
+
+  .material-icons-info {
+    //background: url("data:image/svg+xml;utf8,<svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path class='base' d='M0 0h24v24H0z' fill=''/><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'/></svg>");
+    background-repeat: no-repeat;
+    @include material-icons-info__set-color(#999);
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
+
+  .affiliate-hint {
+
+    position: absolute;
+    left: calc(100% + 15px);
+    opacity: 0;
+    top: -12px;
+    transition: .5s linear;
+    z-index: 9;
+
+    &-container {
+
+      //border: 2px solid #999;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      min-width: 200px;
+      z-index: 9;
+      background: linear-gradient(90deg, rgba(51, 146, 205, 1) 0%, rgba(6, 129, 205, 1) 100%);
+      border-radius: 3px;
+
+      span {
+        white-space: nowrap;
+        font-size: 16px;
+        color: #fff;
+
+        &:not(:last-child) {
+          margin-bottom: 5px;
+        }
+      }
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      border-top: 12px solid transparent;
+      border-right: 4px solid #3392CD;
+      border-bottom: 12px solid transparent;
+      border-left: 4px solid transparent;
+      position: absolute;
+      top: 12px;
+      left: -8px;
+    }
+  }
+
+  .modal-video {
+
+    .modal-header {
+
+      h4 {
+        font-size: 30px;
+      }
+    }
+
+    .modal-body {
+      min-height: 300px;
+      padding: 15px;
+      display: flex;
+
+      .video-block {
+        width: 100%;
+        display: flex;
+
+        & > div {
+          width: 100%;
+        }
+      }
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: center;
+      background-color: transparent;
+
+      .btn-got-it {
+        font-family: Lato;
+        font-size: 14px;
+        font-weight: 300;
+        color: #fff;
+        background-color: #248aca;
+        border: none;
+        padding: 9px 18px;
+      }
+    }
+  }
+}

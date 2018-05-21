@@ -1,0 +1,92 @@
+  @import '../style/variables.scss';
+  @import '../style/global.scss';
+
+  .d-flex {
+    display: flex;
+    align-items: center;
+  }
+  .flex-row {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .filter-bar {
+    background: #f4f4f4;
+    border: solid 1px $color-light;
+    border-radius: 4px;
+    width: 100%;
+    align-items: center;
+
+    -webkit-box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.14);
+    -moz-box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.14);
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.14);
+
+    .filter-by-icon {
+      width: 14px;
+      height: 14px;
+      mask-image: url('../../shared/assets/filter.svg');
+      mask-size: 14px 14px;
+      -webkit-mask-image: url('../../shared/assets/filter.svg');
+      -webkit-mask-size: 14px 14px;
+      background-size: 14px 14px;      
+      background-color: rgb(31, 40, 54);
+      margin-left: 15px;
+     }
+
+     .sort-by-icon {
+      width: 14px;
+      height: 14px;
+      mask-image: url('../../shared/assets/icon-sort.svg');
+      mask-size: 14px 14px;
+      -webkit-mask-image: url('../../shared/assets/icon-sort.svg');
+      -webkit-mask-size: 14px 14px;
+      background-size: 14px 14px;      
+      background-color: rgb(31, 40, 54);
+      margin-left: 15px;
+     }
+    @media (max-width: 991px) {
+      padding: 20px 0;
+      > .d-flex {
+        display: block !important;
+        width: 50%;
+        margin: 0;
+        .category {
+          h6 {
+            margin-top: 0;
+            padding: 24px 10px 24px 10px;
+          }
+
+        }
+      }
+    }
+
+    .ml-auto .category:last-child {
+      border-right: none;
+    }
+    .category {
+      border-right: solid 1px $color-light;
+      padding: 0;
+      font-size: 14px !important;
+      .dropdown-toggle {
+        padding: 24px 31px 24px 20px !important;
+        font-size: 14px !important;
+      }
+      svg {
+        object-fit: contain;
+        margin-left: 20px;
+        margin-right: 10px;
+        margin-top: 20px;
+      }
+      .filter-icon {
+        width: 15px;
+        height: 15px;
+      }
+      .sort-icon {
+        width: 16px;
+        height: 16px;
+      }
+      h6 {
+        color: $color-dark;
+        padding: 24px 15px;
+      }
+    }
+  }

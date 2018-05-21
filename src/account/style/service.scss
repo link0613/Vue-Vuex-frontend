@@ -1,0 +1,338 @@
+.AccountServiceApp__add-mode .AccountServiceApp {
+    @media (min-width: 768px) {
+        &__navbar-steps {
+            width: 100%;
+        }
+
+        &__navbar-step {
+            width: 16.66%;
+        }
+
+        &__navbar-step-link {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
+
+    &__navbar-step-link {
+        @media (max-width: 1200px) {
+            font-size: 13px !important;
+        }
+
+        @media (max-width: 992px) {
+            //padding: 15px 8px 15px 8px !important;
+            font-size: 12px !important;
+        }
+    }
+
+}
+
+@media screen and (max-width: 767px) {
+    .add-service-steps-count {
+        li {
+            a {
+                //background-image: url(../assets/images/next_bar_unactive.png);
+            }
+
+            &.active {
+                a {
+                    //background-size: 100% !important;
+                }
+            }
+        }
+    }
+}
+
+@mixin step-triangle__set-color($color1, $color2) {
+    background-image: url("data:image/svg+xml;utf8,<svg width='100%' height='100%' version='1.1' xmlns='http://www.w3.org/2000/svg'><defs><linearGradient id='fill' x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' style='stop-color:#{ $color1 };stop-opacity:1'/><stop offset='100%' style='stop-color:#{ $color2 };stop-opacity:1'/></linearGradient></defs><path d='M 0 0 L 20 32 L 0 64 z' stroke='colourname' fill='url(#fill)'/></svg>");
+}
+.AccountServiceApp {
+
+    &__navbar-steps {
+
+        &.navbar-nav {
+            margin: 0;
+        }
+
+        &-container {
+            border: 1px solid #e6e6e6;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+    }
+
+
+    &__navbar-step {
+        //width: calc(16.66% - 20px) !important;
+
+        &-link {
+            display: flex !important;
+            align-items: center !important;
+            padding: 14px 0 14px 20px !important;
+
+            .step-text {
+                min-width: calc(100% - 25px);
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+        &:not(:first-child) {
+            .AccountServiceApp__navbar-step-link {
+                margin: 0 0 0 0px !important;
+                padding-left: 25px !important;
+                padding-right: 0px !important;
+            }
+
+            .stepcounter {
+                margin-left: 5px;
+            }
+        }
+
+        &.done,
+        &.active {
+            a {
+                background-image: url("data:image/svg+xml;utf8,<svg width='100%' height='100%' version='1.1' xmlns='http://www.w3.org/2000/svg'><defs><linearGradient id='fill' x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' style='stop-color:#0681cd;stop-opacity:1'/><stop offset='100%' style='stop-color:#3392cd;stop-opacity:1'/></linearGradient></defs><rect width='100%' height='100%' stroke='colourname' fill='url(#fill)'/></svg>");
+                background-repeat: repeat-x;
+                background-size: cover !important;
+            }
+        }
+
+        &:not(:last-child) {
+
+            a {
+                //width: calc(100% - 20px) !important;
+                position: relative;
+                margin: 0;
+                overflow: visible;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    right: -18px;
+                    top: -3px;
+                    border-top: 29px solid transparent;
+                    border-right: 0px solid transparent;
+                    border-bottom: 29px solid transparent;
+                    border-left: 18px solid #e9e9e9;
+                    z-index: -1;
+                }
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    right: -20px;
+                    top: -6px;
+                    z-index: -1;
+                    width: 24px;
+                    height: 60px;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    @include step-triangle__set-color(#F2F2F2, #F2F2F2);
+                }
+            }
+
+            &.done,
+            &.active {
+                a {
+                    &:before {
+                        border-left: 18px solid #3a98d6;
+                    }
+                    &:after {
+                        //background-color: #F2F2F2;
+                        @include step-triangle__set-color(#0681cd, #3392cd);
+
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 767px) {
+        &__navbar-steps {
+            width: calc(100% - 10px);
+
+            &-container {
+                margin: 7.5px 0;
+            }
+        }
+
+        &__navbar-step {
+            width: 16.66%;
+            float: left;
+
+            &:not(:first-child,:last-child) {
+                .stepcounter {
+                    margin-left: 15%;
+                }
+            }
+
+            &:last-child {
+                .stepcounter {
+                    margin-left: 0;
+                }
+            }
+
+            &.done,
+            &.notallowed {
+                width: 10%;
+                text-align: center;
+
+                .step-text {
+                    display: none;
+                }
+            }
+
+            &.done {
+                a {
+                    //background-image: url(../assets/images/arrowback_complete_1.png);
+                }
+            }
+
+            &.active {
+                width: 30%;
+
+                & + .AccountServiceApp__navbar-step {
+                    width: 30%;
+                    text-align: left;
+
+                    .step-text {
+                        display: inline-block;
+                    }
+
+                }
+
+            }
+        }
+
+        &__navbar-step-link {
+            white-space: nowrap;
+            //overflow: hidden;
+            //padding: 15px 5px 15px 5px !important;
+        }
+    }
+
+    @media (max-width: 550px) {
+        &__navbar-step {
+
+            &:first-child:not(.active) {
+                .AccountServiceApp__navbar-step-link {
+                    padding-left: 10px !important;
+                }
+            }
+
+            &:not(:first-child) {
+                .AccountServiceApp__navbar-step-link {
+                    padding-left: 50% !important;
+                }
+            }
+
+            &.active,
+            &.active + .AccountServiceApp__navbar-step {
+                .AccountServiceApp__navbar-step-link {
+                    padding-left: 20px !important;
+                }
+            }
+        }
+    }
+
+    &__extras-fields {
+        position: relative;
+    }
+
+    &__add-extra {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    &__expandable-element {
+        background: #F2F2F2;
+        background: rgba(242, 242, 242, 1);
+        border-style: Solid;
+        border-color: #E6E6E6;
+        border-color: rgba(230, 230, 230, 1);
+        border-width: 1px;
+        border-radius: 3px;
+        margin: 10px 0;
+        padding: 14px 50px;
+        position: relative;
+
+        &-title {
+            margin: 0;
+            padding: 0;
+            font-size: 15px;
+            line-height: 22.4px;
+            color: #333333;
+            font-weight: 300;
+        }
+
+        &-body {
+            font-size: 15px;
+            line-height: 22.4px;
+            color: #4D4D4D;
+            transition: opacity .4s ease;
+
+            &.fade-in-enter {
+                opacity: 0;
+            }
+            &.fade-in-enter-to.fade-in-enter-active {
+                opacity: 1;
+            }
+        }
+
+        &-remove {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1;
+            color: #b3b3b3;
+            text-shadow: 0 1px 0 #fff;
+            filter: alpha(opacity=20);
+            position: absolute;
+            top: 5px;
+            right: 15px;
+            cursor: pointer;
+            opacity: .8;
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        &-draggable {
+            background: url(../assets/images/icons/draggable-area_grey.png);
+            width: 21px;
+            height: 19px;
+            background-size: cover;
+            position: absolute;
+            left: 10px;
+            top: 16px;
+            cursor: -webkit-grab;
+        }
+
+        &-toggle {
+            position: absolute;
+            right: 10px;
+            top: 24px;
+            transition: transform .3s linear;
+
+            &.active {
+                transform: rotate(180deg);
+            }
+            .icon {
+                width: 24px;
+                height: 24px;
+                cursor: pointer;
+                color: #b3b3b3;
+                opacity: .8;
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+.video-canvas-preview {
+    max-width: 100%;
+    max-height: 100%;
+}

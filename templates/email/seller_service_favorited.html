@@ -1,0 +1,12 @@
+{% extends "email/layout.html" %}
+
+{% block heading %}Dear {{ username }}!{% endblock %}
+
+{% block content %}
+<p>Your service <strong>I will {{ service_title }}</strong> just got hearted. Hearting is just an effective way of bookmarking and promoting services, People and Jobs within the JobDone community.</p>
+
+<p>Find out who saved your service!</p>
+
+<a href="{{ buyer_link }}" style="background: rgba(247, 147, 30, 1); border-radius: 4px; color: #fff; padding: 16px; margin-top: 10px; text-decoration: none; display: block; width: 200px; text-align: center; margin: 20px auto 0;">Visit {{ buyer_username }} profile</a>
+
+{% endblock %}

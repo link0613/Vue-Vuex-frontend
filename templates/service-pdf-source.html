@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>I will {{ product.title }}</title>
+
+  <style type="text/css">
+    body {
+      margin: 0; padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+    }
+
+    .section {
+      color: #AAA;
+      text-transform: uppercase;
+    }
+
+    .photo {
+      padding: 10px;
+      border: 1px solid #EEE;
+      text-align: center;
+      width: 670px;
+      margin: 0 auto 15px;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin: 0;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    a.link {
+      color: #000;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin: 0;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .description h1,
+    .description h2 {
+      text-align: left;
+    }
+
+    .seller {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .avatar {
+      display: inline-block;
+    }
+
+    .contact {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    a.contact {
+      display: block;
+      width: 150px;
+      max-width: 150px;
+      margin: 15px auto 0;
+      padding: 20px 20px 10px;
+      font-size: 32px;
+      font-weight: bold;
+      color: #FFF;
+      background-color: #ffa32e;
+    }
+  </style>
+</head>
+<body>
+  <h1><a class="link" href="{{ product.get_url(_external=True) }}">{{ product.title.capitalize() }}</a></h1>
+  <h2>Delivery in {{ product.delivery_time|timedelta_pretty_print }}</h2>
+
+  <p class="section">Description:</p>
+  <div class="description">
+  {{ product_description }}
+  </div>
+
+  {% if product_tags %}
+  <p class="section">Tags:</p>
+  {% for tag in product_tags %}
+    <span>{{ tag.tag }}</span>
+  {% endfor %}
+  {% endif %}
+
+  <p class="section">Photos:</p>
+  {% for photo in product_photos %}
+    <div class="photo">
+      <img src="{{ photo }}" alt="{{ product.title }}" />
+    </div>
+  {% endfor %}
+
+  <div class="seller">
+    <div class="avatar">
+      <img src="{{ product.seller.get_photo_url('p_us') }}" />
+    </div>
+
+    <p>@{{ product.seller.username }}
+    {% if product.seller.country %}
+    <br />{{ product.seller.get_country_printable() }}
+    {% endif %}
+    </p>
+  </div>
+
+  <div class="section">About Me:</div>
+  {% if product.seller.profile_headline %}
+  <p>{{ product.seller.profile_headline }}</p>
+  {% endif %}
+  <p>{{ product.seller.profile_description if product.seller.profile_description else 'No information has been provided by the user' }}</p>
+
+  <p><a class="contact" href="{{ url_for('user', username=product.seller.username, _external=True) }}">CONTACT ME</a></p>
+</body>
+</html>

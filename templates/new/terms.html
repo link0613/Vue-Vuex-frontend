@@ -1,0 +1,76 @@
+{% extends "new/layout.html" %}
+
+{% block title %}Terms and Conditions{% endblock %}
+
+{% block body %}
+<main id="sm-jobs">
+  <div class="content content-jobs">
+    <div class="jobs-title">
+      <h1>Browse Jobs</h1>
+    </div>
+    <div class="jobs-section-row">
+      <h2>Search</h2>
+      <div class="search-input col-input-wrapper">
+        <input
+          id="input-default"
+          :class="'form-control jobs-search-box ' + (isSearchBarActive?'has-focus':'')"
+          type="text"
+          placeholder="Search for projects and contents"
+          @focus="isSearchBarActive=true"
+          @blur="isSearchBarActive=false"
+        />
+        <span class="search-icon" v-if="!isSearchBarActive"></span>
+        <span class="search-icon-blue" v-if="isSearchBarActive"></span>
+      </div>
+    </div>
+    <div class="jobs-section-row">
+      <h2>Skill</h2>
+      <div class="col-input-wrapper">
+        <tags-input element-id="tags"
+          v-model="selectedTags"
+          :existing-tags="mySkills"
+          :typeahead="true"
+          placeholder="Type to filter projects and contests by skills..."></tags-input>
+      </div>
+    </div>
+
+    <div class="jobs-section-row">
+      <filter-bar :filter-list="filterList"></filter-bar>
+    </div>
+
+    <div>
+      <b-card no-body>
+        <b-card-header>
+          <b-row>
+            <b-col md="12" lg="5" xl="6">
+              <h4>PROJECT/CONTENT</h4>
+            </b-col>
+            <b-col md="12" lg="7" xl="6">
+              <b-row class="center-row">
+                <b-col md="4">
+                  <h4>BID/ENTERIES</h4>
+                </b-col>
+                <b-col md="3">
+                  <h4>START</h4>
+                </b-col>
+                <b-col md="3">
+                  <h4>PRICE(USD)</h4>
+                </b-col>
+                <b-col md="2">
+                  <star-yellow-icon></star-yellow-icon>
+                </b-col>
+              </b-row>
+            </b-col>
+          </b-row>
+        </b-card-header>
+        <b-card-body>
+          <job-item v-for="(item, index) in jobDataList" :key="index" :job-data="item"></job-item>
+          <job-item></job-item>
+        </b-card-body>
+      </b-card>
+    </div>
+
+
+  </div>
+</main>
+{% endblock %}

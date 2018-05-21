@@ -1,0 +1,57 @@
+.content-jobs{
+  font-family: $Roboto;
+  flex-direction: column;
+  position: relative;
+  .jobs-title{
+    color: #1F2836;
+    font-size: 28px;
+    font-weight: $medium;
+    padding: 20px 0;
+  }
+  .jobs-section-row {
+    display: flex;
+    padding: 20px 0;
+
+    & h2 {
+      width: 20%;
+      font-size: 22px;
+      line-height: 61px;
+    }
+    .col-input-wrapper {
+      width: 80%;
+      position: relative;
+      & .jobs-search-box {
+        height: 61px;
+        padding: 15px 25px 15px 55px;
+        font-size: 21px;
+        &.has-focus {
+          outline: none !important;
+          -webkit-box-shadow: 0px 0px 10px 2px rgba(141, 191, 224, 0.9) !important;
+          -moz-box-shadow: 0px 0px 10px 2px rgba(141, 191, 224, 0.9) !important;
+          box-shadow: 0px 0px 10px 2px rgba(141, 191, 224, 0.9) !important;
+          border-color: transparent !important; // rgba(18, 126, 193, 1) !important;
+        }
+      }
+      .search-icon {
+        background: url('../../shared/assets/icon-search.svg');
+        position: absolute;
+        width: 23px;
+        height: 23px;
+        top: 18px;
+        left: 18px;
+      }
+      .search-icon-blue {
+        background: url('../../shared/assets/icon-search-blue.svg');
+        position: absolute;
+        width: 23px;
+        height: 23px;
+        top: 18px;
+        left: 18px;
+      }
+    }
+
+    
+ 
+ 
+  }
+}

@@ -1,0 +1,937 @@
+#sm-buyer-request {
+  background-color: #F1F1F1;
+}
+.content-project{
+  font-family: $Roboto;
+  flex-direction: column;
+  position: relative;
+  .buyer-title{
+    color: #1F2836;
+    font-size: 28px;
+    font-weight: $medium;
+  }
+
+  .btn-project-main {
+    display: block;
+    padding: 17px 30px;
+    text-align: center;
+    color: #fff;
+    background: linear-gradient(#3392CD, #0681CD);
+    -webkit-border-radius: 5px;
+    border-radius: 4px;
+    font-size: 20px;
+    text-decoration: none;
+    &:hover {
+      background: linear-gradient(#3392CD, rgb(6, 107, 170));
+    }
+    &:disabled {
+      background: linear-gradient(#cccccc, #9ba5b8);
+    }
+  }
+  .bid-on-this-project {
+    width: 306px;
+  }
+  & .rating-wrapper{
+    display: flex;
+    align-items: center;
+    height: 20px;
+
+    .rating-mark{
+      background-color: #F7931E;
+      padding: 4px 7px 2px 7px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: $regular;
+      &.rating-mark-zero {
+        background-color: #9ba5b8;
+      }
+    }
+    .rating-stars-v1 {
+      width: 115px;
+      height: 20px;
+      padding: 2px 20px 2px 10px;
+    }
+
+    .reviews {
+      font-family: $RobotoLight;
+      font-size: 16px;
+      padding: 5px 5px 5px 5px;
+    }
+
+
+
+  }
+ 
+  .alert-primary{
+    padding: 12px;
+    background-color: #DBF4FF;
+    color: #164188;
+    border: 1px solid #AAE4FF;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 15px;
+  }
+
+  .card {
+    width: 100%;
+    margin-top: 30px;
+    background-color: #fff;
+    -webkit-border-radius: 5px;
+            border-radius: 5px;
+    padding: 15px;
+    -webkit-box-shadow: 0px 5px 5px 0px #dedede;
+            box-shadow: 0px 5px 5px 0px #dedede; 
+  }
+  .project-bid {
+  
+    .project-bid-details {
+      float: left;
+      padding: 6px 25px;
+      .title{
+        text-align: center;
+        color:#333333;
+        font-size: 14px;
+        font-family: $RobotoLight;
+      } 
+      .count{
+        text-align: center;
+        margin-top: 6px;
+        color: #008BCB;
+        font-size: 22px;
+        font-weight: $bold;
+      }
+    }
+
+    .bids {
+      border-right: 1px solid #cccccc
+    }
+
+    .avg-bid {
+      border-right: 1px solid #cccccc
+    }
+    
+    .project-bid-timeline {
+      float: right;
+      padding: 5px 25px;
+      color: #61AB00;
+      text-align: center;
+      p {
+        font-size: 14px;
+        text-align: center;
+      }
+      div {
+        font-size: 22px;
+        margin-top: 5px;
+        text-align: center;
+        font-weight: $bold;
+      }
+      .closed {
+        padding-top: 10px;
+        font-weight: $bold;
+      }
+    }
+    .project-bid-favorite {
+      float: right;
+      padding: 13px 20px;
+      color: #9BA6B8;
+      .btn-star {
+        font-size: 28px;
+        border: none;
+        cursor: pointer;
+      }
+      .stared {
+        color: #FFC54C;
+      }
+    }
+    @media (max-width: 900px) {
+      display: flex;
+      flex-flow: row wrap;
+      flex:  100%;
+      position: relative;
+
+      .project-bid-details {
+        flex: 1 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        margin: 7px 0;
+
+      }
+      .project-bid-timeline {
+        flex: 1 50%;
+        text-align: center;
+        margin: 7px 0;
+      }
+      .project-bid-favorite {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+      .avg-bid {
+        border-right: none;
+      }
+      .project-budget{
+        border-right: 1px solid #DEDEDE
+      }
+    }
+  }
+  
+  .project-description {
+    margin-top: 15px;
+    .about-project {
+      padding-right: 60px;
+      float: left;
+      padding: 25px;
+      .details-wrapper {
+        h2 {
+          font-size: 22px;
+          margin-bottom: 8px;
+          font-weight: $medium;
+        }
+        p {
+          margin-bottom: 54px;
+          line-height: 1.4rem;
+          font-size: 16px;
+          color: #4D525B;
+          font-family: $RobotoLight;
+        }
+      }
+      .skills-required {
+        h3 {
+          font-size: 22px;
+          margin-bottom: 8px;
+          font-weight: $medium;
+        }
+        .skill-items {
+          margin-bottom: 23px;
+          line-height: 1.4rem;
+          font-size: 15px;
+          a {
+            color: #018bcb;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+    .about-employer {
+      margin: 20px 0 0 0;
+      width: 40%;
+      float: right;
+      
+      h3 {
+        font-size: 22px;
+        font-weight: $bold;
+      }
+      .employer-information-wrapper {
+        display: flex;
+        margin: 30px 0;
+        align-items: flex-end;
+
+        .employer-information-photo-wrapper {
+
+        }
+        .employer-information-details-wrapper {
+          padding: 10px 0 10px 20px;
+          .rating-wrapper {
+            margin-bottom: 15px;
+          }
+          .achievement {
+            .verified {
+              margin-right: 10px;
+              background-color: #39B54A;
+              -webkit-border-radius: 15px;
+              border-radius: 15px;
+              padding: 4px 0px 0 1px;
+              color: #fff;
+            } 
+            .verified-icon {
+              float: left;
+              background: url('../assets/img/verified.svg');
+              width: 16px;
+              height: 16px;
+              margin: -2px 1px;
+            }
+            .verified-text{
+              float: left;
+              font-size: 12px;
+              padding-bottom: 3px;
+              margin-left: 2px;
+              margin-right: 7px;
+            }  
+            .price-icon {
+              float: left;
+              margin:0 9px;
+            }     
+            .message-icon {
+              float: left;
+              margin-right: 9px;
+            }              
+            .user-icon {
+              float: left;
+              margin-right: 9px;
+            }  
+            .phone-icon {
+              float: left;
+              margin-right: 9px;
+            }              
+            .achievement-item {
+              float: left;
+              margin-right: 9px;
+              height: 20px;
+            }
+
+          }
+        }
+        
+        @media (max-width: 1024px) {
+          flex-direction: column;
+          display: flex;
+          align-items: center;
+
+          .employer-information-photo-wrapper {
+            margin-bottom: 20px;          
+            width: 100%;
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 800px) {
+      display: flex;
+      flex-direction: column;
+      .about-project {
+        display: flex;
+        flex-direction: column;
+        .btn-project-main {
+          width: 300px;
+          font-weight: $bold;
+        }
+      }
+      .about-employer {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        margin: 30px 10px;
+        h3 {
+          text-align: center;
+        }
+
+      }
+    }
+  }
+
+  .place-bid {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    
+    .alert-primary {
+      strong {
+        font-weight: $bold;
+      }  
+    }
+
+    input {
+      width: 50px;
+      border-style: none;
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .place-bid-block {
+      display: flex;
+
+      .place-bid-left-block {
+        flex: 50%;
+
+        .bid-information {
+          width: 100%;
+          padding: 50px 0 30px 30px;
+
+          .bid-input-wrapper {
+            width: 65%;
+            padding-right: 30px;
+            float: left;
+            font-family: $RobotoLight;
+            .bid-input-label {
+              font-size: 14px;
+              margin-bottom: 15px;
+              font-weight: $medium;
+            }
+            .bid-input-block {
+              display: flex;
+            }
+            .paid-to-you {
+              font-size: 14px;
+              color: #333;
+              width: 159px;
+              padding: 4px 0;
+            }
+
+            .bid-input-wrapper-v2 {
+              position: relative;
+              width: 150px;
+              height: 28px;
+              float: right;
+              font-size: 14px;
+              line-height: 28px;
+              background-color: #EEEEEE;
+              -webkit-border-radius: 4px;
+              border-radius: 4px;
+              border: 1px solid #CCCCCC;
+
+              .bid-input-dollar-icon-v2 {
+                line-height: 26px;
+                left: 0;
+                position: absolute;
+                height: 100%;
+                width: 28px;
+                text-align: center;
+                -webkit-border-bottom-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+                -webkit-border-top-left-radius: 4px;
+                border-top-left-radius: 4px;
+              }
+              .bid-input-v2 {
+                position: absolute;
+                padding: 0 5px;
+                top: 0;
+                text-align: left;
+                left: 28px;
+                width: 60px;
+                height: 100%;
+                border: none;
+                border-right: 1px solid #ccc;
+                border-left: 1px solid #ccc;
+              }
+              .bid-input-usd-v2 {
+                position: absolute;
+                height: 100%;
+                width: 60px;
+                line-height: 26px;
+                right: 0;
+                text-align: center;
+                -webkit-border-bottom-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+                -webkit-border-top-right-radius: 4px;
+                border-top-right-radius: 4px;
+              }
+              &.bid-input-error-wrapper-v2 {
+                border: 1px solid #B94A48;
+                color: #B94A48;
+                background: #F2DEDE;
+                .bid-input-v2 {
+                  border-left: 1px solid #B94A48;
+                  border-right: 1px solid #B94A48;
+                  color: #B94A48;
+                }
+              }
+
+              .input-error-pop-up {
+                position: relative;
+                display: block;
+                width: 250px;
+                padding: 10px 12px;
+                position: absolute;
+                top: 42px;
+                background-color: #F2DEDE;
+                line-height: 18px;
+                color: #B94A48;
+                -webkit-border-radius: 4px;
+                border-radius: 4px;
+                z-index: 30;
+
+                .triangle {
+                  position: absolute;
+                  top: -6px;
+                  left: 58px;
+                  width: 0;
+                  height: 0;
+                  border-style: solid;
+                  border-width: 0 7px 7px 7px;
+                  border-color: transparent transparent #F2DEDE transparent;
+                }
+              }
+            }
+          }
+
+          .delivery-input-wrapper {
+            width: 35%;
+            float: left;
+            font-family: $RobotoLight;
+            .delivery-input-label {
+              font-size: 14px;
+              margin-bottom: 15px;
+              font-weight: $medium;
+            }
+            .delivery-input-block {
+              position: relative;
+              width: 120px;
+              height: 28px;
+              -webkit-border-radius: 4px;
+              border-radius: 4px;
+              border: 1px solid #CCCCCC;
+              background-color: #EEEEEE;
+
+              .delivery-input {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 64px;
+                height: 100%;
+                border: none;
+                text-indent: 10px;
+                text-align: left;
+                padding: 0 5px;
+                -webkit-border-top-left-radius: 4px;
+                border-top-left-radius: 4px;
+                -webkit-border-bottom-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+              }
+
+              .delivery-days-input {
+                position: absolute;
+                height: 100%;
+                top: 0;
+                right: 0;
+                width: 54px;
+                line-height: 26px;
+                text-align: center;
+                border-left: 1px solid #ccc;
+              }
+              &.delivery-input-error-block{
+                border: 1px solid #B94A48;
+                background-color: #F2DEDE;
+                .delivery-days-input {
+                  border-left: 1px solid #B94A48;
+                  color: #B94A48;
+                }
+                .delivery-input {
+                  color: #B94A48;
+                }
+              }
+            }
+          }
+
+          .bid-info-description-wrap {
+            margin-top: 80px;
+            font-family: $RobotoLight;
+            .bid-info-description {
+              display: flex;
+              font-size: 14px;
+              margin-bottom: 13px;
+              input {
+                width: 50px;
+                border-style: none;
+                font-size: 14px;
+                text-align: right;
+              }
+
+              .your-bid {
+                width: 159px;
+              }
+              .your-bid-input {
+                font-weight: $bold;
+              }
+
+              .job-done {
+                width: 159px;
+              }
+              .job-done-input {
+                font-weight: $bold;
+              }
+            
+              .font-weight-bold {
+                font-weight: bold;
+              }
+              .price {
+                margin-left: 17px;
+              }
+              @media (max-width: 600px) { 
+                justify-content: space-between;
+                padding-right: 30px;
+              }
+            }
+          }
+        }
+      }
+
+      .place-bid-right-block {
+        flex: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        button {
+          display: flex;
+          position: relative;
+          justify-content: center;
+          width: 178px;
+          span {
+            padding-right: 10px;
+          }
+          .Spinner__container {
+            position: absolute;
+            top: 12px;
+            right: 6px;
+          }
+        }
+
+      }
+
+      @media (max-width: 1024px) { 
+        .place-bid-left-block {
+          flex: 70%;
+        }
+        .place-bid-right-block {
+          flex: 30%;
+        }
+      }
+      @media (max-width: 800px) {
+        flex-direction: column;
+
+      }
+      @media (max-width: 600px) {
+        .bid-information {
+          display: flex;
+          flex-direction: column;
+          
+        }
+        .bid-info-description-wrap {
+          margin-top: 40px;
+        }
+        .delivery-input-wrapper {
+          display: flex;
+          flex-direction: right;
+          margin-top: 20px;
+          width: 100% !important;
+          justify-content: space-between;
+          padding-right: 30px;
+
+        }
+        .bid-input-block {
+          justify-content: space-between;
+        }
+        .bid-input-wrapper {
+          width: 100% !important;
+          
+        }
+        .input-error-pop-up {
+          right: 0px;
+          .triangle {
+            left: 154px !important;
+          }
+        }
+      }
+    }
+  }
+
+  .placed-bids {
+    width: 100%;
+    margin-bottom: 50px;
+
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 2s; /* Firefox < 16 */
+     -ms-animation: fadein 2s; /* Internet Explorer */
+      -o-animation: fadein 2s; /* Opera < 12.1 */
+         animation: fadein 2s;
+
+    .bids-header {
+      display: flex;
+      margin-top: 16px;
+      padding: 22px 0 22px 20px;
+      background-color: #1F2836;
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 17px;
+      font-weight: $bold;
+      .freelancers-bidding {
+        width: 60%;
+        padding: 0 5px;
+      }    
+      .reputation {
+        width: 30%;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        padding: 0 10px;
+        cursor: pointer;
+        span {
+          margin-right: 10px;
+        }
+      }
+      .bid {
+        width: 10%;
+        padding: 0 5px;
+      }
+      @media (max-width: 640px) {
+        width: 100%;
+        .reputation, .bid {
+          display: none;
+        }
+        .freelancers-bidding {
+          width: 100%;
+          text-align: center;
+        }
+
+      }
+    }
+    .bids-list {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      margin: 0px  !important;
+      padding: 0px !important;
+      .result-item{
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        border-top: 1px solid #CCCCCC;
+        .close {
+          position: absolute;
+          right: 8px;
+          top: 10px;
+          font-size: 14px;
+        }
+        .popover-report {
+          position: absolute;
+          background: #FFFFFF;
+          right: -125px;
+          top: 4px;
+          padding: 5px 8px;
+          border-radius: 5px;
+          box-shadow: 0px 5px 5px 0px #dedede;
+          display: none;
+          cursor: pointer;
+          &:hover {
+            color: #018bcb;
+          }
+          @media (max-width: 1360px) {
+            right: -33px;
+            top: 24px;
+          }
+         
+        }
+        .freelancer-info {
+          padding: 20px 20px;
+          flex: 0.6;
+          display: flex;
+          flex-direction: row;
+          .freelancer-photo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            img {
+              widows: 90px;
+              border: none;
+            }
+            a {
+              display: block;
+              text-align: center;
+              margin: 10px auto;
+              color: #008BCB;
+              text-decoration: none;
+              font-size: 14px;
+            }
+          }
+          .freelancer-main-info {
+            display: flex;
+            flex-direction: column;
+            padding: 25px 30px;
+            float: left;
+            font-family: $RobotoLight;
+            .name{
+              display: flex;
+              align-items: center;
+              
+              color: #008BCB;
+              font-size: 17px;
+              span {
+                padding: 2px 5px;
+                font-weight: $bold;
+              }
+            }
+            .available {
+              font-size: 15px;
+              margin: 6px 0;
+            }
+            .freelancer-info {
+              padding: 20px 25px !important;
+            }
+
+          }
+        }
+        .freelancer-reputation {
+          flex: 0.3;
+          padding: 30px 0;
+
+          .reputation-item-v2 {
+            margin: 18px 0 4px 0;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-family: $RobotoLight;
+            .currency {
+              color:#39B54A;
+              margin: 3px 6px 3px 13px;
+              font-weight: $regular;
+            }
+            &.rate-block{
+              flex-direction: column;
+              align-items: flex-start;
+              margin-top: 0px;
+            }
+            .reviews-count {
+              margin-bottom: 6px;
+              
+            }
+            .round-mask {
+              position: relative;
+              width: 70px;
+              height: 9px;
+              overflow: hidden;
+              border-radius: 2px;
+              .reviews-details {
+                font-size: 16px;
+                position: absolute;
+                top: -5px;
+              }
+            }
+          }
+        }
+        .freelancer-bid {
+          flex: 0.1;
+          margin-top: 70px;
+          text-align: center;
+          .fee {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: $medium;
+          }
+          .time {
+            font-size: 14px;
+            color: #616161;
+            font-family: $RobotoLight;
+          }
+          
+        }        
+        
+        @media (max-width: 640px) {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          .freelancer-bid {
+            margin: 10px 0;
+            padding-top: 15px;
+            padding-bottom: 30px;
+          }
+          .freelancer-reputation {
+            padding: 0px;
+          }
+          .freelancer-info {
+            flex-direction: column;
+            padding-bottom: 10px;
+          }
+        }
+
+      }
+
+    }
+  }
+  .load-more {
+    width: 100%;
+    padding: 10px;
+    justify-content: center;
+    display: flex;
+    font-family: $RobotoLight;
+    button {
+      display: block;
+      width: 100px;
+      height: 30px;
+      font-size: 16px;
+      &:hover {
+        background: #cccccc;
+      }
+    }
+  }   
+  .arrow-up, .arrow-down {
+    background: url('../assets/img/arrow-down-icon.svg');
+    background-repeat: no-repeat;
+    width: 15px;
+    height: 7px;
+    margin: 0 5px;  
+  }
+  .arrow-up {
+    /* flip background vertically */
+    -webkit-transform:scaleY(-1);
+    -moz-transform:scaleY(-1);
+    -ms-transform:scaleY(-1);
+    -o-transform:scaleY(-1);
+    transform:scaleY(-1);
+  }
+
+
+  .price-icon {
+    background: url('../assets/img/price-icon.svg');
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    &.price-icon-disabled {
+      background: url('../assets/img/price-icon-disabled.svg');
+    }
+  }     
+  .message-icon {
+    background: url('../assets/img/message-icon.svg');
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    &.message-icon-disabled {
+      background: url('../assets/img/message-icon-disabled.svg');
+    }
+  }              
+  .user-icon {
+    background: url('../assets/img/user-icon.svg');
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    &.user-icon-disabled {
+      background: url('../assets/img/user-icon-disabled.svg');
+    }
+  }  
+  .phone-icon {
+    background: url('../assets/img/phone-icon.svg');
+    width: 20px;
+    height: 20px;
+    &.phone-icon-disabled {
+      background: url('../assets/img/phone-icon-disabled.svg');
+    }
+  }              
+
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+      /* display: none; <- Crashes Chrome on hover */
+      -webkit-appearance: none;
+      margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+
+}
+
+.loading-content {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background: white;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 88px;
+}

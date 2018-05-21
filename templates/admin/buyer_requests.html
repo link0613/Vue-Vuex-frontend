@@ -1,0 +1,59 @@
+{% extends "admin/layout.html" %}
+{% import "admin/macros.html" as macros with context %}
+
+{% block admin_title %}Buyer requests{% endblock %}
+
+{% block admin_body %}
+
+<div class="panel-body">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <p class="alert alert-danger">
+        {% for message in messages %}
+          {{ message }}<br />
+        {% endfor %}
+        </p>
+      {% endif %}
+    {% endwith %}
+</div>
+
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>User</th>
+      <th>Title</th>
+      <th>Payment type</th>
+      <th>Project type</th>
+      <th>Project payment type</th>
+      <th>Is Published</th>
+      <th>Created</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for buyer_request in pagination.items %}
+    <tr>
+      <td>{{ buyer_request.id }}</td>
+      <td><a href="{{ url_for('admin.user', user_id=buyer_request.user_id) }}">{{ buyer_request.user.username }}</a></td>
+      <td>{{ buyer_request.title }}</td>
+      <td>{{ buyer_request.payment_type }}</td>
+      <td>{{ buyer_request.project_type }}</td>
+      <td>{{ buyer_request.paid_project_type }}</td>
+      <td>{% if buyer_request.is_published %}Yes{% else %}No{% endif %}</td>
+      <td>{{ buyer_request.created_on }}</td>
+      <td>
+          <a class="btn btn-xs btn-default" href="{{ url_for('admin.buyer_request_item', buyer_request_id=buyer_request.id) }}">View</a>
+      </td>
+    </tr>
+    {% else %}
+      <td colspan="8">No buyer requests</td>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="panel-body">
+  {{ macros.pagination(pagination) }}
+</div>
+
+{% endblock %}

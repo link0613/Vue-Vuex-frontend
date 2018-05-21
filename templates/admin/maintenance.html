@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JobDone - Maintenance Panel</title>
+
+    <link rel="stylesheet" href="{{ static_file('assets/maintenance.css', include_version=True) }}">
+</head>
+<body>
+    <main id="app">
+        <div class="container" v-cloak>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="Panel Panel-email-today">
+                        <h4>Email messages &mdash; today</h4>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>E-mail</th>
+                                            <th>Subject</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-if="emailToday.loading || emailToday.error">
+                                        <tr><td colspan="3" class="text-center">
+                                            <span class="text-muted" v-if="emailToday.loading"><span class="glyphicon glyphicon-refresh"></span> Loading</span>
+                                            <span class="text-danger" v-if="emailToday.error" v-text="emailToday.error"></span>
+                                        </td></tr>
+                                    </tbody>
+                                    <tbody v-else>
+                                        <tr v-for="row in emailToday.data">
+                                            <td>
+                                                <span v-text="row.recipient"></span><br />
+                                                <span class="label label-danger" v-if="!row.is_sent">pending</span>
+                                            </td>
+                                            <td v-text="row.subject"></td>
+                                            <td v-text="row.created_on"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <button class="btn btn-primary" :disabled="emailToday.loading" @click="emailTodayLoad">Load data</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="Panel Panel-email-failed">
+                        <h4>Email messages &mdash; failed</h4>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>E-mail</th>
+                                            <th>Subject</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-if="emailFailed.loading || emailFailed.error">
+                                        <tr><td colspan="3" class="text-center">
+                                            <span class="text-muted" v-if="emailFailed.loading"><span class="glyphicon glyphicon-refresh"></span> Loading</span>
+                                            <span class="text-danger" v-if="emailFailed.error" v-text="emailFailed.error"></span>
+                                        </td></tr>
+                                    </tbody>
+                                    <tbody v-else>
+                                        <tr v-for="row in emailFailed.data">
+                                            <td v-text="row.recipient"></th>
+                                            <td v-text="row.subject"></th>
+                                            <td v-text="row.created_on"></th>
+                                        </tr>
+                                        <tr v-if="!emailFailed.data.length">
+                                            <td colspan="3" class="text-muted text-center">No data</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="text/javascript">
+    window.MT_BOOTSTRAP_DATA = {{ application_data|tojson|safe }};
+    </script>
+
+    <script type="text/javascript" src="{{ static_file('assets/vendor.js', include_version=True) }}"></script>
+    {% block scripts %}{% endblock %}
+    
+    <script type="text/javascript" src="{{ static_file('assets/maintenance.js', include_version=True) }}"></script>
+</body>
+</html>

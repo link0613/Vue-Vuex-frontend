@@ -1,0 +1,19 @@
+{% extends "new/layout-only-body.html" %}
+
+{% block body %}
+<main id="sm-account-unsubscribe" class="container">
+  <div class="page-container">
+    <div class="page-header">
+      <div class="unsubscribe-header"></div>
+    </div>
+    <div class="page-body">
+      <div class="unsubscribe-container">
+        <div class="unsubscribe-inner">
+          <h1>You are now unsubscribed</h1>
+        </div>
+        <p>Unsubscribed by accident? <span class="unsubscribe-resubscribe" @click="HandleResubscribe">Resubscribe</span></p>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

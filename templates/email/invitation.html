@@ -1,0 +1,13 @@
+{% extends "email/layout.html" %}
+
+{% block heading %}Dear Friend!{% endblock %}
+
+{% block content %}
+<p>{{ username }} has invited you to JobDone.net</p>
+
+<p>Once you complete registration, you'll receive $20 bonus after verifying your payment method.</p>
+
+<p>Please follow this link to sign up:</p>
+
+<a href="{{ link }}" style="background: #0472b8; border-radius: 4px; color: #fff; padding: 16px; margin-top: 10px; text-decoration: none; display: block; width: 200px; text-align: center; margin: 20px auto 0;">Sign Up and Get My Bonus</a>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "email/layout.txt" %}
+
+{% block content %}Dear Friend!
+{{ username }} has invited you to JobDone.net
+
+Please follow this link to sign up:
+{{ link }}
+
+Once you complete registration, you'll receive $20 bonus after verifying your payment method.
+{% endblock %}

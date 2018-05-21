@@ -1,0 +1,26 @@
+{% extends "email/marketing/layout.html" %}
+
+{% block heading %}Hello {{ username }}!{% endblock %}
+
+{% block content %}
+<p>It's time to get serious, and our goal is to help you. The first step is to publish some services on our marketplace.</p>
+
+<p><strong>Publish at least 6 services</strong> on JobDone today and we will give you an opportunity to 
+become our <strong>PRO seller</strong>.</p>
+
+<p>The steps to follow are these:</p>
+
+<ol>
+    <li><a href="{{ link_add_service }}?utm_source=newsletter&utm_medium=funnelsellers&utm_campaign=day1&utm_term=addservice">Publish 6+ services</a></li>
+    <li><a href="{{ link_profile }}?utm_source=newsletter&utm_medium=funnelsellers&utm_campaign=day1&utm_term=completeprofile">Complete your profile information</a></li>
+    <li><a href="{{ link_endorse }}?utm_source=newsletter&utm_medium=funnelsellers&utm_campaign=day1&utm_term=endorse">Ask at least 5 of your friends to endorse you</a></li>
+    <li>Complete 5 orders with positive feedbacks from your buyers</li>
+    <li>Wait for screening process to complete</li>
+</ol>
+
+<p><strong>NOTE:</strong> This offer is available limited time and for the limited number of sellers.</p>
+
+<p style="color: #999;">If you have any questions about the service, or any feedback, just reply and let us know. We're always here to help.</p>
+
+<p>Thank you!</p>
+{% endblock %}

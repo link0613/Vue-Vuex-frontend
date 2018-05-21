@@ -1,0 +1,48 @@
+<div id="jobdone-widget">
+  <div style="height: 127px; min-width: 325px; border-radius: 5px; background-color: #fff; overflow: hidden;">
+    <div style="height: 100%;padding: 10px;">
+      <div style="float: left;margin-right: 10px;" v-if="widgetEmail.showAvatar">
+        <div style="width: 80px; height: 107px; display: inline-block; display: table-cell;vertical-align: middle;">
+          <div style="position: relative; width: 80px; height: 80px; overflow: hidden;" :style="widgetEmail.avatarStyles">
+            <a :href="'http://jobdone.net/freelancer/' + username + '.html'">
+              <div style="width: 78px; height: 78px; left: 1px; top: 1px; /* border-radius: 50%;*/ ;      position: absolute;  background-color: #0b83cd; color: #fff; display: flex; align-items: center; justify-content: center; text-transform: uppercase; font-size: 65px; font-weight: 400; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; ">{{ g.user.username|first }}</div>
+              <img src="{{ g.user.get_photo_url('p_up') }}"
+                   alt=""
+                   style="width: 80px; height: 80px;position: relative;">
+            </a>
+          </div>
+          <div style="margin: 10px auto 0;">
+            <div style="width: 13px; height: 13px; display: inline-block;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.17 18.15"><g><g><polygon style="fill:#fbb03b;" points="9.59 0 12.55 5.98 19.17 6.93 14.38 11.59 15.51 18.15 9.59 15.05 3.66 18.15 4.79 11.59 0 6.93 6.62 5.98 9.59 0"/></g></g></svg>
+            </div>
+            <div style="width: 13px; height: 13px; display: inline-block;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.17 18.15"><g><g><polygon style="fill:#fbb03b;" points="9.59 0 12.55 5.98 19.17 6.93 14.38 11.59 15.51 18.15 9.59 15.05 3.66 18.15 4.79 11.59 0 6.93 6.62 5.98 9.59 0"/></g></g></svg>
+            </div>
+            <div style="width: 13px; height: 13px; display: inline-block;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.17 18.15"><g><g><polygon style="fill:#fbb03b;" points="9.59 0 12.55 5.98 19.17 6.93 14.38 11.59 15.51 18.15 9.59 15.05 3.66 18.15 4.79 11.59 0 6.93 6.62 5.98 9.59 0"/></g></g></svg>
+            </div>
+            <div style="width: 13px; height: 13px; display: inline-block;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.17 18.15"><g><g><polygon style="fill:#fbb03b;" points="9.59 0 12.55 5.98 19.17 6.93 14.38 11.59 15.51 18.15 9.59 15.05 3.66 18.15 4.79 11.59 0 6.93 6.62 5.98 9.59 0"/></g></g></svg>
+            </div>
+            <div style="width: 13px; height: 13px; display: inline-block;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.17 18.15"><g><g><polygon style="fill:#fbb03b;" points="9.59 0 12.55 5.98 19.17 6.93 14.38 11.59 15.51 18.15 9.59 15.05 3.66 18.15 4.79 11.59 0 6.93 6.62 5.98 9.59 0"/></g></g></svg>
+            </div>
+            <div style="width: 13px; height: 13px;" v-if="false">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.32 20.19"><g><g><polygon style="fill:#fff;stroke:#e3e3e3;stroke-miterlimit:10;" points="10.66 1.13 13.62 7.1 20.25 8.06 15.46 12.71 16.59 19.28 10.66 16.18 4.74 19.28 5.87 12.71 1.08 8.06 7.7 7.1 10.66 1.13"/></g></g></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 3px;display: inline-block;float: left;">
+        <div style="min-height: 90px;">
+          <div style="font-family: Lato; font-size: 18px; font-weight: 400; color: #666666; margin-bottom: 2px;" v-text="widgetEmail.name" v-if="widgetEmail.name"></div>
+          <div style="font-family: Lato; font-size: 15px; font-weight: 400; color: #666666; margin-bottom: 2px;" v-text="widgetEmail.title" v-if="widgetEmail.title"></div>
+          <div style="font-family: Lato; font-size: 15px; font-weight: 500; color: #666666; margin-bottom: 2px;" v-if="widgetEmail.phone || widgetEmail.mobile"><span v-if="widgetEmail.phone">P: <span v-text="widgetEmail.phone"></span></span><span v-if="widgetEmail.mobile"> M: <span v-text="widgetEmail.mobile"></span></span></div>
+          <div style="font-family: Lato; font-size: 15px; font-weight: 400; color: #666666; margin-bottom: 2px;" v-if="widgetEmail.email">M: <span v-text="widgetEmail.email"></span></div>
+          <div style="font-family: Lato; font-size: 15px; font-weight: 300; color: #666666;" v-if="widgetEmail.address">A: <span v-text="widgetEmail.address"></span></div>
+        </div>
+        <a style="padding: 0;border: none;font-family: Lato; font-size: 14px; font-weight: 400;color: #287FBF;text-decoration:none;" :href="'http://jobdone.net/freelancer/' + username + '.html'">HIRE ME ON JOBDONE.NET</a>
+      </div>
+    </div>
+  </div>
+</div>

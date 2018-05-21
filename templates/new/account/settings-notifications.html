@@ -1,0 +1,85 @@
+{% set tab = 'notifications' %}
+
+{% extends "new/account/settings-layout.html" %}
+
+{% block title %}Settings - Notification | jobdone.net{% endblock %}
+
+{% block settings_body %}
+<div class="settings-container">
+  <div class="settings-notif-header">
+    <h2>Notifications options</h2>
+    <div>
+      <span>{{ g.user.email }}</span>
+    </div>
+  </div>
+
+  <div class="settings-notif-body">
+    <div class="settings-notif-options">
+      <div class="settings-notif-options-inner">
+        <div class="settings-notif-options-container">
+          <h5 class="settings-notif-options-header">
+            Notifications Jobdone
+          </h5>
+          <ul class="settings-notif-options-list">
+            <li class="settings-notif-option">
+              <input type="checkbox" name="checkbox-list1">
+              <label>Newsletter</label>
+            </li>
+            <li class="settings-notif-option">
+              <input type="checkbox" name="checkbox-list1">
+              <label>Newsletter</label>
+            </li>
+            <li class="settings-notif-option">
+              <input type="checkbox" name="checkbox-list1">
+              <label>Newsletter</label>
+            </li>
+          </ul>
+        </div>
+        <div class="settings-notif-options-container">
+          <h5 class="settings-notif-options-header">
+            Individual Notifications
+          </h5>
+          <ul class="settings-notif-options-list">
+            <li class="settings-notif-option">
+              <input type="checkbox" name="checkbox-list2">
+              <label>Newsletter</label>
+            </li>
+            <li class="settings-notif-option">
+              <input type="checkbox" name="checkbox-list2">
+              <label>Newsletter</label>
+            </li>
+            <li class="settings-notif-option">
+              <input type="checkbox" name="checkbox-list2">
+              <label>Newsletter</label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="settings-notif-options-inner">
+        <div class="settings-notif-options-container">
+          <h5 class="settings-notif-options-header">
+            Other Notifications
+          </h5>
+          <ul class="settings-notif-options-list">
+            <li class="settings-notif-option">
+              <input type="checkbox" name="checkbox-list3">
+              <label>Newsletter</label>
+            </li>
+            <li class="settings-notif-option">
+              <input type="checkbox" name="checkbox-list3">
+              <label>Newsletter</label>
+            </li>
+            <li class="settings-notif-option">
+              <input type="checkbox" name="checkbox-list3">
+              <label>Newsletter</label>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="settings-notif-btn-container">
+      <button class="btn btn-primary" @click="HandleSaveSettings">SAVE SETTINGS</button>
+    </div>
+  </div>
+</div>
+{% endblock %}

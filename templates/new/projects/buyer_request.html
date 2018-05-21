@@ -1,0 +1,304 @@
+{% extends "new/projects/layout.html" %}
+
+{% block body %}
+  <main id="sm-buyer-request">
+    <div v-if="isLoading" class="loading-content">
+      <spinner ></spinner>
+    </div>
+    <div class="content content-project">
+      <div class="buyer-title">
+        <h1>{{ buyer_request.title }}</h1>
+      </div>
+
+      <!-- Bids -->
+      <div class="project-bid card">
+        <div class="project-bid-details bids">
+          <div class="title">
+            Bids
+          </div>
+          <div class="count">
+            {{ buyer_request.bids_count }}
+          </div>
+        </div>
+        <div class="project-bid-details avg-bid">
+          <div class="title">
+            Avg Bid (USD)
+          </div>
+          <div class="count">
+              ${{ buyer_request.average_bid|int }}
+          </div>
+        </div>
+        <div class="project-bid-details project-budget">
+          <div class="title">
+            Project Budget (USD)
+          </div>
+          <div class="count">
+            {{ buyer_request.project_budget_range }}
+          </div>
+        </div>
+        <input type="hidden" id="is_favorite" value="{{is_favorite}}" />
+        <div class="project-bid-favorite">
+          <div :class="isFavorite?'btn-star stared':'btn-star'" 
+            @click="toggleFavorite({{buyer_request.id}})">
+            <span class="fa fa-star"></span>
+          </div>
+        </div>
+
+        <div class="project-bid-timeline">
+          {% if buyer_request.is_open %}
+            <p>{{ days_left|timedelta_pretty_print }} left</p>
+            <div>OPEN</div>
+          {% else %}
+            <div class="closed">CLOSED</div>
+          {% endif %}
+        </div>
+
+      </div>
+
+      <!-- Project description -->
+      <div class="project-description card">
+        <div class="about-project">
+          <div class="details-wrapper">
+            <h2>Project Description</h2>
+            <p>{{ buyer_request.description }}</p>
+          </div>
+          <div class="skills-required">
+            <h3>Skill required</h3>
+            <div class="skill-items"> 
+              <span v-for="(skill, index) in skillSet" :key="index">
+                <span v-if="index>0">,</span>
+                <a href="#">{% raw %}{{skill}}{% endraw %}</a>
+              </span>
+            </div>
+          </div>
+          <a v-if="!placeBidBlock" href="#" class="btn-project-main bid-on-this-project" v-on:click="showPlaceBidBlock({{buyer_request.id}})">Bid on This Project</a>
+        </div>
+        <div class="about-employer">
+          <h3>About the employer</h3>
+          <div class="employer-information-wrapper" >
+            <div class="employer-information-photo-wrapper" >
+              <div class="avatar">
+                <img src="{{ buyer.get_photo_url('p_up') }}" username="{{ buyer.username }}" @error="imgError" />
+              </div>
+            </div>
+            <div class="employer-information-details-wrapper"> 
+              <div class="rating-wrapper">
+                <span :class="'rating-mark ' + ({{ buyer.rating|round }}==0?'rating-mark-zero':'')">{{ buyer.rating|round }}</span>
+                <span class="rating-stars-v1">
+                  <start-rating 
+                    :glyph="starIcon"
+                    active-color="#F7931E"
+                    inactive-color="#9BA6B8"
+                    :border-width="0.0"
+                    :spacing="5.0"
+                    :item-size="16.0" 
+                    :rating="{{ buyer.rating|round }}" 
+                    :read-only="true" 
+                    :show-rating="false" />
+                </span>
+                
+                <span class="reviews">(121 Reviews)</span>
+                {% if buyer.country %}
+                  <span class="icon f16"><span class="flag {{ buyer.country.lower() }}"></span></span>
+                {% endif %}                
+              </div>
+              <div class="achievement">
+                <div class="verified achievement-item">
+                  <div class="verified-icon"></div>
+                  <span class="verified-text uppercase">verified</span>
+                </div>
+                <div class="achievemsent-item">
+                  <div class="price-icon price-icon-disabled"></div>
+                  <div class="message-icon message-icon-disabled"></div>
+                  <div class="user-icon user-icon-disabled"></div>
+                  <div class="phone-icon phone-icon-disabled"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="placeBidBlock" class="place-bid card">
+        <div class="alert alert-primary" role="alert">
+          <strong>NOTE:</strong>
+           JobDone Project Fee will only be charged when you get awarded and accept the project
+        </div>
+        <div v-if="placedBid" class="alert alert-success" role="alert">
+            Your bid was placed successfully!
+        </div>        
+        <div class="place-bid-block">
+          <div class="place-bid-left-block">
+            <div class="bid-information">
+              <div class="bid-input-wrapper">
+                <div class="bid-input-label" >Bid:</div>
+                <div class="bid-input-block">
+                  <div class="paid-to-you">{{ bid_form.price.label }}:</div>
+                  <div :class="'bid-input-wrapper-v2 ' + (pricingError?'bid-input-error-wrapper-v2':'')" >
+                    <div class="bid-input-dollar-icon-v2">$</div>
+                    
+                    <input :id="inputPriceBidId" 
+                      class="bid-input-v2" type="number" placeholder="200" v-model="priceBid" @keyup="keyMonitor" :disabled="placedBid">
+                    
+                    <div class="bid-input-usd-v2">USD</div>
+                    <div v-if="pricingError" class="input-error-pop-up">
+                      <p>Please enter a value greater than or equal to $30 USD.</p>
+                      <div class="triangle"></div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="delivery-input-wrapper">
+              <div class="delivery-input-label">Deliver in:</div>
+              <div :class="'delivery-input-block ' + (deliveryError?'delivery-input-error-block':'')">
+                <input :Id="inputDayDeliveryId" class="delivery-input" type="number" placeholder="20" v-model="deliveryDays" :disabled="placedBid" @keyup="keyMonitor"/>
+                <div class="delivery-days-input">Days</div>
+              </div>
+            </div>
+              <div class="bid-info-description-wrap">
+                <div class="bid-info-description">
+                  <div class="job-done">JobDone Project Fee:</div>
+                  <div class="job-done-input">
+                    <span class="">$</span>
+                    <span class="price"><!--<input type="text" v-model="priceFee" readonly/>--> {% raw %} {{ priceFee }} {% endraw %} USD</span>
+                  </div>
+                </div>
+                <div class="bid-info-description">
+                  <div class="your-bid">Your bid:</div>
+                  <div class="your-bid-input">
+                    <span class="">$</span>
+                    <span class="price" >
+                      <!--<input :id="inputPriceGetId" type="input" v-model="priceGet" @keyup="keyMonitor" :disabled="placedBid"/>-->{% raw %} {{ priceGet }} {% endraw %} USD
+                    </span>
+                  </div>
+                </div>              
+              </div>  
+            </div>
+          </div>
+
+          <div class="place-bid-right-block">
+            <button class="btn-project-main" type="button" v-on:click="placeBid({{buyer_request.id}})" :disabled="placedBid||isPlacingBid">
+              <span>Place Bid</span><spinner v-if="isPlacingBid"></spinner>
+            </button>
+          </div> 
+        </div>       
+      </div>
+ 
+ 
+
+      <div class="placed-bids">
+        <div class="bids-header">
+          <div class="freelancers-bidding">
+            Freelancers bidding ({% raw %}{{ bidList.length }}{% endraw %})
+          </div>
+          <div class="reputation" v-on:click="invertSort()">
+            <span>Reputation</span><div :class="'arrow-' + (sortASC?'down':'up')"></div>
+          </div>
+          <div class="bid">
+            Bid (USD)
+          </div>
+          
+        </div>
+        
+        <ul class="bids-list card" id="bids-list">
+          <!-- TODO Use JS template system so we can populate data same way for initial batch and after load more button clicked -->
+          <li v-for="(bid,index) in bidListSort" class="result-item">
+            <div class="fa fa-close close" v-on:click="toggleReport(index)"></div>
+            <div :id="'report_' + index" class="popover-report" v-on:click="reportAsAbuse({{buyer_request.id}},bid.freelancer.user.id)">Report as abuse</div>
+            <div class="freelancer-info"> 
+              <div class="freelancer-photo">
+                <!-- Photo and link -->
+                <img :src="bid.freelancer.photo_url" class="img-thumbnail"/>
+                <a :href="bid.freelancer.url">Portfolio</a>
+              </div>
+              <div class="freelancer-main-info">
+                <!-- Name and last seen -->
+                <div class="name">
+                  <span>{% raw %}{{ bid.freelancer.user.profile_display_name }}{% endraw %}</span>
+                  <span class="icon f16"><span :class="'flag ' + bid.freelancer.country.toLowerCase()"></span></span>
+                </div>
+                <div class="available">{% raw %}{{ bid.created_on }}{% endraw %}</div>
+              </div>
+            </div>  
+            <div class="freelancer-reputation">
+              <!-- Reputation and stats -->
+              <div class="rating-wrapper">
+                <span :class="'rating-mark ' + (bid.freelancer.statistics.feedbacks_rating==0?'rating-mark-zero':'')">{% raw %}{{ bid.freelancer.statistics.feedbacks_rating.toFixed(1) }}{% endraw %}</span>
+                <span class="rating-stars-v1">
+                    <div class="stars">
+                      <start-rating 
+                        :glyph="starIcon"
+                        active-color="#F7931E"
+                        inactive-color="#9BA6B8"
+                        :border-width="0.0"
+                        :spacing="3.0"
+                        :item-size="16.0" 
+                        :rating="bid.freelancer.statistics.feedbacks_rating" 
+                        :read-only="true" 
+                        :show-rating="false"
+                        :increment="0.1"
+                        />
+                    </div>
+                  </span>
+              </div>
+              <div class="reputation-item-v2 price-item">
+                <span class="mark">{% raw %}{{ bid.freelancer.statistics.feedbacks_rating_round.toFixed(1)  }}{% endraw %}</span>
+                <span class="currency">$</span>
+                <div class="round-mask">
+                  <div class="reviews-details">
+                    
+                    <start-rating 
+                      :glyph="rectanbleIcon"
+                      active-color="#39B54A"
+                      inactive-color="#B4C1D6"
+                      :border-width="0.0"
+                      :spacing="0"
+                      :item-size="9.0" 
+                      :rating="bid.freelancer.statistics.feedbacks_rating_round*8/5" 
+                      :read-only="true" 
+                      :show-rating="false" 
+                      :max-rating="8.0"
+                      :increment="0.1"
+                      />
+                  </div>
+                </div>
+              </div>
+
+              <div class="reputation-item-v2 rate-block">
+                <div v-if="bid.freelancer.statistics.feedbacks_count>0">
+                  <p  class="reviews-count">
+                    ({% raw %}{{ bid.freelancer.statistics.feedbacks_count }}{% endraw %} Reviews)
+                  </p>
+                  <span v-if="bid.freelancer.statistics.orders_completed_percents!=null">{% raw %}{{ bid.freelancer.statistics.orders_completed_percents }}{% endraw %}% Completion Rate</span>
+                </div>
+                <p v-else>
+                  <span >New Freelancer</span>
+                </p>
+              </div>
+            </div>
+            <div class="freelancer-bid">
+              <!-- Bid details -->
+              <div class="fee">${% raw %}{{ bid.price }}{% endraw %}</div>
+              <div class="time">in {% raw %}{{ bid.delivery_time}}{% endraw %}</div>
+            </div>
+          </li>   
+        </ul>
+        <div class="load-more">
+          <spinner v-if="isLoadingBids"></spinner> 
+          <span v-else> 
+            <button  v-if="loadMoreShow" v-on:click="loadBids({{buyer_request.id}})"
+              id='load-more-bids' class="btn btn-light">
+              Load more
+            </button>
+          </span> 
+        </div>
+
+      </div>
+    </div>
+    <input type="hidden" id="is_favorite" value="{{is_favorite}}" />
+    <input type="hidden" id="bid_per_page" value="{{BIDS_PER_PAGE}}" />
+    <input type="hidden" id="buyer_id" value="{{buyer_request.id}}" />
+    <input type="hidden" id="buyer_skillset" value=" {{ buyer_request.skills_as_text_list }}" />
+  </main>
+{% endblock %}

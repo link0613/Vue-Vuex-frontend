@@ -1,0 +1,19 @@
+.avatar .avatar-hide {
+  display: none;
+}
+
+.avatar .avatar-dummy {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #0b83cd;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-size: 32px;
+  font-weight: 400;
+  padding-top: 2px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

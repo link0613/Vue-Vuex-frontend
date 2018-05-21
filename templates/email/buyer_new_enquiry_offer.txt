@@ -1,0 +1,16 @@
+{% extends "email/layout.txt" %}
+
+{% block content %}Dear {{ username }}!
+
+Below is the offer:
+
+{{ service_title }}
+By {{ seller_username }}
+
+{{ delivery }} Day{% if delivery > 1 %}s{% endif %} Delivery
+{% if text %}
+Some notes on this offer by {{ seller_username }}:
+{{ text }}{% endif %}
+
+View Offer (USD {{ price|format_price }}): {{ link }}
+{% endblock %}

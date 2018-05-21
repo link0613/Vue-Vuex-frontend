@@ -1,0 +1,88 @@
+{% extends "new/layout-only-body.html" %}
+
+{% block body %}
+<main id="sm-account-unsubscribe-settings" class="container">
+  <div class="page-container">
+    <div class="page-header">
+      <div class="unsubscribe-header"></div>
+    </div>
+    <div class="page-body">
+      <div class="unsubscribe-container">
+        <div class="unsubscribe-inner">
+          <div class="unsubscribe-header">
+            <h1>Notifications options</h1>
+            <div>
+              <span>{{ user.email }}</span>
+            </div>
+          </div>
+
+          <div class="unsubscribe-body">
+            <div class="unsubscribe-options">
+              <div class="unsubscribe-options-inner">
+                <div class="unsubscribe-options-container" v-cloak>
+                  <h5 class="unsubscribe-options-header">
+                    Newsletters
+                  </h5>
+                  <ul class="unsubscribe-options-list">
+                    <li class="unsubscribe-option">
+                      <label><input type="checkbox" v-model="subscriptions.new_users">
+                      Newsletter for new users</label>
+                    </li>
+                  </ul>
+                </div>
+                {# <!-- <div class="unsubscribe-options-container">
+                  <h5 class="unsubscribe-options-header">
+                    Individual Notifications
+                  </h5>
+                  <ul class="unsubscribe-options-list">
+                    <li class="unsubscribe-option">
+                      <input type="checkbox" name="checkbox-list2">
+                      <label>Newsletter</label>
+                    </li>
+                    <li class="unsubscribe-option">
+                      <input type="checkbox" name="checkbox-list2">
+                      <label>Newsletter</label>
+                    </li>
+                    <li class="unsubscribe-option">
+                      <input type="checkbox" name="checkbox-list2">
+                      <label>Newsletter</label>
+                    </li>
+                  </ul>
+                </div> --> #}
+              </div>
+              {# <!-- <div class="unsubscribe-options-inner">
+                <div class="unsubscribe-options-container">
+                  <h5 class="unsubscribe-options-header">
+                    Other Notifications
+                  </h5>
+                  <ul class="unsubscribe-options-list">
+                    <li class="unsubscribe-option">
+                      <input type="checkbox" name="checkbox-list3">
+                      <label>Newsletter</label>
+                    </li>
+                    <li class="unsubscribe-option">
+                      <input type="checkbox" name="checkbox-list3">
+                      <label>Newsletter</label>
+                    </li>
+                    <li class="unsubscribe-option">
+                      <input type="checkbox" name="checkbox-list3">
+                      <label>Newsletter</label>
+                    </li>
+                  </ul>
+                </div>
+              </div> --> #}
+            </div>
+            <div class="unsubscribe-btn-container">
+              <button class="btn btn-primary" @click="handleSaveSettings" :disabled="isLoading">SAVE SETTINGS</button>
+            </div>
+            <div class="unsubscribe-alert-container" v-cloak>
+              <div class="alert alert-success" v-if="success">Your notification settings has been successfully updated</div>
+              <div class="alert alert-danger" v-if="error" v-text="error"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

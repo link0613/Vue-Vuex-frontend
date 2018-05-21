@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>JobDone</title>
+
+    <link rel="icon" href="{{ static_file('images/favicon/favicon.ico') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ static_file('images/favicon/favicon-32x32.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ static_file('images/favicon/favicon-16x16.png') }}" />
+
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 16px;
+        }
+
+        .btn {
+            border: 0;
+            padding: 6px 12px;
+            background-color: #1687cd;
+            color: #fff;
+            cursor: pointer;
+            display: none;
+        }
+    </style>
+  </head>
+  <body>
+    <p>Contacts have been imported successfully</p>
+    <button id="btnClose" class="btn">Close Window</button>
+
+    <script type="text/javascript">
+        try {
+            window.opener.SM_OAUTH_CALLBACK();
+        } catch (e) {}
+
+        window.close();
+        setTimeout(function() {
+            // In case window.close() didn't work, show the button
+            document.getElementById('btnClose').style.display = 'block';
+            document.getElementById('btnClose').onclick = function() {
+                window.close();
+            };
+        }, 1000);
+    </script>
+  </body>
+</html>

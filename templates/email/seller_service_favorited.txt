@@ -1,0 +1,10 @@
+{% extends "email/layout.txt" %}
+
+{% block content %}Dear {{ username }}!
+
+Your service "I will {{ service_title }}" just got hearted. Hearting is just an effective way of bookmarking and promoting services, People and Jobs within the JobDone community.
+
+Find out who saved your service!
+
+Visit {{ buyer_username }} profile: {{ buyer_link }}
+{% endblock %}

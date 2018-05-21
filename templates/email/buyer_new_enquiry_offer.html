@@ -1,0 +1,30 @@
+{% extends "email/layout.html" %}
+
+{% block heading %}Dear {{ username }}!{% endblock %}
+
+{% block content %}
+<p>You've got Custom Offer from {{ seller_username }}:</p>
+
+{% if service_photo %}
+<p><img src="{{ service_photo }}" /></p>
+{% endif %}
+
+<p style="font-size: 20px;">I will {{ service_title }}</p>
+
+<p style="color: #999;">
+    <span style="font-style: italic;">By {{ seller_username }}</span><br />
+    {{ delivery }} Day{% if delivery > 1 %}s{% endif %} Delivery
+</p>
+
+{% if text %}
+<p style="margin: 0; padding: 0;">
+    Some notes on this offer by {{ seller_username }}:
+    <div style="background-color: #EEE; color: #555; padding: 15px;">
+        {{ text|nl2br }}
+    </div>
+</p>
+{% endif %}
+
+<a href="{{ link }}" style="background: rgba(247, 147, 30, 1); border-radius: 4px; color: #fff; padding: 16px; margin-top: 10px; text-decoration: none; display: block; width: 200px; text-align: center; margin: 20px auto 0;">View Offer (USD {{ price|format_price }})</a>
+
+{% endblock %}

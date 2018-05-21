@@ -1,0 +1,26 @@
+{% extends "new/account/layout.html" %}
+
+{% block body %}
+<div class="container standard" id="sm-account-settings">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="design-box">
+        <h1>SETTINGS</h1>
+        <ul class="nav">
+          <li{% if tab == 'main' %} class="active"{% endif %}><a href="{{ url_for('account.settings') }}">Account</a></li>
+         {# <!--  <li{% if tab == 'notifications' %} class="active"{% endif %}><a href="{{ url_for('account.settings_notifications') }}">Notifications</a></li> --> #}
+          {# <!-- <li{% if tab == 'financials' %} class="active"{% endif %}><a href="{{ url_for('account.settings_financials') }}">Payment &amp; Financials</a></li> --> #}
+          <li{% if tab == 'verification' %} class="active"{% endif %}><a href="{{ url_for('account.settings_verification') }}">Trust &amp; Verification</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="design-box inner">
+        {% block settings_body %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
+  {% block settings_modals %}{% endblock %}
+</div>
+{% endblock %}

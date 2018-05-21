@@ -1,0 +1,97 @@
+{% extends "new/account/layout.html" %}
+
+{% block title %}Get Endorsed | jobdone.net{% endblock %}
+
+{% block body %}
+<div class="container standard endorse" id="sm-account-endorse">
+  <div class="page-box inner">
+    <div class="page-row">
+      <div class="endorse-head">
+        <div class="endorse-head-title text-left">
+          <h1>Get Endorsed and move up the ranks</h1>
+        </div>
+        <div class="endorse-head-description">
+          <p>Endorsements is an added way to build reputation on jobdone.net. Reach out to your network and ask them for an endorsement. It will push you up the ranks and search results. If you get 5+ endorsements you will get this prominent badge on your profile.</p>
+        </div>
+      </div>
+
+      <div class="endorse-container flex">
+        <div class="endorse-container-inner">
+          <h4>1. Create your message</h4>
+          <div class="inner">
+            <div class="border">
+              <textarea rows="9" style="width: 100%;" v-model="text"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="endorse-image-container flex">
+          <div class="endorse-image"></div>
+        </div>
+      </div>
+
+      <div class="endorse-container">
+        <div class="endorse-container-inner">
+          <h4>2. Get it out there</h4>
+          <div class="inner">
+            <div class="tabs">
+              <div class="tab" @click="tabClick('email')" v-bind:class="{ active: tabSelected == 'email' }">
+                <div class="tab-text">Email contacts</div>
+              </div>
+              <div class="tab" @click="tabClick('share')" v-bind:class="{ active: tabSelected == 'share' }">
+                <div class="tab-text">Share</div>
+              </div>
+            </div>
+            <div class="border">
+              <div class="inner-row" v-if="tabSelected == 'email'">
+                <div class="header">
+                  <h5>ADD EMAIL ADDRESS{#ES (separate with spaces or commas)#}</h5>
+                </div>
+                <div class="flex">
+                  <p class="alert alert-danger" v-if="endorseError" v-text="endorseError" v-cloak></p>
+                  <p class="alert alert-success" v-if="endorseSuccess" v-text="endorseSuccess" v-cloak></p>
+                </div>
+                <div class="flex email-container">
+                  <div class="email-input">
+                    <input type="text" v-model="endorseEmail" placeholder="Enter your friend's email here" />
+                  </div>
+                  <div class="">
+                    <button type="button" class="btn btn-primary" @click="handleEndorseClick" v-bind:disabled="!endorseEmail.length || endorseLoading">Send Request</button>
+                  </div>
+                </div>
+              </div>
+              <div class="inner-row" v-if="tabSelected == 'share'">
+                <div class="link-input">
+                  <input type="text" class="" id="copy-endorse-input" readonly value="{{ url_for('user_endorse', username=g.user.username, _external=True) }}">
+                  <span class="btn-block">
+                    <button class="btn btn-default" type="button" id="copy-endorse-link"
+                            data-toggle="tooltip" data-placement="button" title="Copy to Clipboard" data-clipboard-target="#copy-endorse-input">
+                    COPY
+                    </button>
+                  </span>
+                </div>
+                <div class="social-links flex">
+                  <div class="w-5">
+                    <div class="flex flex-end social-links-container">
+                      <a href="#" class="btn btn-default btn-facebook" @click.prevent="openSocialWindow('{{ url_for('endorse_share', username=g.user.username, platform='facebook', _external=True) }}')">
+                        <i class="icon icon-facebook-f"></i>
+                        <span class="btn-text"><span class="btn-text-light">SHARE ON</span> FACEBOOK</span>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="w-5">
+                    <div class="flex social-links-container">
+                      <a href="#" class="btn-clear" @click.prevent="openSocialWindow('{{ url_for('endorse_share', username=g.user.username, platform='twitter', _external=True) }}')"><div class="icon icon-twitter"></div></a>
+                      <a href="#" class="btn-clear" @click.prevent="openSocialWindow('{{ url_for('endorse_share', username=g.user.username, platform='googleplus', _external=True) }}')"><div class="icon icon-gplus"></div></a>
+                      <a href="#" class="btn-clear" @click.prevent="openSocialWindow('{{ url_for('endorse_share', username=g.user.username, platform='linkedin', _external=True) }}')"><div class="icon icon-linkedin"></div></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

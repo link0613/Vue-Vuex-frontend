@@ -1,0 +1,76 @@
+{% set tab = 'financials' %}
+
+{% extends "new/account/settings-layout.html" %}
+
+{% block title %}Settings Financials | jobdone.net{% endblock %}
+
+{% block settings_body %}
+<div class="settings-container settings-financial">
+  <h2 class="settings-header">Payment &amp; Financials</h2>
+  <div class="settings-body">
+    <h3>Payment Methods</h3>
+    <div class="payment-container">
+      <div class="payment-list">
+        <div class="list-element element-example">
+          <div class="card-container">
+            <div class="card-inner">
+              <div class="card-number">5311********2467 (EUR)</div>
+              <div class="card-id">#22198401</div>
+            </div>
+          </div>
+          <div class="button">
+            <div class="btn-auth" @click="handleVerifyCard">Authenticate Card</div>
+          </div>
+          <div class="remove-card">
+            <div class="remove-btn"></div>
+          </div>
+        </div>
+        <div class="list-element element-example">
+          <div class="card-container">
+            <div class="card-inner">
+              <div class="card-number">5311********2467 (EUR)</div>
+              <div class="card-id">#22198401</div>
+            </div>
+          </div>
+          <div class="button">
+            <div class="btn-auth-complete"></div>
+          </div>
+          <div class="remove-card">
+            <div class="remove-btn"></div>
+          </div>
+        </div>
+      </div>
+      <div class="btn-add-container">
+        <div class="btn-add-card"
+             @click="handleAddCard">
+          <span class="btn-text-plus">+</span>
+          <span>ADD CARD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+
+  {% block settings_modals %}
+  <modal v-model="verificationCardModal.show" v-cloak>
+    <div slot="modal-header" class="modal-header">
+      <button type="button" class="close" @click="closeVerifyCardModal"><span>&times;</span></button>
+      <h4 class="modal-title">Do you want to continue?</h4>
+    </div>
+    <div slot="modal-body" class="modal-body">
+      <div class="request-form">
+        <div class="modal-inner-body">
+          <p>A very small charge will be made on your card. Once successfully authenticated, this amount will be added to your jobdone.net balance.</p>
+        </div>
+        <div class="alert alert-danger" v-if="verificationCardModal.error" v-text="verificationCardModal.error"></div>
+      </div>
+      </div>
+    <div slot="modal-footer" class="modal-footer">
+      <button class="btn btn-primary" v-bind:disabled="verificationCardModal.error || verificationCardModal.loading" @click.prevent="handleVerifyCardSubmit">YES</button>
+      <button class="btn btn-grey" @click.prevent="closeVerifyCardModal">NO</button>
+    </div>
+  </modal>
+
+</div>
+{% endblock %}

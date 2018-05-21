@@ -1,0 +1,10 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+	<ShortName>Jobdone</ShortName>
+	<LongName>Search jobdone.net</LongName>
+	<Description>Search Jobdone</Description>
+	<InputEncoding>UTF-8</InputEncoding>
+	<OutputEncoding>UTF-8</OutputEncoding>
+	<AdultContent>false</AdultContent>
+	<Image width="16" height="16" type="image/x-icon">https://www.jobdone.net/static/images/favicon/favicon-32x32.png</Image>
+	<Url type="text/html" method="get" template="https://jobdone.net/?query={searchTerms}&source=opensearch"/>
+</OpenSearchDescription>

@@ -1,0 +1,3 @@
+[submodule "jobdone-frontend-build"]
+	path = jobdone-frontend-build
+	url = https://github.com/scaltro/jobdone-frontend-build.git

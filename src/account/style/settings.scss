@@ -1,0 +1,574 @@
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.settings-container {
+
+  .setemail {
+    font-size: 15px;
+    font-weight: 300;
+    font-family: Lato;
+  }
+
+  .row {
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    margin-bottom: 40px !important;
+  }
+
+  .checkbox {
+    label {
+      font-size: 15px;
+      font-family: Lato;
+      font-weight: 300;
+
+
+      input[type="checkbox"] {
+        font-size: 16px;
+        margin-top: 0;
+      }
+    }
+  }
+  .form-group {
+    font-weight: 300;
+
+    label {
+      font-size: 15px;
+      margin-bottom: 0.5em;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select {
+      font-size: 15px;
+      background-color: #fff;
+      height: 40px;
+      border-radius: 0;
+    }
+    select {
+      -webkit-appearance: none;
+    }
+
+    input[type="button"] {
+      font-size: 15px;
+      font-family: Raleway;
+      font-weight: 300;
+      margin-top: 5px;
+    }
+
+  }
+
+  button {
+    font-size: 15px;
+    font-family: Raleway;
+    font-weight: 300;
+    //margin-top: 5px;
+    height: 40px;
+  }
+
+  .list-access {
+
+    a {
+      font-size: 15px !important;
+      font-family: Lato;
+      font-weight: 300 !important;
+      color: #C1272D !important;
+    }
+  }
+
+  &.settings-verifications {
+
+    h2.settings-header {
+      font-size: 25px;
+      margin-bottom: 15px !important;
+    }
+
+    p.settings-description {
+      font-family: Lato;
+      font-size: 17px;
+      font-weight: 300;
+      padding: 15px 0;
+      border-top: 1px solid #EBEBEB;
+      border-bottom: 1px solid #EBEBEB;
+    }
+
+    .verifications-list {
+      margin-bottom: 40px;
+    }
+
+    .trust-score-container,
+    .row-flex {
+      border-bottom: 1px solid #EBEBEB;
+      min-height: 60px;
+      margin: 0;
+    }
+
+    .row {
+      margin-bottom: 5px;
+    }
+
+    .trust-score-container,
+    .trust-score {
+      font-family: Raleway;
+      font-size: 14px;
+    }
+
+    .trust-score-container {
+      color: #3ba8dc;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      > span {
+        margin-right: 5px;
+      }
+    }
+
+    .trust-score {
+      display: inline-block;
+    }
+
+    .score-info {
+      background-color: #3ba8dc;
+      padding: 4px 6px;
+      border-radius: 3px;
+      color: #fff;
+      height: 22px;
+      line-height: 1;
+      text-transform: uppercase;
+      border: none;
+      font-weight: 300;
+      font-family: Raleway;
+
+      &.btn-default {
+        background-color: #e6e6e6;
+        color: #4D4D4D;
+      }
+    }
+
+    .right-container {
+      width: 150px;
+    }
+
+    .left-container {
+      margin-right: 10px;
+    }
+    .right-container,
+    .left-container {
+      display: flex;
+      align-items: center;
+
+    }
+
+    .row-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .col-flex {
+      display: flex;
+
+      p {
+        font-size: 20px;
+        font-family: Lato;
+      }
+    }
+
+    .fw-500 {
+      font-weight: 500;
+    }
+
+    .button {
+      display: flex;
+      font-size: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      font-weight: 300;
+      background-color: #268bca;
+      color: #fff;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &.btn-facebook {
+        background-color: #234a9d;
+        color: #fff;
+      }
+      &.btn-google {
+        background-color: #fff;
+        color: #999999;
+        box-shadow: 0px 0px 1px #000;
+        padding: 9px 10px;
+      }
+      &.btn-linkedin {
+        background-color: #1b79b1;
+        color: #fff;
+      }
+
+      &.btn-verified {
+        height: 22px;
+        background-color: #3BB100;
+        font-family: Raleway;
+        font-size: 14px;
+        padding: 4px 6px;
+      }
+    }
+
+    .btn-img {
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+    }
+    .img-facebook {
+      background-image: url(../assets/images/icons/facebook_f.svg);
+    }
+    .img-google {
+      background-image: url(../assets/images/icons/google.svg);
+    }
+    .img-linkedin {
+      background-image: url(../assets/images/icons/icon-linkedin.svg);
+    }
+
+    @media screen and (max-width: 1200px) {
+      .right-container {
+        width: 110px;
+      }
+    }
+    @media screen and (max-width: 767px) {
+      .row-flex {
+        flex-direction: column;
+
+        p {
+          margin-top: 10px;
+        }
+
+        .col-flex {
+          margin-bottom: 10px;
+        }
+        .col-flex:last-child {
+          width: 100%;
+        }
+      }
+      .right-container,
+      .left-container {
+        flex-grow: 1;
+        width: 50%;
+      }
+
+      .left-container {
+        justify-content: flex-end;
+      }
+    }
+    @media screen and (max-width: 570px) {
+      .row-flex {
+
+        .col-flex:last-child {
+          flex-direction: column;
+        }
+      }
+
+      .left-container {
+        margin-bottom: 10px;
+      }
+
+      .right-container,
+      .left-container {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .trust-score-container {
+        .right-container {
+          width: auto;
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+
+  &.settings-financial {
+
+    h2.settings-header {
+      font-size: 25px;
+      padding-bottom: 20px;
+      margin-bottom: 20px !important;
+      border-bottom: 1px solid #EBEBEB;
+    }
+    .settings-body {
+
+      h3 {
+        font-size: 20px;
+      }
+    }
+
+    .payment-container {
+
+      margin-bottom: 30px;
+    }
+
+    .payment-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .list-element {
+      display: flex;
+      padding: 25px 0;
+      border-bottom: 1px solid #EBEBEB;
+    }
+
+    .card-container {
+      font-family: Lato;
+      font-weight: 400;
+      color: #666666;
+    }
+
+    .card-number {
+      font-size: 20px;
+    }
+
+    .card-id {
+      font-size: 16px;
+    }
+
+    .btn-auth {
+      background-color: #278bca;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 3px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 300;
+      font-family: Raleway;
+      font-size: 15px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .btn-auth-complete {
+      background-image: url(../assets/images/authentificated.svg);
+      height: 26px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      min-width: 140px;
+    }
+    .card-container,
+    .button,
+    .remove-card {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card-container {
+      flex-grow: 1;
+    }
+
+    .card-number {
+      margin-bottom: 10px;
+    }
+
+
+    .remove-card {
+      width: 60px;
+    }
+
+    .remove-btn {
+      width: 12px;
+      height: 12px;
+      background-image: url(../assets/images/icons/remove-btn.svg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      cursor: pointer;
+    }
+
+    .btn-add-container {
+      margin-left: 60px;
+      margin-top: 40px;
+      display: flex;
+    }
+
+    .btn-add-card {
+      font-family: Raleway;
+      font-size: 15px;
+      color: #999999;
+      background-color: #d7d7d7;
+      padding: 6px 10px;
+      border-radius: 3px;
+      font-weight: 400;
+      cursor: pointer;
+
+      .btn-text-plus {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .settings-notif-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 15px;
+
+    h2,
+    span {
+      font-family: Lato;
+      font-size: 25px;
+      color: #666666;
+      font-weight: 400;
+    }
+  }
+
+  .settings-notif-body {
+    margin-top: 5px;
+
+    .settings-notif-options {
+      display: flex;
+      padding: 5px;
+    }
+
+    .settings-notif-options-inner {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+    }
+
+    .settings-notif-options-container {
+      margin-bottom: 45px;
+
+      h5 {
+        font-size: 21px;
+        font-family: Lato;
+        font-weight: 400;
+        margin-bottom: 20px;
+        color: #666666;
+      }
+    }
+
+    .settings-notif-options-container:last-child {
+      margin-bottom: 0;
+    }
+
+    .settings-notif-option {
+      margin-bottom: 20px;
+
+      input {
+        font-size: 16px;
+        margin-right: 10px;
+      }
+
+      font-size: 15px;
+      font-weight: 300;
+      color: #808080;
+    }
+
+    .settings-notif-option:last-child {
+      margin-bottom: 0;
+    }
+
+    .settings-notif-btn-container {
+      display: flex;
+      //justify-content: center;
+      margin-top: 45px;
+
+      button {
+        padding: 6px 36px;
+        height: 46px;
+        background-color: #2b8dcb;
+        border-color: #2b8dcb;
+      }
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    .settings-notif-header {
+      flex-direction: column;
+
+      h1 {
+        margin-bottom: 20px;
+      }
+    }
+
+    .settings-notif-options {
+      flex-direction: column;
+    }
+
+    .settings-notif-options-inner {
+      width: 100%;
+      margin-bottom: 45px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+#sm-account-settings {
+  .modal {
+
+    .modal-header {
+      border-bottom: none;
+    }
+
+    .modal-title {
+      font-size: 30px;
+      font-family: Lato;
+      font-weight: 300;
+    }
+
+    .request-form {
+      padding: 15px;
+    }
+
+    .modal-inner-body {
+      margin-bottom: 10px;
+
+      font-family: Lato;
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.42em;
+
+      p {
+        color: #666666;
+        //font-family: Lato;
+        //font-size: 15px;
+        //font-weight: 300;
+      }
+
+    }
+    .alert {
+      padding: 5px;
+      border-radius: 0;
+      font-size: 14px;
+      line-height: 1.42em;
+      font-weight: 300;
+      margin-bottom: 0;
+    }
+    .alert-danger {
+      border-color: #C1272D;
+    }
+    .modal-footer {
+      background: none;
+      margin-top: 0;
+      border-top: none;
+
+      button {
+        height: 40px;
+        padding: 6px 30px;
+
+        font-family: Lato;
+        font-size: 14px;
+        font-weight: 300;
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{% extends "admin/layout.html" %}
+{% import "admin/macros.html" as macros with context %}
+
+{% block admin_title %}Message Complaint{% endblock %}
+
+{% block admin_body %}
+
+<div class="panel-body">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <p class="alert alert-danger">
+        {% for message in messages %}
+          {{ message }}<br />
+        {% endfor %}
+        </p>
+      {% endif %}
+    {% endwith %}
+</div>
+
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Enquiry ID</th>
+      <th>User 1</th>
+      <th>User 2</th>
+      <th>Reason</th>
+      <th>Is closed</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for complaint in pagination.items %}
+    <tr>
+      <td>{{ complaint.id }}</td>
+      <td>{{ complaint.enquiry_id }}</td>
+      <td><a href="{{ url_for('admin.user', user_id=complaint.enquiry.user_id) }}">{{ complaint.enquiry.get_buyer().username }}</a></td>
+      <td><a href="{{ url_for('admin.user', user_id=complaint.user_id) }}">{{ complaint.user.username }}</a></td>
+      <td>{{ complaint.reason }}</td>
+      <td>{% if complaint.is_closed %}Yes{% else %}No{% endif %}</td>
+      <td>
+          <a class="btn btn-xs btn-default" href="{{ url_for('admin.message_complaint_item', complaint_id=complaint.id) }}">View</a>
+      </td>
+    </tr>
+    {% else %}
+      <td colspan="8">No message complaints</td>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="panel-body">
+  {{ macros.pagination(pagination) }}
+</div>
+
+{% endblock %}

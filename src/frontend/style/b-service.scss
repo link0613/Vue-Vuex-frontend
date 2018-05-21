@@ -1,0 +1,385 @@
+
+.b-service {
+  $bl: '.b-service';
+
+
+
+  &_list {
+    display: flex;
+    flex-wrap: wrap;
+
+    margin: 0 -10px;
+  }
+
+  &_item {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 264px;
+    // height: 305px;
+    margin: 0 10px 40px;
+
+    border: 1px solid #F0F0F0;
+    border-left-width: 2px;
+    border-right-width: 2px;
+  }
+
+  &_header {
+    position: relative;
+  }
+
+  &_content {
+    flex: 1;
+
+    padding: 10px;
+    border-bottom: 1px solid #F0F0F0;
+  }
+
+  &_footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px;
+  }
+
+
+
+  &_link {
+    overflow: hidden;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    height: 150px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #F0F0F0;
+
+    &--video {
+
+      #{$bl}_link-video {
+        overflow: hidden;
+      }
+
+      #{$bl}_link-preview--error {
+        display: none;
+      }
+    }
+
+    &--playing {
+
+    }
+  }
+
+  &_link-image,
+  &_link-video {
+    position: absolute;
+    top: 50%; left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 100%;
+    height: 100%;
+  }
+
+  &_video-control {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+
+    width: 50px; height: 50px;
+
+    background: #fff;
+    border-radius: 50%;
+
+    &::after {
+      content: '';
+
+      position: absolute;
+      top: 2px; left: 2px;
+      z-index: 101;
+
+      width: 46px; height: 46px;
+
+      background: no-repeat url("../../shared/assets/play-button.png");
+      background-size: 46px 46px;
+    }
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+
+
+  &_author {
+    display: flex;
+    align-items: center;
+    margin: 0 0 1em;
+  }
+
+  &_author-avatar {
+    width: 24px;
+    height: 24px;
+  }
+
+  &_author-info {
+    margin: 0 0 0 10px;
+
+    font-family: "Raleway", sans-serif;
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  &_author-level {
+    display: inline-block;
+
+    color: #e0e0e0;
+    font-weight: 300;
+    font-size: 14px;
+  }
+
+  &_author-status {
+    width: 10px;
+    height: 10px;
+    margin: 0 0 0 15px;
+    border-radius: 50%;
+
+    &--online {
+      background-color: #8CC63F;
+    }
+
+    &--offline {
+      background-color: #B3B3B3;
+    }
+  }
+
+
+
+  &_info {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &_info-desc {
+    margin: 0 10px 0 0;
+
+    font-family: "Raleway", sans-serif;
+    color: #333;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  &_info-star {
+    position: relative;
+    margin: -15px 12px 0 0;
+
+    text-align: center;
+
+    & > img {
+      width: 24px;
+      cursor: pointer;
+    }
+  }
+
+  &_info-rating {
+    color: #e0e0e0;
+    font-size: 14px;
+  }
+
+  &_pro-badge {
+    position: absolute;
+    top: 100%;
+    right: 7px;
+
+
+    margin-top: -35px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 5px solid #fff;
+    background-color: #fff;
+
+    &-outer {
+      position: relative;
+      width: 46px;
+      height: 60px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      background-color: #424242;
+    }
+
+    &-inner-left,
+    &-inner-bottom {
+      position: absolute;
+      bottom: 0px;
+    }
+
+    &-inner-left {
+      border-left: 46px solid transparent;
+      border-right: 0px solid transparent;
+      border-bottom: 50px solid #2E2E2E;
+    }
+
+    &-inner-bottom {
+      border-left: 23px solid transparent;
+      border-right: 23px solid transparent;
+      border-bottom: 10px solid #fff;
+    }
+
+    &-text {
+      position: absolute;
+      top: 20px;
+      left: 10px;
+      font-family: "Raleway";
+      font-size: 14px;
+      color: #fff;
+    }
+  }
+
+
+
+  &_price {
+    display: flex;
+    align-items: center;
+
+    color: #34A7DE;
+    font-family: "Lato", sans-serif;
+    font-size: 18px;
+
+    span::before {
+      content: '$';
+    }
+
+    &--old {
+      opacity: 0.5;
+
+      margin: 0 10px 0 0;
+
+      font-size: 14px;
+      font-weight: 300;
+      text-decoration: line-through;
+    }
+
+    &--current {
+
+    }
+  }
+
+  &_price-title {
+    margin: 4px 6px 0 0;
+
+    color: #aaa;
+    font-weight: 300;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  &_like-toggle {
+    svg {
+      width: 16px;
+      height: 16px;
+
+      color: #b3b3b3;
+
+      cursor: pointer;
+    }
+
+    &--active {
+      svg {
+        color: #ED1E79;
+      }
+    }
+  }
+
+
+
+  &_mark {
+    margin: 0 0 4px;
+
+    &--new {
+      #{$bl}_mark-wrapper {
+        background: #29ABE2;
+      }
+    }
+
+    &--featured {
+      #{$bl}_mark-wrapper {
+        background: #F7931E;
+      }
+    }
+
+    &--recommended {
+      #{$bl}_mark-wrapper {
+        background: #95D469;
+      }
+    }
+  }
+
+  &_mark-container {
+    position: absolute;
+    top: 12px; left: -3px;
+  }
+
+  &_mark-wrapper {
+    display: inline-flex;
+    padding: 6px 15px 6px 12px;
+
+    border-radius: 0 11px 11px 0;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
+  }
+
+  &_mark-pic {
+    width: 10px;
+    height: 10px;
+  }
+
+  &_mark-text {
+    margin: 0 0 0 10px;
+
+    color: #fff;
+    font-family: "Lato", sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+}
+
+// @@TODO: remove legacy
+
+.catalog-content {
+
+  .catalog--list--item--tags-container {
+    display: flex;
+    max-height: calc((1em + 4px) * 2);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    overflow: hidden;
+  }
+
+  .catalog--list--item--tag-element {
+    display: flex;
+    margin-right: 25px;
+  }
+
+  .catalog--list--item--tag-element-icon {
+    display: flex;
+
+    img {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .catalog--list--item--tag-element-text {
+    margin-left: 5px;
+    align-self: center;
+    font-family: "Raleway", sans-serif;
+    color: #B3B3B3;
+  }
+
+}

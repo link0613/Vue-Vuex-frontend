@@ -1,0 +1,37 @@
+{% extends "email/marketing/layout.html" %}
+
+{% block heading %}Hello {{ username }}!{% endblock %}
+
+{% block content %}
+<p>It's time to introduce you to our unique and rare opportunities for freelancers who find it difficult to convert his skills to the real cash.</p>
+
+<p>Passively waiting for your customers is not the best strategy to start making your top earnings.</p>
+
+<p>Keen to start receive your first orders in the next 24 hours? We would like to offer you 2 options:</p>
+
+<p style="font-size: 20px;">1. Newsletter Feature</p>
+
+<p>We promote your services in our newsletter to about 10.000.000 customers. This option is highly recommended for those who want to get his new customers instantly.</p>
+
+<p><img src="{{ static_file('images/email/marketing/day2_newsletter.png', _external=True) }}" /></p>
+
+{% if link_buy_feature %}
+<a href="{{ link_buy_feature }}" style="background: #0472b8; border-radius: 4px; color: #fff; padding: 16px; margin-top: 10px; text-decoration: none; display: block; width: 300px; text-align: center; margin: 20px auto 0;">Buy Newsletter Feature</a>
+{% endif %}
+
+<p style="font-size: 20px;">2. Social Media Marketing Feature</p>
+
+<p>We share your services via Social Media Marketing channels and promote your service to over 20.000.000 targeted users. This is efficient marketing strategy for small services.</p>
+
+<p><img src="{{ static_file('images/email/marketing/day2_social.png', _external=True) }}" /></p>
+
+{% if link_buy_feature %}
+<a href="{{ link_buy_feature }}" style="background: #0472b8; border-radius: 4px; color: #fff; padding: 16px; margin-top: 10px; text-decoration: none; display: block; width: 300px; text-align: center; margin: 20px auto 0;">Buy Social Media Marketing Feature</a>
+{% endif %}
+
+<p>We'll do our best to let you focus on things you do the best.</p>
+
+<p style="color: #999;">If you have any questions about the service, or any feedback, just reply and let us know. We're always here to help.</p>
+
+<p>Thank you!</p>
+{% endblock %}

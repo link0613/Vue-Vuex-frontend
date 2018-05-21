@@ -1,0 +1,50 @@
+<div class="single_service">
+  <div class="ser_info">
+
+    <div class="service_photo">
+      <img src="{{ order.product.get_primary_photo(transform='w_100,h_100') }}" alt="{{ order.title }}" />
+    </div>
+    <div class="ser_des">
+      <h2>I will {{ order.product.title }}</h2>
+      <p>
+        <span class="total_order"><img src="{{ static_file('images/account/order-icon.png') }}" /> <b>ORDER</b> <span class="thin">{{ order.id }}</span></span>
+        <span class="seller_uname">
+        {% if mode == 'buyer' %}
+        <img src="{{ static_file('images/account/user-icon.png') }}"> <b>PROVIDER</b> <span class="thin">{{ order.product.seller.username }}</span>
+        {% else %}
+        <img src="{{ static_file('images/account/user-icon.png') }}"> <b>USER</b> <span class="thin">{{ order.buyer.username }}</span>
+        {% endif %}
+      </span>
+      </p>
+    </div>
+    <div class="btn-container">
+      <button class="accepted" v-text="order._state_pretty_print" v-if="order && order._state_pretty_print" v-cloak></button>
+    </div>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th width="60%">ITEM</th>
+        <th>QUANTITY</th>
+        <th>DURATION</th>
+        <th>AMOUNT</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in summary %}
+      <tr>
+        <td>{{ row.title }}</td>
+        <td>{{ row.quantity }}</td>
+        <td>{{ row.duration|timedelta_pretty_print }}</td>
+        <td>${{ row.price|format_price }}</td>
+      </tr>
+      {% endfor %}
+      <tr class="total">
+         <td rowspan="1">Total</td> 
+         <td></td>
+         <td></td>
+         <td>${{ total|format_price }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

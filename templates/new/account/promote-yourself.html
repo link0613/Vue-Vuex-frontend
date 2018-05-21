@@ -1,0 +1,281 @@
+{% extends "new/account/layout.html" %}
+
+{% block title %}Promote Yourself| jobdone.net{% endblock %}
+
+{% block body %}
+<div class="container" id="sm-account-promote-yourself">
+  <input type="hidden" ref="userEmail" value="{{ g.user.email }}">
+  <input type="hidden" ref="userHeadline" value="{{ g.user.profile_headline }}">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1>Promote Yourself</h1>
+      <div class="page-header-description">
+        <p>The system automatically monitors users who are promote yoursekf and it will push up the ranks and search results.</p>
+        <p>We recommend that you take these steps.</p>
+      </div>
+    </div>
+    <div class="video-answer" @click="videoModalOpen">
+      <div class="text">
+        <h6>QUESTIONS?</h6>
+        <p>CHECK HOW</p>
+        <p>THIS WORKS</p>
+      </div>
+      <div class="icon-video"></div>
+    </div>
+  </div>
+  <div class="row order-list table promote-container">
+    <div class="col-md-12">
+      <div class="tabs-holder row">
+        <ul class="nav nav-tabs left-position col-md-11">
+          <li role="presentation" class="f-webget-badge" v-bind:class="{ active: mode === 'webget_badge' }">
+            <a href="#" @click.prevent="setMode('webget_badge')">
+              <span class="badge">1</span>
+              Website Badge
+            </a>
+          </li>
+          <li role="presentation" class="f-email-signature" v-bind:class="{ active: mode === 'email_signature' }">
+            <a href="#" @click.prevent="setMode('email_signature')">
+              <span class="badge">2</span>
+              Email Signatures
+            </a>
+          </li>
+          <li role="presentation" class="f-email-signature" v-bind:class="{ active: mode === 'link_profile' }">
+            <a href="#" @click.prevent="setMode('link_profile')">
+              <span class="badge">3</span>
+              Link on Profile
+            </a>
+          </li>
+        </ul>
+        <div class="tabs-holder__under-tab-space"></div>
+      </div>
+
+      <transition name="fade" mode="out-in">
+
+        <!--<div class="tabs-processing"-->
+             <!--v-if="itemsLoading"-->
+             <!--key="processingOn">-->
+          <!--<spinner/>-->
+        <!--</div>-->
+
+        <!--<div class="tabs-content"-->
+             <!--v-else-->
+             <!--key="processingOff">-->
+          <div class="webget-badge" v-if="mode === 'webget_badge'">
+            <div class="webget-header">
+              <h2>CREATE YOUR BADGE</h2>
+              <p>Boost the traffic to your services by embedding this seller badge on your website or blog.</p>
+            </div>
+            <div class="webget-body">
+              <div class="code">
+                <h5>COPY TO CLIPBOARD HTML CODE</h5>
+                <textarea ref="widgetBadgeTextarea" readonly class="textarea" v-text="widgetBadge.html"></textarea>
+                <button id="copy-badge-code" class="btn btn-primary btn-copy-code" :data-clipboard-text="widgetBadge.html">COPY CODE</button>
+              </div>
+              <div ref="widgetBadgePreview" class="preview">
+                {% include "new/user-widget-badge.html" %}
+              </div>
+
+            </div>
+            <div class="webget-footer">
+              <div class="share-profile">
+                <label>SHARE YOUR PROFILE :</label>
+                <span class="profile-link" v-text="profileLink"></span>
+                <button id="copy-profile-link" class="btn btn-primary btn-copy-link" :data-clipboard-text="profileLink">COPY LINK</button>
+                <div class="social-share-links">
+                  <div class="icon-container">
+                    <div class="share-icon share-facebook"></div>
+                  </div>
+                  <div class="icon-container">
+                    <div class="share-icon share-twitter"></div>
+                  </div>
+                  <div class="icon-container">
+                    <div class="share-icon share-googleplus"></div>
+                  </div>
+                  <div class="icon-container">
+                    <div class="share-icon share-linkedin"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="email-signature" v-if="mode === 'email_signature'">
+            <div class="webget-email-preview">
+              <div class="preview-label">
+                Preview
+              </div>
+              <div class="preview-body">
+                <div class="widget-email__copy-btn" id="copy-email-html" data-clipboard-target="#widgetEmailPreview">
+                  COPY
+                </div>
+                <div ref="widgetEmailPreview" id="widgetEmailPreview" class="preview-body__email-widget-container">
+                  {% include "new/user-widget-email.html" %}
+                  <div class="do-not-remove-this-block__need-for-correct-widget-selection"></div>
+                </div>
+              </div>
+            </div>
+            <div class="webget-body">
+              <div class="photo-format">
+                <h3>Photo Format:</h3>
+                <div class="icons-container">
+                  <div class="icon-format format-1" :class="{ selected : widgetEmail.avatarType == 0 }" @click="setAvatarType(0)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.26 19.57"><g id="Layer_2" data-name="Layer 2"><g id="Livello_1" data-name="Livello 1"><ellipse class="cls-1" cx="11.13" cy="9.98" rx="11.13" ry="9.38"/><path class="cls-2" d="M6.83,16.28,17.55,5.41c1.36-1.38-.76-3.5-2.12-2.12L4.71,14.16c-1.36,1.38.76,3.5,2.12,2.12Z"/></g></g></svg>
+                  </div>
+                  <div class="icon-format format-2" :class="{ selected : widgetEmail.avatarType == 1 }" @click="setAvatarType(1)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23.26 20.57"><g id="Layer_2" data-name="Layer 2"><g id="Livello_1" data-name="Livello 1"><ellipse class="cls-1" cx="11.63" cy="10.28" rx="11.13" ry="9.78"/></g></g></svg>
+                  </div>
+                  <div class="icon-format format-3" :class="{ selected : widgetEmail.avatarType == 2 }" @click="setAvatarType(2)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23.26 20.57"><g id="Layer_2" data-name="Layer 2"><g id="Livello_1" data-name="Livello 1"><rect class="cls-1" x="0.5" y="0.5" width="22.26" height="19.57" rx="4" ry="4"/></g></g></svg>
+                  </div>
+                  <div class="icon-format format-4" :class="{ selected : widgetEmail.avatarType == 3 }" @click="setAvatarType(3)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23.26 20.57"><g id="Layer_2" data-name="Layer 2"><g id="Livello_1" data-name="Livello 1"><rect class="cls-1" x="0.5" y="0.5" width="22.26" height="19.57"/></g></g></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="webget-form">
+                <div class="form-row">
+                  <label>Full Name:</label>
+                  <input type="text" v-model="widgetEmail.name">
+                </div>
+                <div class="form-row">
+                  <label>Title:</label>
+                  <input type="text" v-model="widgetEmail.title">
+                </div>
+                <div class="form-row">
+                  <label>Email:</label>
+                  <input type="text" v-model="widgetEmail.email">
+                </div>
+                <div class="form-row">
+                  <label>Phone:</label>
+                  <input type="text" v-model="widgetEmail.phone" @keyup="phoneKeyUp">
+                </div>
+                <div class="form-row">
+                  <label>Mobile:</label>
+                  <input type="text" v-model="widgetEmail.mobileTemp" @keyup="mobileKeyUp">
+                </div>
+                <div class="form-row">
+                  <label>Address:</label>
+                  <input type="text" v-model="widgetEmail.address">
+                </div>
+              </div>
+              <div class="code">
+                <div class="code-header">
+                  <h5>HTML CODE</h5>
+                  <div class="code-header__show-btn" v-text="widgetEmail.codeShow?'hide':'show'" @click="widgetEmailCodeShow"></div>
+                </div>
+                <div class="code-body" :class="{'hide': !widgetEmail.codeShow}">
+                  <textarea ref="widgetEmailTextarea" readonly class="textarea" v-text="widgetEmail.html"></textarea>
+                </div>
+                <button id="copy-badge-code" class="btn btn-primary btn-copy-code" :data-clipboard-text="widgetEmail.html">COPY CODE</button>
+              </div>
+            </div>
+          </div>
+        <div class="link-profile" v-if="mode === 'link_profile'">
+          <div class="webget-header">
+            <p>Embed your jobdone profile in your bio and ensure potencial clients see your skills.</p>
+          </div>
+          <div class="webget-body">
+            <div class="row margin-zero">
+              <ul class="nav nav-tabs left-position">
+                <li role="presentation" class="link-tab" v-bind:class="{ active: linkTab === 'linkedin' }">
+                  <a href="#" @click.prevent="setLinkTab('linkedin')">
+                    <i class="fa fa-linkedin-square"></i>
+                    Linkedin
+                  </a>
+                </li>
+                <li role="presentation" class="link-tab" v-bind:class="{ active: linkTab === 'twitter' }">
+                  <a href="#" @click.prevent="setLinkTab('twitter')">
+                    <i class="fa fa-twitter-square"></i>
+                    Twitter
+                  </a>
+                </li>
+                <li role="presentation" class="link-tab" v-bind:class="{ active: linkTab === 'facebook' }">
+                  <a href="#" @click.prevent="setLinkTab('facebook')">
+                    <i class="fa fa-facebook-square"></i>
+                    Facebook
+                  </a>
+                </li>
+                <li role="presentation" class="link-tab" v-bind:class="{ active: linkTab === 'gplus' }">
+                  <a href="#" @click.prevent="setLinkTab('gplus')">
+                    <i class="fa fa-google-plus-square"></i>
+                    Google Plus
+                  </a>
+                </li>
+                <li role="presentation" class="link-tab" v-bind:class="{ active: linkTab === 'behance' }">
+                  <a href="#" @click.prevent="setLinkTab('behance')">
+                    <i class="fa fa-behance-square"></i>
+                    Behance
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="link-profile__content">
+              <div v-if="linkTab === 'linkedin'">
+                <ol>
+                  <li>Log into your Linkedin account.</li>
+                  <li>Move your cursor over Profile in the top menu and click "Edit Profile".</li>
+                  <li>Click "Edit Contact Info" near the bottom right of the profile overview section.</li>
+                  <li>Click the pencil icon next to Websites. Choose a type from the dropdown list.</li>
+                  <li>Copy and paste your Jobdone url into the URL field and click "Save".</li>
+                </ol>
+              </div>
+              <div v-if="linkTab === 'twitter'">
+                <ol>
+                  <li>Log into your Twitter account.</li>
+                  <li>Click on your Profile in the top menu.</li>
+                  <li>Mouse hover your avatar and click "Edit".</li>
+                  <li>Copy and paste your Jobdone url into the Website field and click "Save changes".</li>
+                </ol>
+              </div>
+              <div v-if="linkTab === 'facebook'">
+                <ol>
+                  <li>Log into your Facebook account.</li>
+                  <li>Click your name in the upper left corner of the homepage to access your profile.</li>
+                  <li>Click the pencil icon of the "About" section and then Update Info.</li>
+                  <li>Click "Edit" in the "Contact Information" section.</li>
+                  <li>Copy and paste your Jobdone url into the Website field and click "Save".</li>
+                </ol>
+              </div>
+              <div v-if="linkTab === 'gplus'">
+                <ol>
+                  <li>Log into your Google Plus account.</li>
+                  <li>Click Profile on the left.</li>
+                  <li>On the "About" tab, click Edit under Links.</li>
+                  <li>Select "Add custom link" under "Other Profiles".</li>
+                  <li>Copy and paste your Jobdone url into the URL field and add a label for your profile for example "Jobdone Profile".</li>
+                  <li>Click Save.</li>
+                </ol>
+              </div>
+              <div v-if="linkTab === 'behance'">
+                <ol>
+                  <li>Log into your Behance account.</li>
+                  <li>Mouse hover your name in the top menu and click "My Profile".</li>
+                  <li>Go to "Edit Profile".</li>
+                  <li>Copy and paste your Jobdone url into the Website URL field under "Personal Information".</li>
+                  <li>Click Save.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--</div>-->
+      </transition>
+    </div>
+  </div>
+
+  <modal effect="fade" v-model="videoModal.show" class="modal-custom modal-video" v-cloak>
+    <div slot="modal-header" class="modal-header">
+      <button type="button" class="close" @click="videoModalHide"><span>&times;</span></button>
+      <h4 class="modal-title">Promote youself tips </h4>
+    </div>
+    <div slot="modal-body" class="modal-body">
+      <div class="video-block">
+        <youtube :video-id="videoModal.videoId" :player-width="100" :player-height="100" @ready="playerReady"></youtube>
+      </div>
+    </div>
+    <div slot="modal-footer" class="modal-footer">
+      <button class="btn btn-got-it" @click="videoModalHide">Got It !</button>
+    </div>
+  </modal>
+</div>
+{% endblock %}

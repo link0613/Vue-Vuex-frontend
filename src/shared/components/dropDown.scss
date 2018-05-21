@@ -1,0 +1,120 @@
+ 
+  @import '../style/variables.scss';
+  @import '../style/global.scss';
+
+  .category .dropdown {
+    margin: 0 !important;
+    position: relative;
+    width: 100%;
+    &.show {
+      .down-icon {
+        display: none;
+      }
+      .up-icon {
+        display: block;
+      }
+    }
+    .down-icon {
+      position: absolute;
+      mask-image: url('../../shared/assets/icon-down.svg');
+      -webkit-mask-image: url('../../shared/assets/icon-down.svg');
+      -webkit-mask-size: 14px 14px;
+      mask-size: 14px 14px;
+      background-color: rgb(207, 209, 212);
+      width: 14px;
+      height: 14px;
+      top: 23px;
+      right: 10px;
+      display: block;
+    }
+    .up-icon {
+      position: absolute;
+      mask-image: url('../../shared/assets/icon-up.svg');
+      mask-size: 14px 14px;
+      -webkit-mask-image: url('../../shared/assets/icon-up.svg');
+      -webkit-mask-size: 14px 14px;
+      background-color: rgb(207, 209, 212);
+      width: 14px;
+      height: 14px;
+      top: 23px;
+      right: 10px;
+      display: none;
+    }
+    .dropdown-input {
+      padding: 12px 10px;
+      margin-top: 10px;
+      width: calc(100%-20px);
+      border-radius: 4px;
+      border: solid 1px #cdcdcd;
+      font-family: "LatoRegular";
+      width: 170px;
+    }
+    .btn.btn-secondary {
+      padding: 0;
+      border: none;
+      background: transparent;
+    }
+    .btn-secondary,
+    .btn-secondary:not(:disabled):not(.disabled):active  {
+      background: transparent;
+      color: $color-dark;
+    }
+    .dropdown-toggle {
+      width: 100%;
+      text-align: left;
+      padding: 15px;
+      background: transparent;
+      font-size: 14px;
+      font-family: "LatoRegular";
+      color: $color-dark;
+      border: none;
+      &:focus {
+        box-shadow: none;
+      }
+      &:after {
+        margin-left: 80px;
+        vertical-align: 10px;
+        visibility: hidden;
+      }
+    }
+    .dropdown-menu {
+      min-width: 20px;
+      width: 200px;
+      padding: 0 15px;
+      .dropdown-item {
+        position: relative;
+        padding: 8px 18px;
+        font-size: 14px;
+        font-family: "LatoRegular";
+        color: $color-base;
+        &:focus {
+          outline: none;
+        }
+        .custom-control-label {
+          margin-left: 5px;
+          cursor: pointer;
+        }
+        .custom-control-label:before {
+          border: 1px solid #cccccc;
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          top: 5px;
+          left: 1px;
+          content: "";
+          background-color: white;
+        }
+
+        .custom-control-input:checked ~ .custom-control-label:before {
+          background-color: #32374a;
+        }
+        .custom-control-input {
+          opacity: 0;
+        }
+
+        
+
+
+      }
+    }
+  }

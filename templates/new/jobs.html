@@ -1,0 +1,42 @@
+{% extends "new/layout.html" %}
+
+
+
+{% block body %}
+<main id="sm-jobs">
+    <form method="GET" action="{{ url_for('buyer_request_search', _method='GET') }}">
+        <input type="text" name="q" value="{{params['q']}}"/>
+        <label>Date from:</label><input type="text" name="created_on_from" value="{{params['created_on_from']}}" placeholder="YYYY-MM-DD"/>
+        <label>Date to:</label><input type="text" name="created_on_to" value="{{params['created_on_to']}}" placeholder="YYYY-MM-DD"/>
+        <select name="payment_type">
+            <option />
+            {% for payment_type in payment_types %}
+            <option value="{{payment_type[0]}}" {% if params['payment_type'] == payment_type[0] %}selected="selected"{% endif %}>{{payment_type[1]}}</option>
+            {% endfor %}
+        </select>
+         <select name="project_type">
+            <option />
+            {% for project_type in project_types %}
+            <option value="{{project_type[0]}}" {% if params['project_type'] == project_type[0] %}selected="selected"{% endif %}>{{project_type[1]}}</option>
+            {% endfor %}
+        </select>
+         <select name="fixed_project_type">
+            <option />
+            {% for fixed_project_type in fixed_project_types %}
+            <option value="{{fixed_project_type[0]}}" {% if params['fixed_project_type'] == fixed_project_type[0] %}selected="selected"{% endif %}>{{fixed_project_type[1]}}</option>
+            {% endfor %}
+        </select>
+        <input name="skills" value="{{params['skills']}}" placeholder="Comma separated skills">
+        <input type="checkbox" name="is_published" value="1"/>
+        <input type="submit" value="Search"/>
+    </form>
+    <h2>Results:</h2>
+    {% for buyer_request in buyer_requests %}
+        <h3>{{buyer_request.title}}</h3>
+        <p>{{buyer_request.description}}</p>
+        <p>Skills: {{buyer_request.skills_as_text_list }}</p>
+        <hr/>
+    {% endfor %}
+</main>
+
+{% endblock %}

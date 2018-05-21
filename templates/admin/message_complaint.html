@@ -1,0 +1,42 @@
+{% extends "admin/layout.html" %}
+
+{% block admin_title %}Message Complaint{% endblock %}
+
+{% block admin_body %}
+
+<div class="panel-body">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="alert alert-info">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if not complaint.is_closed %}
+        <a class="btn btn-primary" href="{{ url_for('admin.message_complaint_item_cancel', complaint_id=complaint.id)}}">Close complaint</a><br><br>
+    {% endif %}
+
+    <label>Enquiry ID:</label><br>
+    {{ complaint.enquiry_id }}<br><br>
+
+    <label>User 1:</label><br>
+    <a href="{{ url_for('admin.user', user_id=complaint.enquiry.user_id) }}">{{ complaint.enquiry.get_buyer().username }}</a><br><br>
+
+    <label>User 2:</label><br>
+    <a href="{{ url_for('admin.user', user_id=complaint.user_id) }}">{{ complaint.user.username }}</a><br><br>
+
+    <label>Reason:</label>
+    {{ complaint.reason }}<br><br>
+
+    <label>Description:</label>
+    {{ complaint.description }}<br><br>
+
+    <label>Is closed:</label>
+    {% if complaint.is_closed %}Yes{% else %}No{% endif %}<br><br>
+
+    <label>Created on:</label>
+    {{ complaint.created_on }}<br><br>
+</div>
+
+{% endblock %}

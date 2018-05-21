@@ -1,0 +1,372 @@
+.invite {
+  width: 100%;
+  padding-left: 25px;
+  font-family: Lato;
+
+  .btn {
+    text-transform: uppercase;
+    padding: 10px 54px 9px;
+    font-size: 18px;
+    background-color: #2f8fcb;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-weight: 300;
+
+    &-hide {
+      display: none;
+    }
+  }
+
+  &-wrapper {
+    background-color: #F9F9F9;
+    border: 1px solid #efefef;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  &-main-container,
+  &-bottom-container {
+    //width: 915px;
+    max-width: 915px;
+    margin: 0 auto;
+  }
+
+  &-main-container {
+    padding-bottom: 80px;
+  }
+
+  &-bottom-container {
+    .invite-header {
+      padding-bottom: 30px;
+    }
+  }
+
+  &-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 45px;
+    padding-top: 30px;
+
+    &-image {
+
+      .avatar-dummy {
+        font-size: 48px;
+      }
+    }
+    &-image,
+    img.profile {
+      width: 80px;
+      height: 80px;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 400;
+      color: #000;
+      margin-bottom: 3px;
+    }
+    h4 {
+      font-size: 18px;
+      color: #000;
+    }
+  }
+
+  &-body {
+    padding: 10px 30px 10px 12px;
+    background-color: #fff;
+    //border: 1px dotted grey;
+    //border-style: dashed;
+    //border-image: url(../assets/images/icons/dashed.png) 1 repeat;
+    //
+    //border-image-source: url(../assets/images/icons/dashed.png);
+    //border-image-slice: 0px 0px 5px 0px;
+    //border-image-width: 1;
+    //border-image-outset: 0px 0px 0px 0px;
+    //border-image-repeat: repeat;
+    //border: 3px solid transparent;
+  }
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    padding: 20px 20px 20px 15px;
+    border-radius: 3px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.125);
+
+    &-row {
+      display: flex;
+      flex-direction: column;
+      padding: 15px 15px 35px;
+      border-bottom: 1px solid #e6e6e6;
+
+      &:first-child {
+        padding-top: 0;
+      }
+
+      &:last-child {
+        padding-bottom: 0;
+        border: none;
+      }
+    }
+  }
+
+  &-table {
+
+    th, td {
+      width: 33%;
+      text-align: center;
+      vertical-align: middle;
+    }
+    &.table > thead > tr > th,
+    &.table > tbody > tr > td {
+      vertical-align: middle;
+    }
+    th {
+      padding-top: 13px;
+      padding-bottom: 13px;
+      font-weight: 600;
+    }
+    th:first-child, td:first-child {
+      text-align: left;
+    }
+    th:last-child, td:last-child {
+      text-align: right;
+    }
+    .btn {
+      height: 30px;
+      padding: 5px 44px 5px;
+      font-size: 12px;
+      float: right;
+    }
+    margin: 0;
+  }
+
+  &-footnote {
+    font-size: 12px;
+    padding-top: 60px;
+    padding-bottom: 30px;
+  }
+
+
+  .row-header {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+  }
+
+  .row-body {
+    display: flex;
+
+    input {
+      padding: 11px;
+      font-size: 18px;
+      border: 1px solid #a9a9a9;
+      border-radius: 5px;
+      color: #a9a9a9;
+
+      display: inline-block;
+      background-color: transparent;
+      min-height: 46px;
+
+      &::placeholder {
+        color: #a9a9a9;
+      }
+    }
+  }
+
+  .invite-friends {
+
+    .row-body {
+      width: 90%;
+    }
+
+    .input-container {
+      flex-grow: 1;
+      padding-right: 20px;
+    }
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .invite-import {
+
+    .row-body {
+      justify-content: space-around;
+      padding: 5px 8% 5px 0;
+    }
+
+    .btn {
+      width: 158px;
+      border-color: #e6e6e6;
+      background-color: transparent;
+      font-size: 13px;
+      padding: 10px 15px 9px;
+      color: #000;
+      font-weight: 600;
+
+      &-caption {
+        flex-grow: 1;
+      }
+    }
+  }
+
+  .invite-sharelink {
+   // padding-top: 25px;
+
+    .row-header {
+      padding-top: 10px;
+    }
+
+    .row-body {
+      padding-top: 10px;
+
+    }
+
+    .share-input-container {
+      display: flex;
+      flex-grow: 1;
+      padding-right: 10px;
+    }
+
+    .input-container {
+      padding-right: 5px;
+      flex-grow: 1;
+    }
+
+    .share-social-btns {
+      display: flex;
+      padding-right: 20px;
+      width: 40%;
+      justify-content: space-between;
+    }
+
+    .btn {
+      padding: 10px 15px 9px;
+      text-transform: none;
+
+      &-facebook {
+        background-color: #3e5b94;
+      }
+      &-twitter {
+        background-color: #38aadc;
+      }
+      &-messenger {
+        background-color: #3e5b94;
+      }
+      &-google {
+
+      }
+      &-linkedin {
+
+      }
+    }
+  }
+
+  .img {
+    width: 28px;
+    height: 28px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-size: auto;
+
+    &-gmail {
+      background-image: url(../assets/images/icons/gmail.svg);
+    }
+
+    &-yahoo {
+      background-image: url(../assets/images/icons/yahoo.svg);
+    }
+
+    &-hotmail {
+       background-image: url(../assets/images/icons/hotmail.svg);
+      background-size: cover;
+      width: 33px;
+    }
+    &-aol {
+    }
+  }
+
+  &-btn {
+    //width: 194px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .invite-sharelink .row-body {
+    flex-direction: column;
+
+    .share-input-container {
+      margin-bottom: 10px;
+    }
+
+    .share-social-btns {
+      width: 100%;
+      justify-content: center;
+      padding-right: 0;
+
+      .btn {
+        margin-right: 15px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .invite .invite-import .row-body {
+    padding: 5px 0 5px 0;
+  }
+
+}
+@media screen and (max-width: 991px) {
+  .invite .invite-friends .row-body {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 639px) {
+  .invite-wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .invite .invite-import .row-body {
+    flex-wrap: wrap;
+  }
+  .invite .invite-friends .row-body {
+    flex-direction: column;
+    align-items: center;
+
+    .input-container {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+}
+@media screen and (max-width: 639px) {
+  .invite-sharelink .row-body .share-social-btns {
+    flex-direction: column;
+    align-items: center;
+
+    .btn {
+      width: 50%;
+      margin-right: 0;
+      margin-bottom: 10px;
+      justify-content: center;
+    }
+  }
+
+  .invite .invite-import .row-body {
+
+    .btn {
+      margin-bottom: 10px;
+    }
+  }
+}

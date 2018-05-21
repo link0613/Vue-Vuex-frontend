@@ -1,0 +1,194 @@
+{% extends "new/projects/layout_tmp.html" %}
+
+{% block title %}Create project | jobdone.net{% endblock %}
+
+
+{% block scripts %}
+
+    <script type="text/javascript" src="{{ static_file('js/jquery-1.11.2.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.21.0/css/jquery.fileupload-noscript.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.21.0/js/jquery.iframe-transport.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.21.0/js/jquery.fileupload.js"></script>
+    <style>
+    .fileinput-button input {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        opacity: 0;
+        -ms-filter: 'alpha(opacity=0)';
+        font-size: 200px !important;
+        direction: ltr;
+        cursor: pointer;
+    }
+    </style>
+    <script>
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        var filesJsonList = [];
+
+        $("#skills-tags").select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+
+        $('#fileupload').fileupload({
+            url: '/api/attachments/upload',
+            dataType: 'json',
+            done: function (e, data) {
+                $('<p/>').text(data.result.filename).appendTo($('#fileupload-results'));
+                filesJsonList.push(data.result);
+            }
+        });
+
+        $('#buyer-request-form').submit(function( event ) {
+            event.preventDefault();
+            var formData = $(this).serializeArray();
+            var data = {};
+            data['files'] = filesJsonList;
+            data['title'] = $('input[name=title]', this).val();
+            data['description'] = $('textarea[name=description]', this).val();
+            data['skills'] = $("#skills-tags").val();
+            data['payment_type'] = $('input[name=payment_type]').val();
+            data['fixed_project_type'] = $('select[name=fixed_project_type]').val();
+            data['hourly_project_type'] = $('select[name=hourly_project_type]').val();
+            data['project_type'] = $('select[name=project_type]').val();
+
+            console.log(data);
+            $.ajax({
+              type: "POST",
+              url: '/api/account/buyer/request',
+              dataType: 'json',
+              contentType: "application/json",
+              data: JSON.stringify(data),
+              success: function (e) {
+                  console.log(arguments);
+                  alert('success')
+              }
+            });
+        });
+
+        $('#project-type-choice-section input[type=radio][name={{ form.payment_type.name }}]').change(function (e) {
+            if(this.value === 'hourly'){
+                $('#fixed-project-type').hide();
+                $('#hourly-project-type').show();
+            }
+            if(this.value === 'fixed'){
+                $('#fixed-project-type').show();
+                $('#hourly-project-type').hide();
+            }
+            console.log(e, this.value)
+        });
+    });
+    </script>
+{% endblock %}
+
+{% block body %}
+<div class="container standard">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1>Tell us what you need done</h1>
+      <div class="page-header-description">
+      </div>
+    </div>
+  </div>
+  <div class="row order-list table">
+    <div class="col-md-12 vertical-gap">
+        {{ form.csrf_token }}
+
+        <form class="form form-horizontal" method="post" role="form" id="buyer-request-form">
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Choice a name for your project</label>
+                <div class="col-sm-10">
+                    {{ form.title(type="text", class_="form-control", placeholder="e.g. Build me a website") }}
+                </div>
+              </div>
+
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Tell us more about your project</label>
+                <div class="col-sm-10">
+                    {{ form.description(class_="form-control", placeholder="Describe your project here...") }}
+                </div>
+            </div>
+
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <label class="sr-only" for="inputHelpBlock">Upload files</label>
+
+                    <span class="btn btn-success fileinput-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>Select files...</span>
+                        <input id="fileupload" type="file" name="file" multiple>
+                    </span>
+                    <div id="fileupload-results"></div>
+                    {{ form.files(type='hidden') }}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-40">
+                    <label for="skills-tags">What skills are required?</label>
+                    <select class="form-control" multiple="multiple" id="skills-tags" name="skills">
+                        <!-- # TODO: make skill search via API -->
+                        {% for skill in available_skills %}
+                            <option value="{{ skill.id }}">{{ skill.skill_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+              </div>
+
+              <div class="form-group" id="project-type-choice-section">
+                <div class="col-sm-offset-2 col-sm-10">
+                    How do you want pay?
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="{{ form.payment_type.name }}" value="fixed" checked>
+                        Fixed price project
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="{{ form.payment_type.name }}" value="hourly">
+                        Hourly project
+                      </label>
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    What is your estimated budged?
+                    <div id="fixed-project-type">
+                        {{ form.fixed_project_type(class="form-control") }}
+                    </div>
+                    <div id="hourly-project-type" style="display: none">
+                        {{ form.hourly_project_type(class="form-control") }}
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    Optional Upgrades
+                    {{ form.project_type(class="form-control") }}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-lg btn-warning">Post My Project</button>
+                </div>
+              </div>
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

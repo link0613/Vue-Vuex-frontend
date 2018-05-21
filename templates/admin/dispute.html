@@ -1,0 +1,48 @@
+{% extends "admin/layout.html" %}
+{% set conversation = dispute.conversation %}
+{% set product = dispute.order.product %}
+
+{% block admin_title %}View dispute{% endblock %}
+
+{% block admin_body %}
+
+<div class="panel-body">
+    <blockquote>
+      <p>Dispute on the order #{{ dispute.order_id }}</p>
+    </blockquote>
+
+    <div class="clearfix" style="margin-bottom: 20px">
+    {% with photo = product.get_primary_photo('w_80') %}
+      {% if photo %}
+        <img src="{{ photo }}" class="img-thumbnail pull-left" style="width: 80px; margin-right: 10px;" />
+      {% endif %}
+    {% endwith %}
+    <p class="pull-left lead">{{ product.title }}</p>
+    </div>
+
+    <small>Seller: <a href="{{ url_for('admin.user', user_id=product.seller_id) }}">{{ product.seller.username }}</a></small><br />
+    <small>Buyer: <a href="{{ url_for('admin.user', user_id=order.buyer_id) }}">{{ order.buyer.username }}</a></small><br />
+
+    <small>Opened on {{ dispute.created_on.strftime('%Y-%m-%d %H:%m') }} by <a href="{{ url_for('admin.user', user_id=dispute.order.buyer_id) }}">{{ dispute.order.buyer.username }}</a></small><br />
+
+    <a class="btn btn-primary" href="{{ url_for('account.order', order_id=order.id) }}">View Order Page</a><br /><br />
+
+    {% if not dispute.is_closed %}
+        <a class="btn btn-success" href="{{ url_for('admin.dispute_close', dispute_id=dispute.id) }}" onclick="return confirm('Sure to release seller money?');">Close dispute and release seller's money</a>
+        <a class="btn btn-danger" href="{{ url_for('admin.dispute_moneyback', dispute_id=dispute.id) }}" onclick="return confirm('Sure to do moneyback?');">Close dispute and return money back to the buyer</a>
+    {% else %}
+        <strong>
+            {% if dispute.resolution == dispute.RESOLVED_BY_ADMIN %}
+            Order {% if order.state == order.CLOSED_CANCELLED %}annulated by the admin{% else %}completed by the admin{% endif %}
+            {% else %}
+            Order {% if order.state == order.CLOSED_CANCELLED %}annulated by the seller{% else %}completed by the buyer{% endif %}
+            {% endif %}
+        </strong>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

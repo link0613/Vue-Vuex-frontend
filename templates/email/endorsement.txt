@@ -1,0 +1,13 @@
+{% extends "email/layout.txt" %}
+
+{% block content %}Dear Friend!
+
+{{ text }}
+
+{{ username }}
+
+P.S. JobDone.net is a freelance hub connecting professionals around the world.
+
+Endorse {{ username }}, it only takes a minute:
+{{ link }}
+{% endblock %}

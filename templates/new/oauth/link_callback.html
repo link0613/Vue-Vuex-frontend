@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>JobDone</title>
+
+    <link rel="icon" href="{{ static_file('images/favicon/favicon.ico') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ static_file('images/favicon/favicon-32x32.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ static_file('images/favicon/favicon-16x16.png') }}" />
+
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 16px;
+        }
+
+        .btn {
+            border: 0;
+            padding: 6px 12px;
+            background-color: #1687cd;
+            color: #fff;
+            cursor: pointer;
+            display: none;
+        }
+
+        .btn.btn-error {
+            display: block;
+            background-color: #a94442;3
+        }
+
+        .error {
+            color: #a94442;
+        }
+    </style>
+  </head>
+  <body>
+    {% if not oauth_error %}
+    <p>Account has been successfully linked</p>
+    {% endif %}
+
+    {% if oauth_error == 400 %}
+    <p class="error">Unfortunately, due to security reasons, we only allow to link social account if it is registered with your primary email address</p>
+    {% endif %}
+
+    {% if oauth_error == 401 %}
+    <p class="error">Unable to link account</p>
+    {% endif %}
+
+    <button id="btnClose" class="btn{% if oauth_error %} btn-error{% endif %}">Close Window</button>
+
+    <script type="text/javascript">
+        let oauth_error = {{ oauth_error|tojson|safe if oauth_error else 'null' }};
+
+        try {
+            window.opener.SM_OAUTH_CALLBACK(oauth_error, '{{ provider }}');
+        } catch (e) {}
+
+        document.getElementById('btnClose').onclick = function() {
+            window.close();
+        };
+
+        if (!oauth_error) {
+            window.close();
+            setTimeout(function() {
+                // In case window.close() didn't work, show the button
+                document.getElementById('btnClose').style.display = 'block';
+            }, 1000);
+        }
+    </script>
+  </body>
+</html>

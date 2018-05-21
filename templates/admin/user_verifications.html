@@ -1,0 +1,41 @@
+{% extends "admin/layout.html" %}
+{% import "admin/macros.html" as macros with context %}
+
+{% block admin_title %}Users{% endblock %}
+
+{% block admin_body %}
+
+
+<table class="table table-condensed">
+    <thead>
+    <tr>
+      <th>Username</th>
+      <th>Created on</th>
+      <th>Registered on</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in pagination.items %}
+    <tr>
+      <td>
+        {{ item.user.username }}
+        {% if item.user.is_deleted %}
+          <div class="label label-danger">Deleted</div>
+        {% endif %}
+      </td>
+      <td>{{ item.created_on.strftime('%Y-%m-%d %H:%m') }}</td>
+      <td>{{ item.user.registered_on.strftime('%Y-%m-%d %H:%m') }}</td>
+      <td>
+        <a class="btn btn-xs btn-default" href="{{ url_for('admin.user_verification', user_id=item.user_id) }}">View</a>
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div class="panel-body">
+  {{ macros.pagination(pagination) }}
+</div>
+
+{% endblock %}

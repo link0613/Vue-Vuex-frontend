@@ -1,0 +1,139 @@
+  @import '../style/variables.scss';
+  @import '../style/global.scss';
+  /* tagsinput */
+
+  .tags-input.form-control {
+    display: flex;
+    padding: 15px 2px 11px 6px;
+    border-radius: 5px;
+    height: 61px;
+    &.has-focus {
+      outline: none !important;
+      -webkit-box-shadow: 0px 0px 10px 2px rgba(141, 191, 224, 0.9) !important;
+      -moz-box-shadow: 0px 0px 10px 2px rgba(141, 191, 224, 0.9) !important;
+      box-shadow: 0px 0px 10px 2px rgba(141, 191, 224, 0.9) !important;
+      border-color: transparent !important; // rgba(18, 126, 193, 1) !important;
+    }
+    input {
+      font-size: 21px;
+      color: $color-base;
+      padding: 10px 28px 13px 10px;
+      border-radius: 5px;
+      &:focus {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+    }
+    .badge {
+      display: block;
+      font-size: 18px;
+      color: #4d525b;
+      font-weight: 400;
+      padding: 13px 13px;
+      height: 47px;
+      border-radius: 4px;
+      background: transparent;
+      border: solid 1px #d4d4d4;
+      .tagsinput-remove {
+        width: 10px;
+        height: 10px;
+        margin-left: 5px;
+        &:before, &:after {
+          background: $color-base;
+        }
+      }
+    }
+  }
+
+  .typeahead {
+    position: absolute;
+    z-index: 9999;
+    left: 0;
+    right: 0;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: solid 1px #cdcdcd;
+    
+    .badge-top {
+      padding: 10px 8px;
+      font-weight: bold;
+    }
+
+
+    .badge {
+      display: block;
+      font-size: $font-size-base;
+      font-family: "LatoRegular";
+      color: $color-dark;
+      text-align: left;
+      border-radius: 0.4;
+      padding: 5px 25px;
+      margin: 0;
+      font-weight: 400;
+      padding: 7px 20px;
+      margin: 3px 0;
+      
+      :hover {
+        background: $color-blue !important;
+      }
+      &.badge-primary {
+        background: $color-blue;
+        color: white;
+        border-radius: 0px;
+      }
+      &.badge-dark {
+        background: white;
+      }
+    }
+  }
+
+  .tags-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .tags-input input {
+    flex: 1;
+    background: transparent;
+    border: none;
+  }
+
+  .tags-input span {
+    margin-right: 0.3rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .tagsinput-remove {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    overflow: hidden;
+  }
+
+  .tagsinput-remove:before,
+  .tagsinput-remove:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    background: #5dc282;
+    height: 2px;
+    margin-top: -1px;
+  }
+
+  .tagsinput-remove:before {
+    transform: rotate(45deg);
+  }
+
+  .tagsinput-remove:after {
+    transform: rotate(-45deg);
+  }
+
+  .typeahead>span {
+    cursor: pointer;
+    margin-right: 0.3rem;
+  }

@@ -1,0 +1,80 @@
+{% extends "new/layout.html" %}
+
+{% block title %}Help {{ user.username }} win more Jobs!{% endblock %}
+
+{% block styles %}
+<style type="text/css">
+  /* TODO: TEMPORARY STYLES, REMOVE ONCE DESIGN IS DONE */
+  #sm-user-endorse .skill-item {
+    display: inline-block;
+    margin: 0 10px 10px 0;
+    padding: 6px 12px;
+    background: #CCC;
+    color: #000;
+    border-radius: 4px;
+  }
+
+  #sm-user-endorse .skill-item.selected {
+    background: #333;
+    color: #FFF;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<main id="sm-user-endorse" class="container standard user-endorse endorse">
+  <div class="faq-page page-box">
+    <div class="endorse-head">
+      <div class="endorse-head-title text-left">
+        <h1>Help {{ user.username }} win more Jobs!</h1>
+      </div>
+      <div class="endorse-head-description">
+        <p>Jobdone.net is a marketplace where you can instantly find and hire trusted people to do any job for you remotely, from as little as 1 hour's work.</p>
+      </div>
+    </div>
+    <div class="endorse-container flex">
+      <div class="endorse-container-inner w-8">
+        <div class="endorse-container-inner-block block-skills" v-if="sharedState.extra.user_skills.length" v-cloak>
+          <h3>WHICH SKILLS DO YOU THINK THAT {{ user.username }} HAS? <span class="additional-text">(JUST CLICK ON THEM)</span></h3>
+          <div class="skills">
+            <ul>
+              <li v-for="(skill, idx) in sharedState.extra.user_skills">
+                <div class="skill" @click.prevent="handleSkillSelect(idx)" :class="{ selected: selectedSkills[idx] }">
+                  <div class="skill-circle-block">
+                    <i class="fa fa-circle list-circle"></i>
+                  </div>
+                  <span class="skill-text" v-text="skill.title">Python</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="endorse-container-inner-block">
+          <h5>Your recommendation for {{ user.username }} <span class="additional-text">( optional)</span></h5>
+          <div class="textarea w-8">
+            <textarea rows="10" v-model="text">I endorse {{ user.username }} for Python programming language.</textarea>
+          </div>
+          <div class="alert alert-danger" v-if="error" v-text="error" v-cloak></div>
+          <div class="alert alert-success" v-if="success" v-text="success" v-cloak></div>
+        </div>
+      </div>
+      <div class="endorse-container-image">
+        <div class="user-container">
+          <a href="{{ url_for('user', username=user.username) }}">
+            <img src="{{ user.get_photo_url('h_100,w_100,c_thumb,g_face')}}" />
+          </a>
+          <span>{{ user.username }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="endorse-container">
+      <div class="endorse-container-inner">
+        <button  class="btn btn-primary btn-endorse" @click="handleEndorseClick" :disabled="loading || !text">ENDORSE {{ user.username }}</button>
+        <div class="endorse-footnote">
+          <p>By clicking "Endorse" you agree to our T&amp;C's</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

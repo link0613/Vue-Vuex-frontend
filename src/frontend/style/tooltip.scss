@@ -1,0 +1,31 @@
+
+.tooltip {
+
+    &.top,
+    &.left,
+    &.right,
+    &.bottom {
+        opacity: 1;
+    }
+
+    &.bottom {
+        .tooltip-arrow {
+            border-bottom-color: #424242;
+        }
+    }
+
+    &.top {
+        .tooltip-arrow {
+            border-top-color: #424242;
+        }
+    }
+
+    &-inner {
+        padding: 6px 8px;
+
+        font-size: 11px;
+        line-height: (13.2 / 11);
+
+        background: #424242;
+    }
+}

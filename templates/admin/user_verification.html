@@ -1,0 +1,128 @@
+{% extends "admin/layout.html" %}
+
+{% block admin_title %}Verification {{ verification.user.username }}{% endblock %}
+
+{% block admin_body %}
+
+<div class="panel-body">
+    <a class="btn btn-primary" href="{{ url_for('admin.user_verifications') }}">Back</a>
+	<a class="btn btn-primary" href="{{ url_for('admin.user', user_id=verification.user_id) }}">View user page</a>
+    <br/>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th>name</th>
+        <th>value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Username:</td>
+        <td>{{ verification.user.username }}</td>
+      </tr>
+      <tr>
+      <tr>
+        <td>E-mail:</td>
+        <td>{{ verification.user.email }}</td>
+      </tr>
+      <tr>
+        <td>COUNTRY:</td>
+        <td>{{ verification.country_code }}</td>
+      </tr>
+      <tr>
+        <td>First Name:</td>
+        <td>{{ verification.first_name }}</td>
+      </tr>
+      <tr>
+        <td>Last Name:</td>
+        <td>{{ verification.last_name }}</td>
+      </tr>
+      <tr>
+        <td>Birth Date:</td>
+        <td>{{ verification.birthdate }}</td>
+      </tr>
+      <tr>
+        <td>Random Code:</td>
+        <td>{{ verification.random_code }}</td>
+      </tr>
+      <tr>
+        <td>ID Issuing Country:</td>
+        <td>{{ verification.id_issuing_country }}</td>
+      </tr>
+      <tr>
+        <td>ID Type:</td>
+        <td>{{ verification.id_type }}</td>
+      </tr>
+      <tr>
+        <td>ID Number:</td>
+        <td>{{ verification.id_number }}</td>
+      </tr>
+      <tr>
+        <td>ID Expire Date:</td>
+        <td>{{ verification.id_expire_date }}</td>
+      </tr>
+      <tr>
+        <td>Address Line 1:</td>
+        <td>{{ verification.address_line_1 }}</td>
+      </tr>
+      <tr>
+        <td>Address Line 2:</td>
+        <td>{{ verification.address_line_2 }}</td>
+      </tr>
+      <tr>
+        <td>City:</td>
+        <td>{{ verification.city }}</td>
+      </tr>
+      <tr>
+        <td>State:</td>
+        <td>{{ verification.country_state }}</td>
+      </tr>
+      <tr>
+        <td>Postal Code:</td>
+        <td>{{ verification.postal_code }}</td>
+      </tr>
+      <tr>
+        <td>Institution_name:</td>
+        <td>{{ verification.institution_name }}</td>
+      </tr>
+      <tr>
+        <td>Document Type:</td>
+        <td>{{ verification.document_type }}</td>
+      </tr>
+      <tr>
+        <td>Document Date Issued:</td>
+        <td>{{ verification.document_date_issued }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+<hr />
+
+    <h3>ID Documents:</h3>
+    {% for p in photos if p.step == 1 %}
+        <a href="{{ p.get_url() }}" >{{ loop.index }}</a>,
+    {% endfor %}
+    <br/>
+   <h3>Keycode Documents:</h3>
+    {% for p in photos if p.step == 2 %}
+        <a href="{{ p.get_url() }}" >{{ loop.index }}</a>,
+    {% endfor %}
+    <br/>
+    <h3>Residence Documents:</h3>
+    {% for p in photos if p.step == 3 %}
+        <a href="{{ p.get_url() }}" >{{ loop.index }}</a>,
+    {% endfor %}
+    <br/>
+
+<hr />
+
+    <form action="{{ url_for('admin.user_verification_post', user_id=verification.user_id, action='rejected') }}" method="post">
+        <button class="btn btn-warning" type="submit">Reject</button>
+    </form>
+    - 
+    <form action="{{ url_for('admin.user_verification_post', user_id=verification.user_id, action='completed') }}" method="post">
+        <button class="btn btn-success" type="submit">Complete</button>
+    </form>
+</div>
+{% endblock %}

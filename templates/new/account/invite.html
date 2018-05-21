@@ -1,0 +1,255 @@
+{% set tab = mode %}
+{% set header_hide_navigation_bar = 'true' %}
+
+{% extends "new/account/layout.html" %}
+
+{% block title %}Invite friends | jobdone.net{% endblock %}
+
+{% block body %}
+<div class="container standard" id="sm-account-invite">
+  <div class="invite">
+    <div class="invite-wrapper">
+    <div class="invite-main-container">
+      <div class="invite-header">
+        <div class="invite-header-image">
+          <img src="{{ g.user.get_photo_url('h_130,w_130,c_thumb,g_face') }}" username="{{ g.user.username }}" class="profile" @error="imgError"/>
+        </div>
+        <h1>Invite a friend, you both get $20*</h1>
+        <h4>If you love JobDone as much as we do, tell your friends and earn some serious cash</h4>
+      </div>
+      <div class="invite-form">
+        <div class="invite-form-row invite-friends">
+          <div class="row-header">
+            <span>Invite friends:</span>
+          </div>
+          <div class="row-body">
+            <div class="input-container">
+              <input type="text" v-model="inviteEmail" placeholder="Enter your friend's email here" >
+              <p class="alert alert-danger" v-if="inviteError" v-text="inviteError" v-cloak></p>
+            </div>
+            <div>
+              <button class="btn btn-primary invite-btn" @click="handleInviteClick" v-bind:disabled="!inviteEmail.length || inviteLoading">Send invite</button>
+            </div>
+          </div>
+        </div>
+        <div class="invite-form-row invite-import">
+          <div class="row-header">
+            <span>Import contacts:</span>
+          </div>
+          <div class="row-body">
+            <div class="btn" @click.prevent="openInviteModal('google')">
+              <div class="img img-gmail"></div>
+              <span class="btn-caption">gmail</span>
+            </div>
+            <div class="btn" @click.prevent="openInviteModal('yahoo')">
+              <div class="img img-yahoo"></div>
+              <span class="btn-caption">yahoo</span>
+            </div>
+            <div class="btn" @click.prevent="openInviteModal('outlook')">
+              <div class="img img-hotmail"></div>
+              <span class="btn-caption">hotmail</span>
+            </div>
+            <div class="btn" @click.prevent="openInviteModal('aol')">
+              <div class="img img-aol" style="display: none"></div>
+              <span class="btn-caption">aol</span>
+            </div>
+          </div>
+        </div>
+        <div class="invite-form-row invite-sharelink">
+          <div class="row-header">
+            <span>Share your link:</span>
+          </div>
+          <div class="row-body">
+            <div class="share-input-container">
+              <div class="input-container">
+                <input type="text" class="form-control" id="copy-invite-input" readonly value="{{ url_for('index', mode='signup', invitation=g.user.username, _external=True) }}">
+              </div>
+              <button class="btn btn-default" type="button" id="copy-invite-link"
+                      data-toggle="tooltip" data-placement="button" title="Copy to Clipboard" data-clipboard-target="#copy-invite-input">
+              Copy
+              </button>
+            </div>
+            <div class="share-social-btns">
+
+              <a href="#" class="btn btn-default btn-facebook" @click.prevent="openSocialWindow('{{ url_for('invite_share', username=g.user.username, platform='facebook', _external=True) }}')">Facebook</a>
+              <a href="#" class="btn btn-default btn-twitter" @click.prevent="openSocialWindow('{{ url_for('invite_share', username=g.user.username, platform='twitter', _external=True) }}')">Twitter</a>
+              <a href="#" class="btn btn-default btn-messenger" @click.prevent="openSocialWindow('{{ url_for('invite_share', username=g.user.username, platform='messenger', _external=True) }}')">Messenger</a>
+              <a href="#" class="btn btn-default btn-google btn-hide" @click.prevent="openSocialWindow('{{ url_for('invite_share', username=g.user.username, platform='googleplus', _external=True) }}')">Google</a>
+              <a href="#" class="btn btn-default btn-linkedin btn-hide" @click.prevent="openSocialWindow('{{ url_for('invite_share', username=g.user.username, platform='linkedin', _external=True) }}')">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="invite-bottom-container">
+      <div class="invite-header">
+          <h4>You've got ${{ g.user.get_bonus_credit_pp() }} in bonuses to spend at JobDone.net</h4>
+      </div>
+      <div class="invite-body">
+        <div class="">
+          <table class="table invite-table" v-cloak>
+            <thead>
+            <tr>
+              <th>EMAIL</th>
+              <th>STATUS</th>
+              <th>NEXT ACTION</th>
+            </tr>
+            </thead>
+            <tbody v-if="!contactsLoading">
+            <tr v-for="item in contacts">
+              <td v-text="item.email"></td>
+              <td v-text="item.state"></td>
+              <td>
+                <button v-if="item.state == 'sent'" class="btn btn-primary" type="button" @click="handleInviteResend(item.id)">RESEND</button>
+                <button v-if="item.state == 'pending'" class="btn btn-secondary" type="button" @click="handleInviteResend(item.id)" v-bind:disabled="true">SENT</button>
+              </td>
+            </tr>
+            </tbody>
+            <tbody v-else>
+            <tr><td colspan="3" class="text-center"><spinner></spinner></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="invite-footnote">
+        <p>* You will receive a $20 USD site credit to be used for specific purposes when your friend completed order new service.</p>
+       {# <!-- <p>** BONUS - You receive 5 usd for every new seller fully register on jobdone.net and publish his first service.</p> -->#}
+        <p>** Your friend will receive a $20 USD site credit to be used for specific purposes on opening their new account and verifying their payment method.</p>
+        <p>This offer is subject to specific terms and conditions under the heading "Give and Get Promotion". </p>
+
+          <p>This site credit is not redeemable for cash.</p>
+      </div>
+    </div>
+    </div>
+  </div>
+
+
+
+  <div class="design-box inner" style="display: none">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="text-center">
+          <img src="{{ g.user.get_photo_url('h_130,w_130,c_thumb,g_face') }}" class="profile" />
+          <h1>Invite a friend, you both get $20*</h1>
+          <h4>If you love JobDone as much as we do, tell your friends and earn some serious cash</h4>
+        </div>
+      </div>
+
+      <div class="col-xs-10 col-xs-offset-1">
+        <div class="design-box inner">
+          <label>INVITE FRIENDS:</label>
+          <div class="row">
+            <div class="col-sm-10">
+              <input type="text" class="form-control" v-model="inviteEmail" placeholder="Enter your friend's email here" />
+              <p class="alert alert-danger" v-if="inviteError" v-text="inviteError" v-cloak></p>
+            </div>
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-primary" @click="handleInviteClick" v-bind:disabled="!inviteEmail.length || inviteLoading">SEND INVITE</button>
+            </div>
+          </div>
+
+          <br />
+          <label>IMPORT CONTACTS:</label>
+          <div class="row">
+            <div class="col-sm-3">
+              <a href="#" class="btn btn-default" @click.prevent="openInviteModal('google')">GMAIL</a>
+            </div>
+            <div class="col-sm-3">
+              <a href="#" class="btn btn-default" @click.prevent="openInviteModal('yahoo')">YAHOO</a>
+            </div>
+            <div class="col-sm-3">
+              <a href="#" class="btn btn-default" @click.prevent="openInviteModal('outlook')">OUTLOOK</a>
+            </div>
+            <div class="col-sm-3">
+              <a href="#" class="btn btn-default" @click.prevent="openInviteModal('aol')">AOL</a>
+            </div>
+          </div>
+
+          <br />
+          <label>SHARE YOUR LINK:</label>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="input-group">
+                <input type="text" class="form-control" id="copy-invite-input" readonly value="{{ url_for('index', mode='signup', invitation=g.user.username, _external=True) }}">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button" id="copy-invite-link"
+                          data-toggle="tooltip" data-placement="button" title="Copy to Clipboard" data-clipboard-target="#copy-invite-input">
+                  COPY
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <a href="#" class="btn btn-default" @click.prevent="openSocialWindow('{{ url_for('invite_share', username=g.user.username, platform='facebook', _external=True) }}')">Facebook</a>
+              <a href="#" class="btn btn-default" @click.prevent="openSocialWindow('{{ url_for('invite_share', username=g.user.username, platform='twitter', _external=True) }}')">Twitter</a>
+              <a href="#" class="btn btn-default" @click.prevent="openSocialWindow('{{ url_for('invite_share', username=g.user.username, platform='googleplus', _external=True) }}')">Google</a>
+              <a href="#" class="btn btn-default" @click.prevent="openSocialWindow('{{ url_for('invite_share', username=g.user.username, platform='linkedin', _external=True) }}')">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12">
+        <div class="text-center">
+          <h4>You've got ${{ g.user.get_bonus_credit_pp() }} in bonuses to spend at JobDone.net</h4>
+        </div>
+      </div>
+
+      <div class="col-xs-10 col-xs-offset-1">
+        <div class="design-box inner">
+          <table class="table" v-cloak>
+            <thead>
+              <tr>
+                <th>EMAIL</th>
+                <th>STATUS</th>
+                <th>NEXT ACTION</th>
+              </tr>
+            </thead>
+            <tbody v-if="!contactsLoading">
+              <tr v-for="item in contacts">
+                <td v-text="item.email"></td>
+                <td v-text="item.state"></td>
+                <td>
+                  <button v-if="item.state == 'sent'" class="btn btn-primary" type="button" @click="handleInviteResend(item.id)">RESEND</button>
+                </td>
+              </tr>
+            </tbody>
+            <tbody v-else>
+              <tr><td colspan="3" class="text-center"><spinner></spinner></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <modal effect="fade" v-model="inviteModal.show" class="modal-custom" v-cloak>
+    <div slot="modal-header" class="modal-header">
+      <button type="button" class="close" @click="inviteModal.show = false"><span>&times;</span></button>
+      <h4 class="modal-title">Invite contacts</h4>
+    </div>
+    <div slot="modal-body" class="modal-body">
+      <div class="request-form">
+        <div v-if="inviteModal.loading || inviteModal.error">
+          <spinner v-if="inviteModal.loading"></spinner>
+          <div v-if="inviteModal.error" class="alert alert-danger" v-text="inviteModal.error"></div>
+        </div>
+        <div v-else style="max-height: 400px; overflow-y: scroll;">
+          <label v-for="(contact, idx) in inviteModal.contacts" style="display: block;">
+            <input type="checkbox" v-model="inviteModal.checkedContacts" :value="idx" />
+            <span v-text="contact.email"></span>
+            <span v-if="contact.name" v-text="'(' + contact.name + ')'"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div slot="modal-footer" class="modal-footer" style="text-align: right;">
+      <button class="btn btn-default" v-bind:disabled="inviteModal.loading" style="display: inline-block;" @click.prevent="handleInviteModalSelectClick">SELECT ALL/NONE</button>
+
+      <button class="btn btn-primary" v-bind:disabled="inviteModal.loading || !inviteModal.checkedContacts.length" style="display: inline-block;" @click.prevent="handleInviteMultipleClick">INVITE USERS</button>
+    </div>
+  </modal>
+</div>
+{% endblock %}

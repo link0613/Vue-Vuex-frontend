@@ -1,0 +1,227 @@
+body {
+  background-color: #f2f2f2;
+}
+
+#sm-account-unsubscribe,
+#sm-account-unsubscribe-settings {
+
+  .page-container {
+
+  }
+
+  .page-header {
+    display: flex;
+    justify-content: center;
+    border-bottom: none;
+    margin: 95px 0 15px;
+    padding-bottom: 0;
+
+    h1 {
+      font-size: 36px;
+      color: #666;
+      font-weight: 300;
+    }
+
+    .unsubscribe-header {
+      height: 50px;
+      width: 257px;
+      background-repeat: no-repeat;
+      background-image: url(../assets/images/logo.svg);
+      opacity: 0.5;
+    }
+  }
+
+  .page-body {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+
+    .unsubscribe-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      //width: 360px;
+      margin: 30px 0;
+
+      .unsubscribe-inner {
+        padding: 15px 30px;
+        border: 2px solid #e6e6e6;
+        border-radius: 5px;
+        background-color: #fff;
+      }
+
+      h1 {
+        color: #666666;
+        font-size: 45px;
+        font-family: Lato;
+      }
+
+      h4 {
+        font-size: 15px;
+        font-weight: 300;
+        margin-bottom: 15px;
+        color: #666666;
+      }
+
+      p {
+        font-size: 20px;
+        color: #666666;
+        margin-top: 5px;
+      }
+
+      .unsubscribe-resubscribe {
+        cursor: pointer;
+        color: #00002D;
+      }
+    }
+  }
+}
+
+#sm-account-unsubscribe {
+  @media screen and (max-width: 640px) {
+    .page-container .page-body .unsubscribe-container {
+      h1 {
+        font-size: 36px;
+      }
+
+      p {
+        font-size: 18px;
+      }
+    }
+  }
+  @media screen and (max-width: 520px) {
+    .page-container .page-body .unsubscribe-container {
+      h1 {
+        font-size: 28px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+    }
+  }
+  @media screen and (max-width: 420px) {
+    .page-container .page-body .unsubscribe-container {
+      h1 {
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+    }
+  }
+}
+#sm-account-unsubscribe-settings {
+  .unsubscribe-inner {
+    width: 840px;
+
+    .unsubscribe-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #e6e6e6;
+      padding-bottom: 15px;
+
+      h1,
+      span {
+        font-family: Lato;
+        font-size: 25px;
+        color: #666666;
+      }
+    }
+
+    .unsubscribe-body {
+      margin-top: 5px;
+
+      .unsubscribe-options {
+        display: flex;
+        padding: 5px;
+      }
+
+      .unsubscribe-options-inner {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+      }
+
+      .unsubscribe-options-container {
+        margin-bottom: 45px;
+
+        h5 {
+          font-size: 21px;
+          font-family: Lato;
+          font-weight: 400;
+          margin-bottom: 20px;
+          color: #666666;
+        }
+      }
+
+      .unsubscribe-options-container:last-child {
+        margin-bottom: 0;
+      }
+
+      .unsubscribe-option {
+        margin-bottom: 20px;
+
+        input {
+          font-size: 16px;
+          margin-right: 10px;
+        }
+
+        font-size: 15px;
+        font-weight: 300;
+        color: #808080;
+      }
+
+      .unsubscribe-option:last-child {
+        margin-bottom: 0;
+      }
+
+      .unsubscribe-btn-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 45px;
+
+        button {
+          padding: 6px 36px;
+          height: 46px;
+          background-color: #2b8dcb;
+          border-color: #2b8dcb;
+        }
+      }
+
+      .unsubscribe-alert-container {
+        margin-top: 15px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .unsubscribe-container,
+    .unsubscribe-inner {
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 640px) {
+    .unsubscribe-header {
+      flex-direction: column;
+
+      h1 {
+        margin-bottom: 20px;
+      }
+    }
+
+    .unsubscribe-options {
+      flex-direction: column;
+    }
+
+    .unsubscribe-inner .unsubscribe-body .unsubscribe-options-inner {
+      width: 100%;
+      margin-bottom: 45px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

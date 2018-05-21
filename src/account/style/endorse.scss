@@ -1,0 +1,348 @@
+.endorse {
+
+  .flex {
+    display: flex;
+
+    &-end {
+      justify-content: flex-end;
+    }
+  }
+
+  .page-box {
+    padding: 30px;
+    background: #fff;
+  }
+
+  .icon {
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+  }
+
+
+  &-head {
+    margin-bottom: 60px;
+
+    &-title {
+      margin-bottom: 35px;
+
+      h1 {
+        font-size: 32px;
+        font-family: lato;
+        font-weight: 700;
+        color: #404040;
+      }
+    }
+
+    &-description {
+      font-size: 18px;
+      //font-weight: 500;
+      color: #808682;
+    }
+  }
+
+  &-image {
+    width: 140px;
+    height: 175px;
+    background-image: url(../assets/images/endorse.svg);
+    background-repeat: no-repeat;
+
+    &-container {
+      flex-grow: 1;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &-container {
+    width: 100%;
+
+    &-inner {
+      width: 60%;
+      margin-bottom: 40px;
+    }
+
+    &:last-child {
+      margin-bottom: 0px;
+    }
+
+    h4 {
+      font-family: lato;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    .inner {
+
+
+      hr {
+        border-top: 1px solid #e6e6e6;
+        margin: 35px 0;
+      }
+
+      .tabs {
+        display: flex;
+
+        .tab {
+          padding: 20px 30px;
+          cursor: pointer;
+
+          &.active {
+            border-top: 3px solid #666666;
+          }
+
+          &-text {
+            text-transform: capitalize;
+            font-size: 14px;
+            font-family: lato;
+          }
+        }
+      }
+
+      .header {
+        margin-bottom: 15px;
+        margin-top: 5px;
+      }
+
+      .border {
+        border: 1px solid #cccccc;
+        padding: 20px;
+        border-radius: 5px;
+
+        textarea {
+          resize: none;
+          font-size: 14px;
+          font-style: italic;
+        }
+
+        input {
+          font-family: Lato;
+          font-size: 18px;
+          font-weight: 500;
+          height: 46px;
+
+          display: block;
+          width: 100%;
+          padding: 6px 12px;
+          line-height: 1.42857143;
+          color: #afafaf;
+          background-color: #fff;
+          background-image: none;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+
+          &::placeholder {
+            color: #afafaf;
+          }
+        }
+
+        .header {
+
+          h5 {
+            font-family: Lato;
+            font-size: 17px;
+            font-weight: 700;
+          }
+        }
+
+
+
+        .link-input {
+          position: relative;
+
+
+          span {
+            position: absolute;
+            width: 60px;
+            right: 0;
+            top: 8px;
+
+            button {
+              border: none;
+              background: transparent;
+              text-transform: lowercase;
+
+              font-size: 14px;
+              color: #2881C1;
+            }
+          }
+
+          input {
+            padding-right: 60px;
+          }
+        }
+
+        .email-container {
+
+          .email-input {
+            margin-right: 15px;
+            flex-grow: 1;
+          }
+
+          button {
+            height: 46px;
+            font-family: Lato;
+            font-size: 18px;
+            font-weight: 300;
+            padding: 6px 36px;
+          }
+        }
+
+      }
+
+      .social-links {
+        padding: 20px 0 10px;
+
+        .w-5 {
+          width: 50%;
+
+          &:first-child {
+
+            .social-links-container {
+              border-right: 1px solid;
+            }
+          }
+        }
+
+        &-container {
+          padding: 0 10px;
+        }
+
+        .btn {
+          color: #fff;
+          padding: 6px 8px;
+          height: 35px;
+          display: flex;
+          align-items: center;
+
+          &-text {
+
+            font-weight: 500;
+
+            &-light {
+              font-weight: 300;
+            }
+          }
+
+          &-facebook {
+            background-color: #1073b9;
+            font-size: 16px;
+            font-family: lato;
+            border-color: #1073b9;
+          }
+
+          &-clear {
+            height: 35px;
+            margin-right: 10px;
+          }
+        }
+
+        .icon {
+          width: 35px;
+          height: 35px;
+          background-repeat: no-repeat;
+          background-size: cover;
+
+          &-facebook-f {
+            background-image: url(../assets/images/icons/facebook_f.svg);
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+          }
+
+          &-gplus {
+            background-image: url(../assets/images/icons/icon-gplus.svg);
+            width: 38px;
+          }
+
+          &-linkedin {
+            background-image: url(../assets/images/icons/icon-linkedin.svg);
+            width: 38px;
+          }
+
+          &-twitter {
+            background-image: url(../assets/images/icons/icon-twitter.svg);
+            width: 38px;
+          }
+        }
+      }
+    }
+
+  }
+}
+
+@media screen and (min-width: 787px) and (max-width: 1023px) {
+  .endorse-container-inner {
+
+    .social-links {
+      flex-direction: column;
+      padding-bottom: 0 !important;
+
+      .w-5 {
+        width: 100% !important;
+
+        &:last-child {
+          .social-links-container {
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      .social-links-container {
+
+        align-items: center;
+        display: flex;
+        border-right: none !important;
+        justify-content: center;
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 786px) {
+  .endorse-image-container.flex {
+    display: none;
+  }
+
+  .endorse-container-inner {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 639px) {
+
+  .endorse-container-inner {
+    width: 100%;
+
+    .email-container {
+
+      flex-direction: column;
+
+      .email-input {
+        margin-bottom: 15px;
+      }
+
+      & > div:last-child {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    .social-links {
+      flex-direction: column;
+
+      .w-5 {
+        width: 100% !important;
+      }
+
+      .social-links-container {
+
+        align-items: center;
+        display: flex;
+        border-right: none !important;
+        justify-content: center;
+        margin-bottom: 15px;
+      }
+    }
+  }
+}

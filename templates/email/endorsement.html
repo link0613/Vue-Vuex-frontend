@@ -1,0 +1,14 @@
+{% extends "email/layout.html" %}
+
+{% block heading %}Dear Friend!{% endblock %}
+
+{% block content %}
+<p style="white-space: pre-wrap;">{{ text }}</p>
+
+<em>{{ username }}</em>
+
+<a href="{{ link }}" style="background: #0472b8; border-radius: 4px; color: #fff; padding: 16px; margin-top: 10px; text-decoration: none; display: block; width: 200px; text-align: center; margin: 20px auto 0;">Endorse {{ username }}</a>
+
+<p style="text-align: center;">It only takes a minute</p>
+<p>P.S. JobDone.net is a freelance hub connecting professionals around the world.</p>
+{% endblock %}
